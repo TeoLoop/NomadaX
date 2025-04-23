@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class StayEaseBackendApplication {
+public class NomadaxBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(StayEaseBackendApplication.class, args);
+		SpringApplication.run(NomadaxBackendApplication.class, args);
 	}
 
 }

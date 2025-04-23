@@ -1,4 +1,4 @@
-package com.stayease.backend.entity;
+package com.nomadax.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -8,11 +8,11 @@
 		<version>3.4.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.stayease</groupId>
+	<groupId>com.nomadax</groupId>
 	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>StayEase Backend</name>
-	<description>Backend para aplicación de reservas StayEase (tipo Airbnb)</description>
+	<name>NomadaX</name>
+	<description>Backend para aplicación de reservas NomadaX (tipo Airbnb)</description>
 	<url/>
 	<licenses>
 		<license/>
