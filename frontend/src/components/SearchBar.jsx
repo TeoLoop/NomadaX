@@ -1,53 +1,61 @@
-// src/components/SearchBar.js
-import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';  // Importamos el componente DatePicker
-import "react-datepicker/dist/react-datepicker.css";  // Importamos los estilos de DatePicker
+import React, { useState, useRef } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/SearchBar.css';
+import { Search } from 'lucide-react';
+import { FiCalendar } from 'react-icons/fi';
 
 const SearchBar = () => {
   const [query, setQuery] = useState('');
-  const [startDate, setStartDate] = useState(null);  // Fecha de entrada (check-in)
-  const [endDate, setEndDate] = useState(null);      // Fecha de salida (check-out)
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const startRef = useRef();
+  const endRef = useRef();
 
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log("Buscando:", query);
-    console.log("Fecha de entrada:", startDate);
-    console.log("Fecha de salida:", endDate);
-    // Aquí puedes agregar la lógica para realizar una búsqueda
+    console.log("Buscando:", query, startDate, endDate);
   };
 
   return (
     <div className="search-bar">
-      <input 
-        type="text" 
-        placeholder="A donde vas?" 
-        value={query} 
-        onChange={(e) => setQuery(e.target.value)} 
+      <input
+        type="text"
+        placeholder="¿A dónde vas?"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
       />
-      
-      {/* DatePickers para seleccionar las fechas */}
+
       <div className="date-picker-container">
-        <DatePicker
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-          selectsStart
-          startDate={startDate}
-          endDate={endDate}
-          placeholderText="dd/mm/yyy"
-        />
-        <DatePicker
-          selected={endDate}
-          onChange={(date) => setEndDate(date)}
-          selectsEnd
-          startDate={startDate}
-          endDate={endDate}
-          minDate={startDate}  // No permitir seleccionar una fecha de salida anterior a la de entrada
-          placeholderText="dd/mm/yyy"
-        />
+        {/* Check-in */}
+        <div className="custom-picker" onClick={() => startRef.current.setOpen(true)}>
+          <FiCalendar className="calendar-icon" />
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            placeholderText="dd/mm/yyyy"
+            ref={startRef}
+          />
+        </div>
+
+        {/* Check-out */}
+        <div className="custom-picker" onClick={() => endRef.current.setOpen(true)}>
+          <FiCalendar className="calendar-icon" />
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+            minDate={startDate}
+            placeholderText="dd/mm/yyyy"
+            ref={endRef}
+          />
+        </div>
       </div>
-      
-      <button onClick={handleSearch}>Buscar</button>
+
+      <button onClick={handleSearch}>
+        <Search size={18} className="search-icon" />
+        Buscar
+      </button>
     </div>
   );
 };

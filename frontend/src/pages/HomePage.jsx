@@ -9,6 +9,10 @@ const HomePage = () => {
     return (
         <main className="home-page">
             <div className="hero-section">
+                <div className="text-overlay">
+                    <h1>Encuentra tu alojamiento perfecto</h1>  {/* Nombre */}
+                    <p className="slogan">Descubre los mejores hoteles y reserva tu próxima estancia con StayEase</p>  {/* Lema */}
+                </div>
                 <div className="search-container">
                     <SearchBar />
                 </div>
