@@ -1,15 +1,25 @@
 import React from 'react';
+import { FaHotel, FaHome, FaBriefcase, FaBed, FaStar } from 'react-icons/fa';
+import "../styles/Categories.css"
 
 const Categories = () => {
-  const categories = ["Hoteles", "Apartamentos", "Casas", "Bungalows", "Lugares de lujo"];
+  const categories = [
+    { name: "Hoteles", icon: <FaHotel /> },
+    { name: "Apartamentos", icon: <FaHome /> },
+    { name: "Casas", icon: <FaBed /> },
+    { name: "Bungalows", icon: <FaBriefcase /> },
+    { name: "Lugares de lujo", icon: <FaStar /> }
+  ];
 
   return (
     <div className="categories">
-      <h2>Categorías</h2>
       <ul className="category-list">
         {categories.map((category, index) => (
           <li key={index} className="category-item">
-            {category}
+            <a href={`/categorias/${category.name.toLowerCase()}`} className="category-link">
+              <div className="category-icon">{category.icon}</div>
+              <p>{category.name}</p>
+            </a>
           </li>
         ))}
       </ul>
