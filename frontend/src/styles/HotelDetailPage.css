@@ -1,0 +1,48 @@
+.hotel-detail {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .back-button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .back-button:hover {
+    background-color: #0056b3;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .hotel-images {
+    margin-top: 20px;
+  }
+  
+  .hotel-images img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 8px;
+  }
+  
+  .hotel-info {
+    margin-top: 30px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .hotel-info p {
+    font-size: 16px;
+    color: #555;
+  }
+  

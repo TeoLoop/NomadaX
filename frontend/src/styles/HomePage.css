@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: rgb(255, 255, 255);
   flex-direction: column;
 }
 
@@ -36,6 +36,7 @@
   font-size: 3rem;
   font-weight: bold;
   margin-bottom: 10px;
+  color: #fff;
 }
 
 .slogan {
@@ -127,67 +128,57 @@
 
 
 /* --------------RECOMENDATIONS------------------*/
+
 .recommendations {
-  padding: 40px 20px;
-  background-color: #f9f9f9;
-}
-
-.recommendations h2 {
-  font-size: 2rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 30px;
-  color: #333;
-}
-
-.recommendation-list {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0;
-  list-style: none;
-}
-
-.recommendation-item {
-  background-color: #fff;
-  border: none;
-  border-radius: 12px;
   padding: 20px;
+}
+
+.recommendation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* 2 columnas mínimo */
+  gap: 20px;
+}
+
+.recommendation-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
   text-align: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  width: 250px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.hotel-image {
+  width: 100%;
   height: 200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  transform: scale(1);
-}
-
-.recommendation-item:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-}
-
-.recommendation-item h3 {
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.recommendation-item p {
-  font-size: 1rem;
-  color: #555;
-  font-weight: 300;
+  object-fit: cover; /* Para asegurar que la imagen no se distorsione */
+  border-radius: 5px;
   margin-bottom: 15px;
+}
+
+.recommendation-card h3 {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+.recommendation-card p {
+  font-size: 1em;
+  color: #555;
+  margin: 5px 0;
+}
+
+.recommendation-card button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.recommendation-card button:hover {
+  background-color: #0056b3;
 }
 
 /* -----------------TERMINA RECOMENDATIONS------------------------- */
@@ -216,6 +207,7 @@
     margin-top: 20px;
     padding: 0;
   }
+
 
   /* -------------------CATEGORIES---------------- */
 
