@@ -12,8 +12,8 @@ const Footer = () => {
         {/* Columna 1: Logo + Descripción */}
         <div className="footer-section">
           <div className="footer-logo-container">
-            <img src={logo} alt="Logo StayEase" className="footer-logo" />
-            <span className="footer-title">StayEase</span>
+            <img src={logo} alt="Logo NomadaX" className="footer-logo" />
+            <span className="footer-title">NomadaX</span>
           </div>
           <p className="footer-description">
             Descubre los mejores alojamientos para tu próxima aventura.
@@ -35,7 +35,7 @@ const Footer = () => {
           <h4>Contacto</h4>
           <ul className="footer-contact">
             <li><FaPhone /> +34 123 456 789</li>
-            <li><FaEnvelope /> info@stayease.com</li>
+            <li><FaEnvelope /> info@NomadaX.com</li>
           </ul>
           <div className="footer-socials">
             <a href="https://instagram.com" target="_blank" rel="noreferrer"><FaInstagram /></a>
@@ -47,7 +47,7 @@ const Footer = () => {
 
       <hr className="footer-line" />
       <div className="footer-bottom">
-        <p>&copy; 2025 StayEase. Todos los derechos reservados.</p>
+        <p>&copy; 2025 NomadaX. Todos los derechos reservados.</p>
       </div>
     </footer>
   );

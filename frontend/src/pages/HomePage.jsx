@@ -12,7 +12,7 @@ const HomePage = () => {
       <div className="hero-section">
         <div className="text-overlay">
           <h1>Encuentra tu alojamiento perfecto</h1>
-          <p className="slogan">Descubre los mejores hoteles y reserva tu próxima estancia con StayEase</p>
+          <p className="slogan">Descubre los mejores hoteles y reserva tu próxima estancia con NomadaX</p>
         </div>
         <div className="search-container">
           <SearchBar />

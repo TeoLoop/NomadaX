@@ -18,7 +18,7 @@ const Header = () => {
           {/* Logo + nombre */}
           <Link to="/" className="navbar-logo">
             <img src={logo} alt="Logo" className="navbar-logo-img" />
-            <span className="navbar-logo-text">StayEase</span>
+            <span className="navbar-logo-text">NomadaX</span>
           </Link>
 
           {/* Botón de menú hamburguesa para móvil */}
