@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/AdminDashboard.css';
-import { FaEdit, FaTrash, FaPlus, FaStar } from 'react-icons/fa';  
+import { FaEdit, FaTrash, FaPlus, FaStar } from 'react-icons/fa';
 import { fetchHotels, addHotel, deleteHotel, updateHotel } from '../services/hotelService';
 import AddHotelModal from '../components/AddHotelModal';
 import EditHotelModal from '../components/EditHotelModal';
@@ -11,16 +11,17 @@ const AdminDashboard = () => {
     const [isAddModalOpen, setAddModalOpen] = useState(false);
     const [isEditModalOpen, setEditModalOpen] = useState(false);
     const [selectedHotel, setSelectedHotel] = useState(null);
-    const [form, setForm] = useState({
-        name: '', city: '', country: '', pricePerNight: '', rating: '', images: [],
-    });
+    const [form, setForm] = useState({});
 
     useEffect(() => {
         fetchHotels().then(setHotels);
     }, []);
 
     const openAddModal = () => {
-        setForm({ name: '', city: '', country: '', pricePerNight: '', rating: '', images: [] });
+        setForm({
+            name: '', description: '', address: '', city: '', country: '',
+            pricePerNight: '', capacity: '', rating: '', images: [],
+        });
         setAddModalOpen(true);
     };
 
@@ -31,28 +32,31 @@ const AdminDashboard = () => {
     };
 
     const handleChange = (e) => {
+        if (!e?.target?.name) return;
         const { name, value } = e.target;
-        setForm(prev => ({ ...prev, [name]: value }));
+
+        let parsedValue = value;
+
+        // Si es el rating, convertir coma a punto y limitar entre 1 y 5
+        if (name === "rating") {
+            parsedValue = parseFloat(value.replace(",", "."));
+            if (parsedValue < 1) parsedValue = 1;
+            if (parsedValue > 5) parsedValue = 5;
+        }
+
+        setForm(prev => ({ ...prev, [name]: parsedValue }));
     };
 
+
+
     const handleAdd = async () => {
-        // Solo validamos nombre, país y precio
-        if (!form.name || !form.country || !form.pricePerNight) {
-            alert('Por favor, completa los campos obligatorios: nombre, país y precio.');
-            return;
-        }
         const newHotel = await addHotel(form);
         setHotels([...hotels, newHotel]);
         setAddModalOpen(false);
     };
 
     const handleUpdate = async () => {
-        // Solo validamos nombre, país y precio
-        if (!form.name || !form.country || !form.pricePerNight) {
-            alert('Por favor, completa los campos obligatorios: nombre, país y precio.');
-            return;
-        }
-        const updated = await updateHotel(selectedHotel.id, form);
+        const updated = await updateHotel(form);
         setHotels(hotels.map(h => h.id === updated.id ? updated : h));
         setEditModalOpen(false);
     };
@@ -68,7 +72,7 @@ const AdminDashboard = () => {
             confirmButtonText: 'Sí, eliminarlo!',
             cancelButtonText: 'Cancelar'
         });
-    
+
         if (result.isConfirmed) {
             await deleteHotel(id);
             setHotels(hotels.filter(h => h.id !== id));
@@ -119,7 +123,6 @@ const AdminDashboard = () => {
                 </tbody>
             </table>
 
-            {/* Modales */}
             <AddHotelModal
                 isOpen={isAddModalOpen}
                 onClose={() => setAddModalOpen(false)}

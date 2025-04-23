@@ -18,21 +18,26 @@ export const deleteHotel = (id) => {
   });
 };
 
-export const updateHotel = (id, updatedHotel) => {
-  return fetch(`${BASE_URL}/hotels/${id}`, {
+export const updateHotel = (updatedHotel) => {
+  console.log("Sending the following hotel data:", updatedHotel); // Verifica los datos
+
+  return fetch(`${BASE_URL}/hotels`, {  // No se necesita el ID en la URL
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(updatedHotel),
   })
-    .then(res => res.json())
-    .then(data => {
-      return data;
+    .then(res => {
+      if (!res.ok) {
+        throw new Error('Failed to update hotel');
+      }
+      return res.json();
     })
-    .catch(error => {
-      console.error('Error actualizando el hotel:', error);
+    .catch(err => {
+      console.error('Error during the update process:', err);
     });
 };
-
 
 
 export const fetchRandomHotels = async () => {

@@ -63,10 +63,16 @@ public class HotelController {
         return hotelService.getRandomHotels();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Hotel> update(@PathVariable Long id, Hotel hotel){
-        return ResponseEntity.ok(hotelService.update(hotel));
+    @PutMapping
+    public ResponseEntity<Hotel> update(@RequestBody Hotel hotel) {
+        if (hotel.getId() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        Hotel updatedHotel = hotelService.update(hotel);  // Aquí se usa el hotel completo con el id en el cuerpo
+        return ResponseEntity.ok(updatedHotel);
     }
+
+
 
     @PostMapping("/{hotelId}/upload-image")
     public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file, @PathVariable("hotelId") String hotelId) {

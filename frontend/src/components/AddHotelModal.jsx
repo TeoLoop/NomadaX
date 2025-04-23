@@ -1,100 +1,96 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { FaTimes } from 'react-icons/fa';
 
-const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form, setImages }) => {
-  // Aseguramos que los hooks estén al principio
+const AddHotelModal = ({
+  isOpen,
+  onClose,
+  onChange,
+  onSubmit,
+  form,
+  setImages,
+}) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setModalVisible(true);
+    } else {
+      const timer = setTimeout(() => setModalVisible(false), 300); // Añadir un pequeño retraso antes de ocultar
+      return () => clearTimeout(timer); // Limpiar el timer si el modal se cierra
+    }
+  }, [isOpen]);
+
+  // Configuración de react-dropzone
   const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/*',
     onDrop: (acceptedFiles) => {
-      const filesWithPreview = acceptedFiles.map(file =>
+      const filesWithPreview = acceptedFiles.map((file) =>
         Object.assign(file, {
           preview: URL.createObjectURL(file),
-          title: file.name
+          title: file.name,
         })
       );
-      setImages(filesWithPreview); // Asignamos las imágenes con sus previsualizaciones
-    }
+      setImages(filesWithPreview);
+    },
   });
-
-  // Ahora que todos los hooks están definidos, podemos hacer la comprobación condicional
-  if (!isOpen) return null;
 
   // Función para manejar la validación del rating (entre 1 y 5)
   const handleRatingChange = (e) => {
-    // Limita el valor entre 1 y 5
-    const value = Math.min(Math.max(e.target.value, 1), 5);
-    onChange({ target: { name: "rating", value: value } }); // Pasa solo el nombre y el valor
+    let value = Number(e.target.value);
+    if (value < 1) value = 1;
+    if (value > 5) value = 5;
+    onChange(e, value);  // Pasamos el valor validado al onChange
   };
 
-  // Validación del formulario antes de enviar
-  const handleFormSubmit = () => {
-    if (!form.name || !form.city || !form.country || !form.pricePerNight) {
-      alert("Por favor, completa los campos obligatorios: nombre, ciudad, país y precio.");
-      return;
-    }
-    onSubmit(); // Envia el formulario
-  };
-
-  // Aseguramos que todos los campos tengan un valor inicial
-  const safeValue = (field) => (form[field] === undefined || form[field] === null ? "" : form[field]);
+  if (!modalVisible) return null; // Solo renderiza si el modal es visible
 
   return (
     <div className="modal-overlay">
       <div className="modal">
-        {/* Cruz de cierre en la parte superior derecha */}
-        <button onClick={onClose} className="close-btn">
-          <FaTimes /> {/* Ícono de la "X" */}
-        </button>
-
         <h2>Añadir Hotel</h2>
 
         <input
           name="name"
           placeholder="Nombre"
-          value={safeValue('name')}  // Usamos safeValue para asegurar que nunca sea undefined
+          value={form.name}
           onChange={onChange}
-          required
         />
         <input
           name="description"
           placeholder="Descripción"
-          value={safeValue('description')}
+          value={form.description}
           onChange={onChange}
         />
         <input
           name="address"
           placeholder="Dirección"
-          value={safeValue('address')}
+          value={form.address}
           onChange={onChange}
         />
         <input
           name="city"
           placeholder="Ciudad"
-          value={safeValue('city')}
+          value={form.city}
           onChange={onChange}
-          required
         />
         <input
           name="country"
           placeholder="País"
-          value={safeValue('country')}
+          value={form.country}
           onChange={onChange}
-          required
         />
         <input
           name="pricePerNight"
           placeholder="Precio por noche"
           type="number"
-          value={safeValue('pricePerNight')}
+          value={form.pricePerNight}
           onChange={onChange}
-          required
         />
         <input
           name="capacity"
           placeholder="Capacidad"
           type="number"
-          value={safeValue('capacity')}
+          value={form.capacity}
           onChange={onChange}
         />
 
@@ -103,24 +99,36 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form, setImages })
           name="rating"
           placeholder="Valoración (1-5)"
           type="number"
-          value={safeValue('rating')}
+          value={form.rating}
           onChange={handleRatingChange}
           min="1"
           max="5"
         />
 
+        {/* Dropzone para nuevas imágenes */}
         <div {...getRootProps()} className="dropzone">
           <input {...getInputProps()} />
           <p>Arrastra tus imágenes aquí o haz click para seleccionar</p>
         </div>
 
+        {/* Vista previa de todas las imágenes (antiguas + nuevas) */}
         <div className="preview-container">
           {form.images?.map((file, i) => (
-            <img key={i} src={file.preview} alt={`preview-${i}`} className="preview-image" />
+            <img
+              key={i}
+              src={file.preview || file.url} // Aseguramos que use el preview o la url
+              alt={file.title || `preview-${i}`}
+              className="preview-image"
+            />
           ))}
         </div>
 
-        <button onClick={handleFormSubmit} className="btn btn-save">Guardar</button>
+        <button onClick={onSubmit} className="btn btn-save">
+          Guardar
+        </button>
+        <button onClick={onClose} className="btn btn-cancel">
+          Cancelar
+        </button>
       </div>
     </div>
   );

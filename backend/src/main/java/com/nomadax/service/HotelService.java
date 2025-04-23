@@ -56,6 +56,7 @@ public class HotelService {
         hotelToUpdate.setCountry(updatedHotel.getCountry());
         hotelToUpdate.setPricePerNight(updatedHotel.getPricePerNight());
         hotelToUpdate.setCapacity(updatedHotel.getCapacity());
+        hotelToUpdate.setRating(updatedHotel.getRating());
 
         // Actualizamos las imágenes
         hotelToUpdate.getImages().clear(); // Borra las imágenes anteriores (orphanRemoval = true)

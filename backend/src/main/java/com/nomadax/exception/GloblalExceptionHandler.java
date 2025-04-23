@@ -16,7 +16,10 @@ public class GloblalExceptionHandler{
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleGenericException(Exception ex) {
-        // Captura excepciones generales
-        return new ResponseEntity<>(new ErrorResponse("Ocurrió un error interno. Por favor intente más tarde."), HttpStatus.INTERNAL_SERVER_ERROR);
+        // Loguear el error para obtener más detalles
+        ex.printStackTrace();
+        // Puedes enviar el mensaje de error completo para depurar mejor
+        return new ResponseEntity<>(new ErrorResponse("Ocurrió un error interno. Detalles del error: " + ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
 }
