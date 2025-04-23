@@ -1,9 +1,8 @@
-/* Estilos generales */
 .search-bar {
     display: flex;
-    gap: 20px; /* Espacio entre los elementos */
+    gap: 20px; 
     width: 100%;
-    padding: 12px 16px; /* Aumenta el padding */
+    padding: 12px 16px; 
     background-color: rgb(255, 255, 255);
     border-radius: 4px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -12,9 +11,9 @@
   }
   
   .search-bar input {
-    width: 100%;  /* Hace el input más largo */
-    padding: 12px 20px; /* Ajusta el tamaño */
-    font-size: 14px; /* Tamaño de fuente más pequeño */
+    width: 100%;  
+    padding: 12px 20px; 
+    font-size: 14px; 
     border-radius: 8px;
     border: 1px solid #ddd;
     height: 35px;
@@ -24,11 +23,11 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 12px 20px; /* Más largo y cuadrado */
+    padding: 12px 20px; 
     background-color: var(--color-primary-light);
     color: white;
     border: none;
-    border-radius: 4px; /* Bordes más cuadrados */
+    border-radius: 4px; 
     cursor: pointer;
     font-size: 14px;
     transition: all .3s ease;
@@ -66,9 +65,9 @@
   .custom-picker input {
     border: none;
     outline: none;
-    font-size: 14px;
+    font-size: 10px;
     background: none;
-    width: 110px;
+    width: 100px;
 
   }
   
@@ -77,15 +76,15 @@
     color: #666;
   }
   
-  /* Estilos para pantallas pequeñas */
+
   @media (max-width: 768px) {
     .search-bar {
-      flex-direction: column;  /* Organizar los elementos en una sola columna */
-      gap: 10px;  /* Reducir el espacio entre los elementos */
+      flex-direction: column; 
+      gap: 10px;  
     }
   
     .search-bar input, .search-bar button {
-      width: 100%; /* Hacer que los inputs y el botón ocupen todo el ancho */
+      width: 100%; 
     }
   
     .date-picker-container {
@@ -94,10 +93,4 @@
       gap: 3px;  
     }
   
-    /* El input del date picker en pantallas pequeñas */
-    .react-datepicker__input-container input {
-      width: 100%; /* Asegura que el input ocupe todo el espacio */
-      font-size: 14px; /* Ajusta el tamaño de la fuente para pantallas pequeñas */
-      padding: 12px;
-    }
   }

@@ -24,19 +24,19 @@
   .footer-logo-container {
     display: flex;
     align-items: center;
-    gap: 10px; /* Espacio entre el logo y el título */
+    gap: 10px; 
   }
   
   .footer-logo {
     width: 40px;
     height: 40px;
-    object-fit: contain; /* Asegura que no se deforme el logo */
+    object-fit: contain; 
   }
   
   .footer-title {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #fff; /* Color del título */
+    color: #fff; 
   }
   
   
@@ -105,7 +105,7 @@
     margin-bottom: 10px;
   }
   
-  /* Responsive */
+ 
   @media (max-width: 768px) {
     .footer {
       padding: 20px 10px 5px;

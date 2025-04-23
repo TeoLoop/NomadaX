@@ -36,7 +36,6 @@
   color: var(--color-primary);
 }
 
-/* Menú en desktop */
 .navbar-menu {
   list-style: none;
   display: flex;
@@ -58,10 +57,9 @@
   color: var(--color-primary-hover);
 }
 
-/* Contenedor de botones de autenticación */
 .auth-buttons {
   display: flex;
-  gap: 0.5rem; /* Espacio reducido entre los botones */
+  gap: 0.5rem; 
 }
 
 .login-button,
@@ -84,8 +82,8 @@
 .register-button {
   background-color: var(--color-secondary-light);
   color: var(--color-text);
-  font-size: 10px; /* Más pequeño */
-  padding: 4px 8px; /* Botón más pequeño */
+  font-size: 10px; 
+  padding: 4px 8px; 
 }
 
 .login-button:hover {
@@ -100,7 +98,6 @@
   color: #fff;
 }
 
-/* Mensaje de registro */
 .register-message {
   font-size: 10px;
   color: var(--color-text);
@@ -117,7 +114,6 @@
   text-decoration: underline;
 }
 
-/* Menú hamburguesa */
 .navbar-hamburger {
   display: none;
   cursor: pointer;
@@ -133,7 +129,6 @@
   transition: transform 0.3s ease;
 }
 
-/* Responsividad para móvil */
 @media (max-width: 768px) {
   .navbar-menu {
     display: flex;
@@ -143,7 +138,7 @@
     background-color: #fff;
     width: 100%;
     flex-direction: column;
-    align-items: flex-start; /* Los enlaces estarán alineados a la izquierda */
+    align-items: flex-start; 
     padding: 20px 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transform: translateX(100%);
@@ -157,25 +152,23 @@
     transform: translateX(0);
   }
 
-  /* Los enlaces están a la izquierda */
   .navbar-item {
-    width: 100%; /* Asegura que los enlaces ocupen todo el ancho */
-    text-align: left; /* Los enlaces estarán alineados a la izquierda */
-    padding-left: 20px; /* Espacio a la izquierda de los enlaces */
+    width: 100%; 
+    text-align: left; 
+    padding-left: 20px; 
   }
 
-  /* Centrado solo del botón de Login */
   .auth-buttons {
     display: flex;
-    flex-direction: column; /* Los botones estarán uno abajo del otro */
-    gap: 10px; /* Separación entre los botones */
-    align-items: center; /* Centrar los botones */
+    flex-direction: column; 
+    gap: 10px; 
+    align-items: center; 
     width: 100%;
     padding: 0;
   }
 
   .login-button {
-    margin-left: auto; /* Centra el botón de Login */
+    margin-left: auto; 
     margin-right: auto;
   }
 
@@ -212,7 +205,6 @@
 }
 
 
-/* Animación de desvanecimiento para las opciones del menú */
 @keyframes fadeIn {
   0% {
     opacity: 0;
