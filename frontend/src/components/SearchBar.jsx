@@ -30,18 +30,17 @@ const SearchBar = () => {
       <div className="date-picker-container">
         {/* Check-in */}
         <div className="custom-picker" onClick={() => startRef.current.setOpen(true)}>
-          <FiCalendar className="calendar-icon" />
           <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
             placeholderText="dd/mm/yyyy"
             ref={startRef}
           />
+          <FiCalendar className="calendar-icon" />
         </div>
 
         {/* Check-out */}
         <div className="custom-picker" onClick={() => endRef.current.setOpen(true)}>
-          <FiCalendar className="calendar-icon" />
           <DatePicker
             selected={endDate}
             onChange={(date) => setEndDate(date)}
@@ -49,6 +48,7 @@ const SearchBar = () => {
             placeholderText="dd/mm/yyyy"
             ref={endRef}
           />
+          <FiCalendar className="calendar-icon" />
         </div>
       </div>
 

@@ -143,7 +143,7 @@
     background-color: #fff;
     width: 100%;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start; /* Los enlaces estarán alineados a la izquierda */
     padding: 20px 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transform: translateX(100%);
@@ -157,12 +157,26 @@
     transform: translateX(0);
   }
 
-  /* Ajustar el orden de los botones y hacerlos apilados */
+  /* Los enlaces están a la izquierda */
+  .navbar-item {
+    width: 100%; /* Asegura que los enlaces ocupen todo el ancho */
+    text-align: left; /* Los enlaces estarán alineados a la izquierda */
+    padding-left: 20px; /* Espacio a la izquierda de los enlaces */
+  }
+
+  /* Centrado solo del botón de Login */
   .auth-buttons {
     display: flex;
     flex-direction: column; /* Los botones estarán uno abajo del otro */
     gap: 10px; /* Separación entre los botones */
-    align-items: center; /* Centrado de los botones */
+    align-items: center; /* Centrar los botones */
+    width: 100%;
+    padding: 0;
+  }
+
+  .login-button {
+    margin-left: auto; /* Centra el botón de Login */
+    margin-right: auto;
   }
 
   .navbar-item,
@@ -196,6 +210,7 @@
     margin-top: 15px;
   }
 }
+
 
 /* Animación de desvanecimiento para las opciones del menú */
 @keyframes fadeIn {
