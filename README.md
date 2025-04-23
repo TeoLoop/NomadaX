@@ -1,6 +1,6 @@
-# StayEase App
+# NomadaX
 
-StayEase es una aplicación de reservas tipo Airbnb, enfocada en alojamientos temporales.
+NomadaX es una aplicación de reservas tipo Airbnb, enfocada en alojamientos temporales.
 
 ## 🛠 Tecnologías utilizadas
 
@@ -11,11 +11,16 @@ StayEase es una aplicación de reservas tipo Airbnb, enfocada en alojamientos te
 
 ## 📁 Estructura general
 
-stayease-app/
+nomadax-app/
 ├── backend/          # Código del backend (Java + Spring Boot)
 ├── frontend/         # Código del frontend (React + Vite)
 ├── .gitignore        # Archivos ignorados por Git (Java y Node.js)
 └── README.md         # Documentación del proyecto
+
+## 🎨 Diseño
+
+Podés ver el diseño del prototipo en Figma acá:  
+🔗 [Prototipo en Figma](https://www.figma.com/design/eQNXFK8QtEWh2yDpzarhTr/Untitled?node-id=0-1&p=f&t=KlTD4CU5hif43zHF-0)
 
 ## 🚧 En desarrollo
 
