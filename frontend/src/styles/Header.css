@@ -1,0 +1,210 @@
+/* Estilos del Navbar */
+.navbar {
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.navbar-logo-img {
+  height: 40px;
+  width: 40px;
+}
+
+.navbar-logo-text {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+/* Menú en desktop */
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+
+.navbar-item {
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.navbar-item:hover {
+  color: var(--color-primary-hover);
+}
+
+/* Contenedor de botones de autenticación */
+.auth-buttons {
+  display: flex;
+  gap: 0.5rem; /* Espacio reducido entre los botones */
+}
+
+.login-button,
+.register-button {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 6px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.login-button {
+  background-color: var(--color-primary-light);
+  color: #fff;
+}
+
+.register-button {
+  background-color: var(--color-secondary-light);
+  color: var(--color-text);
+  font-size: 10px; /* Más pequeño */
+  padding: 4px 8px; /* Botón más pequeño */
+}
+
+.login-button:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.register-button:hover {
+  background-color: var(--color-secondary-hover);
+}
+
+.login-icon {
+  color: #fff;
+}
+
+/* Mensaje de registro */
+.register-message {
+  font-size: 10px;
+  color: var(--color-text);
+  text-align: center;
+  margin-top: 10px;
+}
+
+.register-link {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+}
+
+/* Menú hamburguesa */
+.navbar-hamburger {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+  transition: all 0.3s ease;
+}
+
+.hamburger-icon {
+  width: 25px;
+  height: 4px;
+  background-color: #333;
+  transition: transform 0.3s ease;
+}
+
+/* Responsividad para móvil */
+@media (max-width: 768px) {
+  .navbar-menu {
+    display: flex;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background-color: #fff;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+  }
+
+  .navbar-hamburger {
+    display: flex;
+  }
+
+  .navbar-menu.open {
+    transform: translateX(0);
+  }
+
+  /* Ajustar el orden de los botones y hacerlos apilados */
+  .auth-buttons {
+    display: flex;
+    flex-direction: column; /* Los botones estarán uno abajo del otro */
+    gap: 10px; /* Separación entre los botones */
+    align-items: center; /* Centrado de los botones */
+  }
+
+  .navbar-item,
+  .auth-buttons {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in-out forwards;
+  }
+
+  .navbar-item:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+
+  .navbar-item:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .navbar-item:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  .navbar-item:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  .navbar-item:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+
+  .register-message {
+    font-size: 10px;
+    margin-top: 15px;
+  }
+}
+
+/* Animación de desvanecimiento para las opciones del menú */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

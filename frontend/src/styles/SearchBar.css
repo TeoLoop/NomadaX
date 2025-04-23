@@ -1,0 +1,64 @@
+/* src/styles/SearchBar.css */
+
+.search-bar {
+  display: flex;
+  gap: 20px; /* Espacio entre los elementos */
+  width: 100%;
+  max-width: 1000px; /* Ajusta el ancho máximo del contenedor */
+  padding: 12px 16px; /* Aumenta el padding */
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-bar input {
+  width: 100%;  /* Hace el input más largo */
+  padding: 12px 20px; /* Ajusta el tamaño */
+  font-size: 14px; /* Tamaño de fuente más pequeño */
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.search-bar button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px; /* Más largo y cuadrado */
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 8px; /* Bordes más cuadrados */
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.search-bar button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.search-icon {
+  color: #fff;
+  font-size: 18px;
+}
+
+.date-picker-container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.react-datepicker__input-container input {
+  width: 120px; /* Hace los inputs de fecha más largos */
+  padding: 12px 16px;
+  font-size: 14px;
+  border-radius: 8px; /* Bordes más cuadrados */
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.react-datepicker__input-container span {
+  font-size: 18px;
+  color: #333;
+}
