@@ -1,6 +1,5 @@
 import React from 'react';
 import { FaHotel, FaHome, FaBriefcase, FaBed, FaStar } from 'react-icons/fa';
-import "../styles/Categories.css"
 
 const Categories = () => {
   const categories = [
