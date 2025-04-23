@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { FaTimes } from 'react-icons/fa';  // Ícono de la "X" para cerrar
 
 const EditHotelModal = ({ 
   isOpen, 
   onClose, 
-  onChange,       // (e) => { setForm({...}) } 
-  onSubmit,      // () => actualizar 
-  form,          // { name, description, address, city, country, pricePerNight, capacity, rating, images }
-  setImages      // (filesWithPreview) => actualizar form.images
+  onChange,       
+  onSubmit,      
+  form,          
+  setImages      
 }) => {
-  if (!isOpen) return null;
-
   // Configuración de react-dropzone
   const { getRootProps, getInputProps } = useDropzone({
     accept: { 'image/*': [] },
@@ -21,22 +20,48 @@ const EditHotelModal = ({
           title: file.name
         })
       );
-      setImages(filesWithPreview);
+      setImages(prev => [...prev, ...filesWithPreview]); // Añadir nuevas imágenes a las anteriores
     }
   });
+
+  // Cierra el modal si se presiona la tecla Escape
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [onClose]);
 
   // Asegura que rating quede entre 1 y 5
   const handleRatingChange = (e) => {
     let val = Number(e.target.value);
     if (val < 1) val = 1;
     if (val > 5) val = 5;
-    // simulamos un evento con el valor corregido
     onChange({ ...e, target: { ...e.target, value: val } });
   };
+
+  // Función para manejar la validación antes de enviar
+  const handleFormSubmit = () => {
+    if (!form.name || !form.city || !form.country || !form.pricePerNight) {
+      alert("Por favor, completa los campos obligatorios: nombre, ciudad, país y precio.");
+      return;
+    }
+    onSubmit(); // Envia el formulario
+  };
+
+  // Ahora que todos los hooks están definidos, podemos hacer la comprobación condicional
+  if (!isOpen) return null;  // Evita renderizar el modal si isOpen es falso
 
   return (
     <div className="modal-overlay">
       <div className="modal">
+        <button onClick={onClose} className="close-btn">
+          <FaTimes /> {/* Ícono de la "X" */}
+        </button>
+
         <h2>Editar Hotel</h2>
 
         <input 
@@ -44,30 +69,21 @@ const EditHotelModal = ({
           placeholder="Nombre" 
           value={form.name} 
           onChange={onChange} 
-        />
-        <input 
-          name="description" 
-          placeholder="Descripción" 
-          value={form.description} 
-          onChange={onChange} 
-        />
-        <input 
-          name="address" 
-          placeholder="Dirección" 
-          value={form.address} 
-          onChange={onChange} 
+          required
         />
         <input 
           name="city" 
           placeholder="Ciudad" 
           value={form.city} 
           onChange={onChange} 
+          required
         />
         <input 
           name="country" 
           placeholder="País" 
           value={form.country} 
           onChange={onChange} 
+          required
         />
         <input 
           name="pricePerNight" 
@@ -75,24 +91,7 @@ const EditHotelModal = ({
           type="number" 
           value={form.pricePerNight} 
           onChange={onChange} 
-        />
-        <input 
-          name="capacity" 
-          placeholder="Capacidad" 
-          type="number" 
-          value={form.capacity} 
-          onChange={onChange} 
-        />
-
-        {/* Rating validado */}
-        <input
-          name="rating"
-          placeholder="Valoración (1-5)"
-          type="number"
-          min="1"
-          max="5"
-          value={form.rating}
-          onChange={handleRatingChange}
+          required
         />
 
         {/* Dropzone para nuevas imágenes */}
@@ -104,20 +103,27 @@ const EditHotelModal = ({
         {/* Vista previa de todas las imágenes (antiguas + nuevas) */}
         <div className="preview-container">
           {form.images?.map((file, i) => (
-            <img 
-              key={i} 
-              src={file.preview || file.url} 
-              alt={file.title || `preview-${i}`} 
-              className="preview-image" 
-            />
+            <div key={i} className="image-container">
+              <img 
+                src={file.preview || file.url} 
+                alt={file.title || `preview-${i}`} 
+                className="preview-image" 
+              />
+              {/* Si es una imagen nueva, mostrar un icono de "eliminar" */}
+              {!file.url && (
+                <button
+                  className="delete-image"
+                  onClick={() => setImages(prev => prev.filter((_, index) => index !== i))}
+                >
+                  Eliminar
+                </button>
+              )}
+            </div>
           ))}
         </div>
 
-        <button onClick={onSubmit} className="btn btn-save">
+        <button onClick={handleFormSubmit} className="btn btn-save">
           Actualizar
-        </button>
-        <button onClick={onClose} className="btn btn-cancel">
-          Cancelar
         </button>
       </div>
     </div>

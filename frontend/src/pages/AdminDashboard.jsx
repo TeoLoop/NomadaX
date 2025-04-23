@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/AdminDashboard.css';
-import { FaEdit, FaTrash, FaPlus, FaStar } from 'react-icons/fa';  // Importamos FaStar
+import { FaEdit, FaTrash, FaPlus, FaStar } from 'react-icons/fa';  
 import { fetchHotels, addHotel, deleteHotel, updateHotel } from '../services/hotelService';
 import AddHotelModal from '../components/AddHotelModal';
 import EditHotelModal from '../components/EditHotelModal';
@@ -36,19 +36,28 @@ const AdminDashboard = () => {
     };
 
     const handleAdd = async () => {
+        // Solo validamos nombre, país y precio
+        if (!form.name || !form.country || !form.pricePerNight) {
+            alert('Por favor, completa los campos obligatorios: nombre, país y precio.');
+            return;
+        }
         const newHotel = await addHotel(form);
         setHotels([...hotels, newHotel]);
         setAddModalOpen(false);
     };
 
     const handleUpdate = async () => {
+        // Solo validamos nombre, país y precio
+        if (!form.name || !form.country || !form.pricePerNight) {
+            alert('Por favor, completa los campos obligatorios: nombre, país y precio.');
+            return;
+        }
         const updated = await updateHotel(selectedHotel.id, form);
         setHotels(hotels.map(h => h.id === updated.id ? updated : h));
         setEditModalOpen(false);
     };
 
     const handleDelete = async (id) => {
-        // Usar SweetAlert2 para la confirmación
         const result = await Swal.fire({
             title: '¿Estás seguro?',
             text: "¡Este hotel será eliminado permanentemente!",
@@ -63,14 +72,9 @@ const AdminDashboard = () => {
         if (result.isConfirmed) {
             await deleteHotel(id);
             setHotels(hotels.filter(h => h.id !== id));
-            Swal.fire(
-                '¡Eliminado!',
-                'El hotel ha sido eliminado.',
-                'success'
-            );
+            Swal.fire('¡Eliminado!', 'El hotel ha sido eliminado.', 'success');
         }
     };
-    
 
     return (
         <div className="admin-panel">

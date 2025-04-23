@@ -23,8 +23,16 @@ export const updateHotel = (id, updatedHotel) => {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(updatedHotel),
-  }).then(res => res.json());
+  })
+    .then(res => res.json())
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      console.error('Error actualizando el hotel:', error);
+    });
 };
+
 
 
 export const fetchRandomHotels = async () => {

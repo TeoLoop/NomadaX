@@ -184,6 +184,7 @@ table td button:hover {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    position: relative;
 }
 
 .modal input {
@@ -216,6 +217,23 @@ table td button:hover {
     border-radius: 6px;
 }
 
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+
 .btn {
     padding: 12px 18px;
     font-size: 1.1em;
@@ -229,10 +247,6 @@ table td button:hover {
     color: white;
 }
 
-.btn-cancel {
-    background-color: #f44336;
-    color: white;
-}
 /* Estilo para los iconos de acción */
 .actions .icon {
     font-size: 1.5em; 
