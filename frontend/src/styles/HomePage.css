@@ -128,15 +128,12 @@
 
 
 /* --------------RECOMENDATIONS------------------*/
-
-.recommendations {
-  padding: 20px;
-}
-
 .recommendation-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* 2 columnas mínimo */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Múltiples columnas en pantallas grandes */
   gap: 20px;
+  width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+  box-sizing: border-box;
 }
 
 .recommendation-card {
@@ -148,12 +145,11 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.hotel-image {
+.recommendation-card .hotel-image {
   width: 100%;
   height: 200px;
-  object-fit: cover; /* Para asegurar que la imagen no se distorsione */
-  border-radius: 5px;
-  margin-bottom: 15px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .recommendation-card h3 {
@@ -235,25 +231,21 @@
 
 
   /* -------------RECOMENDATIONS---------------- */
-
-  .recommendation-list {
-    flex-direction: column;
-    gap: 15px;
-    align-items: center;
+  .recommendation-grid {
+    grid-template-columns: 1fr !important; /* Cambiar a una sola columna */
+    gap: 15px; /* Reducir el espacio entre elementos */
   }
 
-  .recommendation-item {
-    width: 90%;
-    max-width: 300px;
-    height: auto;
-    padding: 15px;
+  .recommendation-card {
+    width: 100%; /* Asegura que las tarjetas ocupen todo el ancho disponible */
+    box-sizing: border-box;
   }
 
-  .recommendation-item h3 {
-    font-size: 1.2rem;
+  .recommendation-card h3 {
+    font-size: 1.1rem;
   }
 
-  .recommendation-item p {
+  .recommendation-card p {
     font-size: 0.9rem;
   }
   /* -----------------TERMINA RECOMENDATIONS------------------------- */

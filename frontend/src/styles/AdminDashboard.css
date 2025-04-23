@@ -233,8 +233,7 @@ table td button:hover {
     background-color: #f44336;
     color: white;
 }
-
-
+/* Estilo para los iconos de acción */
 .actions .icon {
     font-size: 1.5em; 
     cursor: pointer;
@@ -245,31 +244,48 @@ table td button:hover {
     transform: scale(1.1); 
 }
 
-
 .delete-icon {
-    color: #f44336;
-    margin-left: 5px;
+    color: #f44336; /* Rojo para la acción de eliminar */
 }
 
-
-
 .edit-icon {
-    color: var(--color-primary); 
+    color: var(--color-primary); /* Color primario para editar */
+}
+
+.delete-icon:hover {
+    color: #d32f2f; /* Rojo oscuro al hacer hover */
+}
+
+.edit-icon:hover {
+    color: var(--color-primary-hover); /* Hover para color primario */
 }
 
 
 /* Ajustes para el layout responsivo */
 @media screen and (max-width: 768px) {
+    .admin-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .add-btn {
+        margin-top: 10px;
+        font-size: 1.1em;
+    }
+
     .add-hotel-form {
         width: 90%;
+        margin: 0 auto;
     }
 
     table {
         width: 100%;
+        font-size: 0.85em;
     }
 
     table th, table td {
-        font-size: 0.85em;
+        font-size: 0.9em;
+        padding: 8px 10px;
     }
 
     .hotel-image {
@@ -277,8 +293,76 @@ table td button:hover {
         height: 35px;
     }
 
+    .hotel-name {
+        font-size: 1.1em;
+    }
+
+    /* Modal en pantallas pequeñas */
+    .modal {
+        width: 90%;
+        max-height: 80vh; /* Limita el tamaño máximo en pantallas pequeñas */
+        padding: 20px;
+    }
+
+    .modal input {
+        font-size: 1em;
+        padding: 10px;
+    }
+
+    .dropzone {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .preview-image {
+        width: 80px;
+        height: 80px;
+    }
+
+    /* Ajustes adicionales para mejorar la experiencia en móvil */
+    .actions .icon {
+        font-size: 1.3em;
+    }
+
     table td button {
         font-size: 0.9em;
         padding: 6px 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .hotel-info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hotel-name {
+        text-align: center;
+        margin-left: 0;
+        font-size: 1.2em;
+    }
+
+    /* Hacer que las imágenes de los hoteles se vean mejor en pantallas pequeñas */
+    .hotel-image {
+        width: 30px;
+        height: 30px;
+    }
+
+    .add-btn {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .add-hotel-form {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    table {
+        font-size: 0.8em;
+    }
+
+    table th, table td {
+        padding: 6px 8px;
     }
 }

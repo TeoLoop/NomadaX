@@ -25,3 +25,12 @@ export const updateHotel = (id, updatedHotel) => {
     body: JSON.stringify(updatedHotel),
   }).then(res => res.json());
 };
+
+
+export const fetchRandomHotels = async () => {
+    const response = await fetch(`${BASE_URL}/hotels/random`);
+    if (!response.ok) {
+      throw new Error('Error al obtener hoteles aleatorios');
+    }
+    return await response.json();
+};

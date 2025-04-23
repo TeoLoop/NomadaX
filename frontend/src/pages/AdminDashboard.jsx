@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/AdminDashboard.css';
-import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaPlus, FaStar } from 'react-icons/fa';  // Importamos FaStar
 import { fetchHotels, addHotel, deleteHotel, updateHotel } from '../services/hotelService';
 import AddHotelModal from '../components/AddHotelModal';
 import EditHotelModal from '../components/EditHotelModal';
@@ -102,7 +102,10 @@ const AdminDashboard = () => {
                             </td>
                             <td>{hotel.city}, {hotel.country}</td>
                             <td>${hotel.pricePerNight}</td>
-                            <td>{hotel.rating}</td>
+                            <td>
+                                <FaStar style={{ color: 'rgb(234, 179, 8)', marginRight: '5px' }} />
+                                {hotel.rating}
+                            </td>
                             <td className="actions">
                                 <FaEdit className="icon edit-icon" onClick={() => openEditModal(hotel)} />
                                 <FaTrash className="icon delete-icon" onClick={() => handleDelete(hotel.id)} />
