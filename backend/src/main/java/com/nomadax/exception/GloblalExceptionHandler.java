@@ -1,4 +1,22 @@
 package com.nomadax.exception;
 
-public class GloblalExceptionHandler {
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice
+public class GloblalExceptionHandler{
+
+    @ExceptionHandler(DuplicateHotelNameException.class)
+    public ResponseEntity<Object> handleDuplicateHotelName(DuplicateHotelNameException ex) {
+        // Aquí, no se envía el stack trace, solo el mensaje amigable.
+        return new ResponseEntity<>(new ErrorResponse("Ya existe un hotel con ese nombre"), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleGenericException(Exception ex) {
+        // Captura excepciones generales
+        return new ResponseEntity<>(new ErrorResponse("Ocurrió un error interno. Por favor intente más tarde."), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
