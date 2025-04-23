@@ -1,4 +1,4 @@
-package com.stayease.backend;
+package com.nomadax;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

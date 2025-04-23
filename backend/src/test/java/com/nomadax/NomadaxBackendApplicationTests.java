@@ -1,4 +1,4 @@
-package com.stayease.backend;
+package com.nomadax;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
