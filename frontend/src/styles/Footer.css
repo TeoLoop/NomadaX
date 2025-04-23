@@ -1,0 +1,141 @@
+.footer {
+    background-color: var(--color-text); /* fondo oscuro */
+    color: #aaa;
+    font-size: 0.85rem;
+    padding: 40px 20px 10px;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+  }
+  
+  .footer-section {
+    flex: 1 1 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .footer-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre el logo y el título */
+  }
+  
+  .footer-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain; /* Asegura que no se deforme el logo */
+  }
+  
+  .footer-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff; /* Color del título */
+  }
+  
+  
+  .footer-description {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #bbb;
+  }
+  
+  .footer-links,
+  .footer-contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-links li,
+  .footer-contact li {
+    margin: 6px 0;
+  }
+  
+  .footer-links a {
+    text-decoration: none;
+    color: #aaa;
+    transition: color 0.2s ease;
+  }
+  
+  .footer-links a:hover {
+    color: #fff;
+  }
+  
+  .footer-contact li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #aaa;
+  }
+  
+  .footer-socials {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+  }
+  
+  .footer-socials a {
+    color: #aaa;
+    font-size: 1.1rem;
+    transition: color 0.2s ease;
+  }
+  
+  .footer-socials a:hover {
+    color: #fff;
+  }
+  
+  .footer-line {
+    border: none;
+    border-top: 1px solid #333;
+    margin: 20px auto 10px;
+    max-width: 1200px;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    color: #666;
+    font-size: 0.75rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .footer {
+      padding: 20px 10px 5px;
+    }
+  
+    .footer-content {
+      gap: 20px;
+    }
+  
+    .footer-section {
+      gap: 8px;
+    }
+  
+    .footer-quick-links a,
+    .footer-contact li,
+    .footer-bottom {
+      font-size: 0.75rem;
+    }
+  
+    .footer-socials {
+      font-size: 1rem;
+      gap: 12px;
+    }
+  
+    .footer-logo {
+      width: 60px;
+    }
+  
+    .footer-line {
+      margin: 20px auto 10px;
+    }
+  }
+  
