@@ -19,6 +19,9 @@
   --color-text-muted: #5182ef;      /* blue-400 */
 }
 
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
 * {
   margin: 0;
   padding: 0;

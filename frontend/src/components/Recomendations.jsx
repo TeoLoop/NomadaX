@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchHotels } from '../services/hotelService'; // Asegurate que este servicio trae TODOS los hoteles
+import { fetchHotels } from '../services/hotelService'; 
+import { FaStar, FaMapMarkerAlt } from 'react-icons/fa'; 
+import "../styles/Recomendations.css"
 
 const Recommendations = () => {
   const [hotels, setHotels] = useState([]);
@@ -23,7 +25,7 @@ const Recommendations = () => {
   return (
     <div className="recommendations">
       <h2>Hoteles destacados</h2>
-      <div className="recommendation-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+      <div className="recommendation-grid">
         {hotels.length > 0 ? (
           hotels.map((hotel) => (
             <div key={hotel.id} className="recommendation-card">
@@ -32,10 +34,18 @@ const Recommendations = () => {
                 alt={hotel.name}
                 className="hotel-image"
               />
-              <h3>{hotel.name}</h3>
-              <p>{hotel.description}</p>
-              <p>{hotel.city}, {hotel.country}</p>
-              <p>Precio por noche: ${hotel.pricePerNight}</p>
+              <div className="hotel-name-rating">
+                <h3>{hotel.name}</h3>
+                <div className="hotel-rating">
+                  <FaStar style={{ color: 'rgb(234, 179, 8)', marginRight: '5px' }} /> {hotel.rating}
+                </div>
+              </div>
+              <div className="hotel-location">
+                <FaMapMarkerAlt className="icon-location" />
+                {hotel.city}, {hotel.country}
+              </div>
+              <p className="description">{hotel.description}</p>
+              <p className="price">${hotel.pricePerNight}<span className='precio-noche'>/noche</span></p>
               <button onClick={() => handleViewDetails(hotel.id)}>Ver detalles</button>
             </div>
           ))
