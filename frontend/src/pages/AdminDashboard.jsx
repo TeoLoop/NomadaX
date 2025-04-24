@@ -57,6 +57,10 @@ const AdminDashboard = () => {
 
     const handleUpdate = async () => {
         const updated = await updateHotel(form);
+        if(!updated){
+            console.log("No se pudo actualizar el hotel");
+            return;
+        }
         setHotels(hotels.map(h => h.id === updated.id ? updated : h));
         setEditModalOpen(false);
     };

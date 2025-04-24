@@ -69,7 +69,7 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form}) => {
         placeholder='Titulo de la imagen' value={imageTitle} 
         onChange={(e) => setImageTitle(e.target.value)} />
 
-        <button onSubmit={handleAddImage}>Agregar Imagen</button>
+        <button onClick={handleAddImage}>Agregar Imagen</button>
 
         <div className="preview-container">
           {form.images?.map((file, i) => (

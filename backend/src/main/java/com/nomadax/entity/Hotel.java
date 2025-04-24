@@ -25,7 +25,6 @@ public class Hotel {
     private String country;
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference  // Evita la recursión infinita y gestiona la serialización de la relación
     private List<Image> images = new ArrayList<>();
 
     private Double pricePerNight;

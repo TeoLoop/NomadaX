@@ -58,10 +58,37 @@ public class HotelService {
         hotelToUpdate.setCapacity(updatedHotel.getCapacity());
         hotelToUpdate.setRating(updatedHotel.getRating());
 
-        for (Image image : updatedHotel.getImages()) {
-            image.setHotel(hotelToUpdate); // Asocia cada imagen al hotel
-            hotelToUpdate.getImages().add(image); // Agrega al hotel
+        System.out.println("updatedHotel: " + updatedHotel);
+        System.out.println("hotel para actualizar: " + hotelToUpdate);
+
+        //obtenemos las imagenes actuales
+        List<Image> currentImages = hotelToUpdate.getImages();
+
+        //obtenemos las que vienen del form
+        List<Image> newImages = updatedHotel.getImages();
+
+        //creamos lista para guardar
+        List<Image> imageToKeep= new ArrayList<>();
+
+        //recorremos cada imagen nueva
+        for (Image newImage: newImages){
+            //preguntamos si la imagen ya estaba es decir que tiene ID
+            if (newImage.getId() != null){
+                //Buscamos si ya existe en la lista actual
+                for (Image oldImage : currentImages){
+                    imageToKeep.add(oldImage); // la mantenemos
+                    break;
+                }
+            }else {
+                //imagen nueva ( no tiene ID) la asociamos al Hotel
+                newImage.setHotel(hotelToUpdate);
+                imageToKeep.add(newImage);
+            }
         }
+
+        //Reemplazamos la lista imagenes del hotel con las que tenemos que guardar
+        hotelToUpdate.getImages().clear();
+        hotelToUpdate.getImages().addAll(imageToKeep);
 
         return hotelRepository.save(hotelToUpdate);
     }

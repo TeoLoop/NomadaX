@@ -19,7 +19,8 @@ export const deleteHotel = (id) => {
 };
 
 export const updateHotel = (updatedHotel) => {
-  console.log("Sending the following hotel data:", updatedHotel); 
+  console.log("Mandando el siguiente hotel a actualizar:", updatedHotel); 
+  console.log("/*******************************/");
 
   return fetch(`${BASE_URL}/hotels`, {  
     method: 'PUT',
@@ -30,12 +31,13 @@ export const updateHotel = (updatedHotel) => {
   })
     .then(res => {
       if (!res.ok) {
-        throw new Error('Failed to update hotel');
+        throw new Error('Fallo en actualizar el Hotel');
       }
       return res.json();
     })
     .catch(err => {
-      console.error('Error during the update process:', err);
+      console.error('El error fue:', err);
+      return null;
     });
 };
 

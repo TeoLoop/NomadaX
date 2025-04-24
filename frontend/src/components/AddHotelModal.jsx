@@ -69,6 +69,16 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form}) => {
           onChange={(e) => setImageTitle(e.target.value)} />
 
         <button onClick={handleAddImage}>Agregar Imagen</button>
+        <div className="preview-container">
+          {form.images?.map((file, i) => (
+            <img
+              key={i}
+              src={file.preview || file.url}
+              alt={file.title || `preview-${i}`}
+              className="preview-image"
+            />
+          ))}
+        </div>
 
 
         <button onClick={onSubmit} className="btn btn-save">

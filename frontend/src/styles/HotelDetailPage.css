@@ -1,48 +1,106 @@
 .hotel-detail {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .back-button {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-bottom: 20px;
-  }
-  
-  .back-button:hover {
-    background-color: #0056b3;
-  }
-  
-  h1 {
-    font-size: 2rem;
-    color: #333;
-  }
-  
-  .hotel-images {
-    margin-top: 20px;
-  }
-  
-  .hotel-images img {
-    width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-    border-radius: 8px;
-  }
-  
-  .hotel-info {
-    margin-top: 30px;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-  }
-  
-  .hotel-info p {
-    font-size: 16px;
-    color: #555;
-  }
-  
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.hotel-detail h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Galería centrada */
+.hotel-images-grid {
+  display: grid;
+  grid-template-areas:
+    "img1 img1 img2 img3"
+    "img1 img1 img4 img5";
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 180px;
+  gap: 8px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+/* Estilos por imagen */
+.grid-item {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.grid-item:nth-child(1) { grid-area: img1; }
+.grid-item:nth-child(2) { grid-area: img2; }
+.grid-item:nth-child(3) { grid-area: img3; }
+.grid-item:nth-child(4) { grid-area: img4; }
+.grid-item:nth-child(5) { grid-area: img5; }
+
+/* Overlay del +X */
+.image-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+/* Modal */
+.modal-gallery {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 15, 15, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  position: relative;
+}
+
+.modal-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.modal-images img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 24px;
+  background: transparent;
+  border: none;
+  color: #222;
+  cursor: pointer;
+}
