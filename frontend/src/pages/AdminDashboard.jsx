@@ -129,7 +129,6 @@ const AdminDashboard = () => {
                 onChange={handleChange}
                 onSubmit={handleAdd}
                 form={form}
-                setImages={(newImages) => setForm(prev => ({ ...prev, images: newImages }))}
             />
             <EditHotelModal
                 isOpen={isEditModalOpen}
@@ -137,7 +136,6 @@ const AdminDashboard = () => {
                 onChange={handleChange}
                 onSubmit={handleUpdate}
                 form={form}
-                setImages={(newImages) => setForm(prev => ({ ...prev, images: newImages }))}
             />
         </div>
     );

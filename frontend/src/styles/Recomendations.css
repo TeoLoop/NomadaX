@@ -6,9 +6,9 @@
   
   .recommendation-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Múltiples columnas en pantallas grandes */
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); 
     gap: 20px;
-    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+    width: 100%;
     box-sizing: border-box;
   }
   
@@ -17,15 +17,15 @@
     padding: 15px;
     background-color: #fff;
     border-radius: 8px;
-    text-align: left; /* Alineación a la izquierda */
+    text-align: left; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease; 
   }
   
   .recommendation-card:hover {
-    transform: translateY(-2px); /* Elevación más suave */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra más suave */
-    border-color: var(--color-primary-light); /* Borde más sutil al pasar el ratón */
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+    border-color: var(--color-primary-light); 
   }
   
   .recommendation-card .hotel-image {
@@ -94,12 +94,12 @@
   
   @media (max-width: 768px) {
     .recommendation-grid {
-        grid-template-columns: 1fr !important; /* Cambiar a una sola columna */
-        gap: 15px; /* Reducir el espacio entre elementos */
+        grid-template-columns: 1fr !important; 
+        gap: 15px; 
       }
     
       .recommendation-card {
-        width: 100%; /* Asegura que las tarjetas ocupen todo el ancho disponible */
+        width: 100%; 
         box-sizing: border-box;
       }
     

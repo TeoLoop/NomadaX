@@ -12,7 +12,6 @@
   flex-direction: column;
 }
 
-/* Capa oscura */
 .hero-section::after {
   content: "";
   position: absolute;
@@ -24,7 +23,6 @@
   z-index: 1;
 }
 
-/* Texto encima */
 .text-overlay {
   position: relative;
   z-index: 2;
@@ -44,7 +42,6 @@
   font-weight: 500;
 }
 
-/* Contenedor de búsqueda */
 .search-container {
   position: relative;
   z-index: 2;

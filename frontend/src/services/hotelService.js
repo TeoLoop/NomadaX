@@ -19,9 +19,9 @@ export const deleteHotel = (id) => {
 };
 
 export const updateHotel = (updatedHotel) => {
-  console.log("Sending the following hotel data:", updatedHotel); // Verifica los datos
+  console.log("Sending the following hotel data:", updatedHotel); 
 
-  return fetch(`${BASE_URL}/hotels`, {  // No se necesita el ID en la URL
+  return fetch(`${BASE_URL}/hotels`, {  
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

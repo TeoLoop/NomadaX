@@ -1,18 +1,13 @@
 package com.nomadax.controller;
 
 import com.nomadax.entity.Hotel;
-import com.nomadax.service.FileService;
 import com.nomadax.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/hotels")
@@ -21,12 +16,6 @@ public class HotelController {
     @Autowired
     private HotelService hotelService;
 
-    private final FileService fileService;
-
-    @Autowired
-    public HotelController(FileService fileService) {
-        this.fileService = fileService;
-    }
 
     //Guardar un Hotel
     @PostMapping
@@ -72,20 +61,4 @@ public class HotelController {
         return ResponseEntity.ok(updatedHotel);
     }
 
-
-
-    @PostMapping("/{hotelId}/upload-image")
-    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file, @PathVariable("hotelId") String hotelId) {
-        String filename = fileService.storeFile(file, hotelId); // cambia a que devuelva el nombre
-        String fileDownloadUri = "/uploads/" + filename;
-        return ResponseEntity.ok(fileDownloadUri);
-    }
-
-    @GetMapping("/uploads/{filename}")
-    public ResponseEntity<Resource> getFile(@PathVariable String filename) {
-        Resource file = fileService.loadFileAsResource(filename);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"")
-                .body(file);
-    }
 }

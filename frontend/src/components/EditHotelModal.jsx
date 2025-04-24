@@ -1,8 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { useDropzone } from 'react-dropzone';
 
-const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form, setImages }) => {
+const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form}) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [image, setImage] = useState("");
+  const [imageTitle, setImageTitle] = useState("");
+
+  const handleAddImage = () =>{
+    //preguntso que no esten vacias
+    if(!image || !imageTitle) return;
+
+    //creo el objeto
+    const nuevaImagen = {
+      url: image,
+      title: imageTitle
+    }
+
+    //agrego sin borrar las anteriores
+    onChange({
+      target:{
+        name: "images",
+        value: [...form.images, nuevaImagen]
+      }
+    })
+
+    //limpio los campos
+
+    setImage("");
+    setImageTitle("");
+  };
 
   useEffect(() => {
     if (isOpen) setModalVisible(true);
@@ -12,18 +37,7 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form, setImages }
     }
   }, [isOpen]);
 
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: 'image/*',
-    onDrop: (acceptedFiles) => {
-      const filesWithPreview = acceptedFiles.map((file) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
-          title: file.name,
-        })
-      );
-      setImages(filesWithPreview);
-    },
-  });
+
 
   if (!modalVisible) return null;
 
@@ -48,13 +62,14 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form, setImages }
           value={form.rating || ""}
           onChange={onChange}
         />
+        <input type='text'
+        placeholder='Agregue el Url de las imagenes' value={image} 
+        onChange={(e) => setImage(e.target.value)} />
+        <input type='text'
+        placeholder='Titulo de la imagen' value={imageTitle} 
+        onChange={(e) => setImageTitle(e.target.value)} />
 
-
-
-        <div {...getRootProps()} className="dropzone">
-          <input {...getInputProps()} />
-          <p>Arrastra nuevas imágenes o haz click para seleccionar</p>
-        </div>
+        <button onSubmit={handleAddImage}>Agregar Imagen</button>
 
         <div className="preview-container">
           {form.images?.map((file, i) => (

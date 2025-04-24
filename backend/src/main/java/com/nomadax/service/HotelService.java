@@ -58,8 +58,6 @@ public class HotelService {
         hotelToUpdate.setCapacity(updatedHotel.getCapacity());
         hotelToUpdate.setRating(updatedHotel.getRating());
 
-        // Actualizamos las imágenes
-        hotelToUpdate.getImages().clear(); // Borra las imágenes anteriores (orphanRemoval = true)
         for (Image image : updatedHotel.getImages()) {
             image.setHotel(hotelToUpdate); // Asocia cada imagen al hotel
             hotelToUpdate.getImages().add(image); // Agrega al hotel
