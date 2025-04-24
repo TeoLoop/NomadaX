@@ -1,7 +1,7 @@
 import "../styles/HotelDetailPage.css";
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FaArrowLeftLong } from "react-icons/fa6";
+import { TbArrowBarLeft } from "react-icons/tb";
 
 const HotelDetailPage = () => {
   const { id } = useParams();
@@ -33,11 +33,12 @@ const HotelDetailPage = () => {
 
   return (
     <div className="hotel-detail">
-      <button onClick={handleBackToHome} className="back-button"><FaArrowLeftLong /></button>
+      <button onClick={handleBackToHome} className="back-button">
+        <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path></svg>
+        <span>Regresar</span></button>
 
-      <h1>{hotel.name}</h1>
+      <h1 >{hotel.name}</h1>
 
-      {/* GALERÍA GRID */}
       <div className="hotel-images-grid">
         {imagesToShow.map((img, index) => (
           <div
@@ -69,11 +70,35 @@ const HotelDetailPage = () => {
         </div>
       )}
 
-      <p className="hotel-description">{hotel.description}</p>
 
-      <div className="hotel-extra-info">
-        <p><strong>Capacidad:</strong> {hotel.capacity} personas</p>
-        <p className="hotel-price"><strong>Precio por noche:</strong> ${hotel.pricePerNight}</p>
+      <div className="container-info">
+
+        <div className="hotel-extra-info">
+          <p className="hotel-description">{hotel.description}</p>
+          <p className="capacity">Capacidad: Hasta {hotel.capacity} personas</p>
+        </div>
+        <div class="booking-card">
+          <div class="price">${hotel.pricePerNight}<span>/ noche</span></div>
+
+          <div class="date-section">
+            <label>Llegada</label>
+            <input type="date" />
+            <label>Salida</label>
+            <input type="date" />
+          </div>
+
+          <div class="guests-section">
+            <label for="guests">Huéspedes</label>
+            <select id="guests">
+              <option>1 huésped</option>
+              <option>2 huéspedes</option>
+              <option>3 huéspedes</option>
+              <option>4 huéspedes</option>
+            </select>
+          </div>
+
+          <button class="reserve-btn">Reservar</button>
+        </div>
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ const Recommendations = () => {
         const selected = shuffled.slice(0, 10); // 10 hoteles únicos aleatorios
         setHotels(selected);
       })
-      .catch((error) => console.error('Error fetching hotels:', error));
+      .catch((error) => console.error('Error consultando los hoteles', error));
   }, []);
 
   const handleViewDetails = (hotelId) => {

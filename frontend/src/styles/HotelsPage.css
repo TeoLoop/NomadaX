@@ -1,0 +1,123 @@
+.body-hotels {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: flex-start;
+    min-height: 100vh; 
+    box-sizing: border-box;
+}
+
+.search-bar {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.hotels-grid {
+    margin-top: 70px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px; 
+    box-sizing: border-box;
+    justify-content: center; 
+}
+
+.hotel-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.hotel-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border-color: var(--color-primary-light);
+}
+
+.hotel-card .hotel-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.hotel-card .hotel-name-rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price {
+    color: var(--color-primary-light);
+}
+
+.precio-noche {
+    color: #555;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.hotel-card .hotel-location {
+    display: flex;
+    align-items: center;
+    color: #888;
+    margin-top: 5px;
+}
+
+.hotel-card .hotel-location .icon-location {
+    color: #888;
+    margin-right: 8px;
+}
+
+.hotel-card .description {
+    color: #555;
+    font-size: 0.95em;
+    margin-top: 5px;
+}
+
+.hotel-card .price {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.hotel-card button {
+    background-color: var(--color-primary-light);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.hotel-card button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsividad: para dispositivos más pequeños */
+@media (max-width: 768px) {
+    .hotels-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+    }
+
+    .hotel-card {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .hotel-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .hotel-card p {
+        font-size: 0.9rem;
+    }
+}
