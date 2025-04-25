@@ -1,6 +1,7 @@
 package com.nomadax.controller;
 
 import com.nomadax.entity.Hotel;
+import com.nomadax.exception.ErrorResponse;
 import com.nomadax.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,11 +23,19 @@ public class HotelController {
 
     //Guardar un Hotel
     @PostMapping
-    public ResponseEntity<Hotel> save(@RequestBody Hotel hotel){
-        Hotel savedHotel = hotelService.save(hotel);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(savedHotel);
+    public ResponseEntity<Object> save(@RequestBody Hotel hotel){
+        try {
+            Hotel savedHotel = hotelService.save(hotel);
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(savedHotel);
+        } catch (IllegalArgumentException e) {
+            ErrorResponse errorResponse = new ErrorResponse("El nombre del hotel ya está en uso");
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body(errorResponse);
+        }
+
     }
 
     //Obtener todos

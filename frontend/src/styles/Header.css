@@ -141,7 +141,7 @@
     align-items: flex-start; 
     padding: 20px 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transform: translateX(100%);
+    display: none;
   }
 
   .navbar-hamburger {
@@ -149,7 +149,7 @@
   }
 
   .navbar-menu.open {
-    transform: translateX(0);
+    display: block;
   }
 
   .navbar-item {
@@ -165,6 +165,10 @@
     align-items: center; 
     width: 100%;
     padding: 0;
+  }
+
+  li{
+    margin-bottom: 10px;
   }
 
   .login-button {

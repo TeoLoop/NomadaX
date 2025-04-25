@@ -50,9 +50,23 @@ const AdminDashboard = () => {
 
 
     const handleAdd = async () => {
-        const newHotel = await addHotel(form);
-        setHotels([...hotels, newHotel]);
-        setAddModalOpen(false);
+        try {
+            const newHotel = await addHotel(form);
+            if(newHotel && newHotel.id){
+                setHotels([...hotels, newHotel]);
+                setAddModalOpen(false);
+            }else{
+                alert("Error al agregar hotel. Intente nuevamente.");
+            }
+            
+        } catch (error) {
+
+            if(error.message.includes("ya existe")){
+                alert("El nombre del hotel ya existe. Por favor, elige otro.");
+            }else{
+                alert("Ocurrió un error inesperado. Intente nuevamente.");
+            }
+        }
     };
 
     const handleUpdate = async () => {
@@ -86,6 +100,7 @@ const AdminDashboard = () => {
 
     return (
         <div className="container">
+            
             <div className='admin-panel'>
                 <div className="admin-header">
                     <h1>Panel de Administración</h1>

@@ -9,7 +9,6 @@ import { HotelsPage } from './pages/HotelsPage';
 
 function App() {
   return (
-    //uso div en vez de fragment para mandar el footer abajo
     <div className="app-container">
       <Header />
       <main className="main-content">

@@ -11,7 +11,7 @@ public class GloblalExceptionHandler{
     @ExceptionHandler(DuplicateHotelNameException.class)
     public ResponseEntity<Object> handleDuplicateHotelName(DuplicateHotelNameException ex) {
         // Aquí, no se envía el stack trace, solo el mensaje amigable.
-        return new ResponseEntity<>(new ErrorResponse("Ya existe un hotel con ese nombre"), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ErrorResponse("Ya existe un hotel con ese nombre"), HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(Exception.class)

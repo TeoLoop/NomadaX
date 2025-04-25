@@ -9,7 +9,17 @@ export const addHotel = (hotel) => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(hotel),
-  }).then(res => res.json());
+  }).then(res => {
+    if(!res.ok){
+
+      if(res.status === 400){
+        throw new Error("Nombre del hotel ya existe");
+      }else{
+        throw new Error('Error al agregar el hotel');
+      }
+    }
+    return res.json();
+  })
 };
 
 export const deleteHotel = (id) => {

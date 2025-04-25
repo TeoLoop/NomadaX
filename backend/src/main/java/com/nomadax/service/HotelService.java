@@ -123,4 +123,5 @@ public class HotelService {
         return hotelRepository.findAll(pageable);
     }
 
+
 }
