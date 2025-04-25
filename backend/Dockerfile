@@ -1,5 +1,4 @@
-# Usar una imagen base de OpenJDK con Maven
-FROM maven:3.8.6-openjdk-17-slim
+FROM maven:3.8.6-jdk-17
 
 # Establecer el directorio de trabajo
 WORKDIR /app
