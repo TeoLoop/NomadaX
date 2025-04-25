@@ -1,44 +1,26 @@
-# Etapa 1: Construcción del archivo JAR con Maven
-FROM maven:3.8.6-openjdk-17-slim AS build
+# Usar una imagen base de OpenJDK con Maven
+FROM maven:3.8.6-openjdk-17-slim
 
 # Establecer el directorio de trabajo
 WORKDIR /app
 
-# Copiar solo los archivos necesarios para las dependencias
+# Copiar el archivo pom.xml para descargar las dependencias primero
 COPY pom.xml .
 
-# Descargar las dependencias de Maven (esto se hace por separado para aprovechar el cache de Docker)
+# Descargar las dependencias de Maven (esto aprovecha el cache de Docker)
 RUN mvn dependency:go-offline -B
 
-# Copiar el resto del código fuente
+# Copiar todo el código fuente del proyecto
 COPY . .
 
 # Convertir archivos a formato Unix (si es necesario)
 RUN find . -type f -name "*.properties" -exec dos2unix {} \;
 
-# Ejecutar Maven para empaquetar el proyecto en un archivo JAR
+# Ejecutar Maven para empaquetar el proyecto y crear el archivo JAR
 RUN mvn clean package -DskipTests
 
-# Etapa 2: Imagen de ejecución más ligera
-FROM openjdk:17-jdk-slim
-
-# Crear un usuario no root para ejecutar la aplicación
-RUN adduser --disabled-password --gecos '' appuser
-
-# Establecer el directorio de trabajo
-WORKDIR /app
-
-# Copiar el archivo JAR desde la etapa de construcción
-COPY --from=build /app/target/nomadax-backend.jar /app/nomadax-backend.jar
-
-# Cambiar la propiedad del archivo JAR a appuser para mayor seguridad
-RUN chown appuser:appuser /app/nomadax-backend.jar
-
-# Exponer el puerto 8080 (puerto por defecto de Spring Boot)
+# Exponer el puerto 8080 (por defecto de Spring Boot)
 EXPOSE 8080
 
-# Cambiar al usuario no root
-USER appuser
-
-# Comando para ejecutar la aplicación
-ENTRYPOINT ["java", "-jar", "nomadax-backend.jar"]
+# Ejecutar la aplicación cuando se inicie el contenedor
+ENTRYPOINT ["java", "-jar", "target/nomadax-backend.jar"]
