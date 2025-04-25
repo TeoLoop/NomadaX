@@ -1,5 +1,5 @@
 # Etapa 1: Construcción del archivo JAR con Maven
-FROM maven:3.8.6-jdk-17-slim AS build
+FROM maven:3.8.6-openjdk-17-slim AS build
 
 # Establecer el directorio de trabajo
 WORKDIR /app
@@ -19,7 +19,7 @@ RUN find . -type f -name "*.properties" -exec dos2unix {} \;
 # Ejecutar Maven para empaquetar el proyecto en un archivo JAR
 RUN mvn clean package -DskipTests
 
-# Etapa 2: Imagen de ejecución
+# Etapa 2: Imagen de ejecución más ligera
 FROM openjdk:17-jdk-slim
 
 # Crear un usuario no root para ejecutar la aplicación
