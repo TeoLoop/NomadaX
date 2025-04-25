@@ -1,12 +1,16 @@
-FROM maven:3.8.6-jdk-17
+# Usar OpenJDK 17 con Maven
+FROM openjdk:17-slim
 
-# Establecer el directorio de trabajo
+# Instalar Maven
+RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
+
+# Establecer el directorio de trabajo en /app
 WORKDIR /app
 
-# Copiar el archivo pom.xml para descargar las dependencias primero
+# Copiar el archivo pom.xml para descargar las dependencias
 COPY pom.xml .
 
-# Descargar las dependencias de Maven (esto aprovecha el cache de Docker)
+# Descargar las dependencias de Maven
 RUN mvn dependency:go-offline -B
 
 # Copiar todo el código fuente del proyecto
@@ -18,8 +22,8 @@ RUN find . -type f -name "*.properties" -exec dos2unix {} \;
 # Ejecutar Maven para empaquetar el proyecto y crear el archivo JAR
 RUN mvn clean package -DskipTests
 
-# Exponer el puerto 8080 (por defecto de Spring Boot)
+# Exponer el puerto 8080 (puerto por defecto de Spring Boot)
 EXPOSE 8080
 
-# Ejecutar la aplicación cuando se inicie el contenedor
+# Ejecutar la aplicación Spring Boot
 ENTRYPOINT ["java", "-jar", "target/nomadax-backend.jar"]
