@@ -18,7 +18,9 @@ nomadax-app/
 ├── frontend/         # Código del frontend (React + Vite)
 ├── docker-compose.yml
 ├── .gitignore        # Archivos ignorados por Git (Java y Node.js)
-└── README.md         # Documentación del proyecto
+└── Casos dePrueba US - NomadaX.xlsx         # Excel con casos de prueba (US)
+└── Proyecto - NomadaX.pdf         # Documentación del proyecto
+└── README.md         # README
 ```
 
 ## 🎨 Diseño
