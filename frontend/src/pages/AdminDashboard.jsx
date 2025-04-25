@@ -57,7 +57,7 @@ const AdminDashboard = () => {
 
     const handleUpdate = async () => {
         const updated = await updateHotel(form);
-        if(!updated){
+        if (!updated) {
             console.log("No se pudo actualizar el hotel");
             return;
         }
@@ -85,62 +85,69 @@ const AdminDashboard = () => {
     };
 
     return (
-        <div className="admin-panel">
-            <div className="admin-header">
-                <h1>Panel de Administración</h1>
-                <button onClick={openAddModal} className="add-btn">
-                    <FaPlus /> Añadir Hotel
-                </button>
+        <div className="container">
+            <div className='admin-panel'>
+                <div className="admin-header">
+                    <h1>Panel de Administración</h1>
+                    <button onClick={openAddModal} className="add-btn">
+                        <FaPlus /> Añadir Hotel
+                    </button>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hotel</th>
+                            <th>Ubicación</th>
+                            <th>Precio</th>
+                            <th>Valoración</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {hotels.map((hotel) => (
+                            <tr key={hotel.id}>
+                                <td className="hotel-info">
+                                    {hotel.images?.[0]?.url && (
+                                        <img src={hotel.images[0].url} alt={hotel.name} className="hotel-image" />
+                                    )}
+                                    <span className="hotel-name">{hotel.name}</span>
+                                </td>
+                                <td>{hotel.city}, {hotel.country}</td>
+                                <td>${hotel.pricePerNight}</td>
+                                <td>
+                                    <FaStar style={{ color: 'rgb(234, 179, 8)', marginRight: '5px' }} />
+                                    {hotel.rating}
+                                </td>
+                                <td className="actions">
+                                    <FaEdit className="icon edit-icon" onClick={() => openEditModal(hotel)} />
+                                    <FaTrash className="icon delete-icon" onClick={() => handleDelete(hotel.id)} />
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+
+                <AddHotelModal
+                    isOpen={isAddModalOpen}
+                    onClose={() => setAddModalOpen(false)}
+                    onChange={handleChange}
+                    onSubmit={handleAdd}
+                    form={form}
+                />
+                <EditHotelModal
+                    isOpen={isEditModalOpen}
+                    onClose={() => setEditModalOpen(false)}
+                    onChange={handleChange}
+                    onSubmit={handleUpdate}
+                    form={form}
+                />
+
             </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Hotel</th>
-                        <th>Ubicación</th>
-                        <th>Precio</th>
-                        <th>Valoración</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {hotels.map((hotel) => (
-                        <tr key={hotel.id}>
-                            <td className="hotel-info">
-                                {hotel.images?.[0]?.url && (
-                                    <img src={hotel.images[0].url} alt={hotel.name} className="hotel-image" />
-                                )}
-                                <span className="hotel-name">{hotel.name}</span>
-                            </td>
-                            <td>{hotel.city}, {hotel.country}</td>
-                            <td>${hotel.pricePerNight}</td>
-                            <td>
-                                <FaStar style={{ color: 'rgb(234, 179, 8)', marginRight: '5px' }} />
-                                {hotel.rating}
-                            </td>
-                            <td className="actions">
-                                <FaEdit className="icon edit-icon" onClick={() => openEditModal(hotel)} />
-                                <FaTrash className="icon delete-icon" onClick={() => handleDelete(hotel.id)} />
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-
-            <AddHotelModal
-                isOpen={isAddModalOpen}
-                onClose={() => setAddModalOpen(false)}
-                onChange={handleChange}
-                onSubmit={handleAdd}
-                form={form}
-            />
-            <EditHotelModal
-                isOpen={isEditModalOpen}
-                onClose={() => setEditModalOpen(false)}
-                onChange={handleChange}
-                onSubmit={handleUpdate}
-                form={form}
-            />
+            <div className="mobile-warning" >
+                    El panel de administración no está disponible en dispositivos móviles. Por favor, accede desde un equipo de escritorio.
+            </div>    
         </div>
     );
 };

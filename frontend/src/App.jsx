@@ -9,16 +9,19 @@ import { HotelsPage } from './pages/HotelsPage';
 
 function App() {
   return (
-    <>
+    //uso div en vez de fragment para mandar el footer abajo
+    <div className="app-container">
       <Header />
-      <Routes>  {/* Usa Routes para gestionar las rutas */}
-        <Route path="/" element={<HomePage />} />
-        <Route path="/hotel/:id" element={<HotelDetailPage />} />
-        <Route path="/hoteles" element={<HotelsPage />} />
-        <Route path="/administracion" element={<AdminDashboard />} />
-      </Routes>
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/hotel/:id" element={<HotelDetailPage />} />
+          <Route path="/hoteles" element={<HotelsPage />} />
+          <Route path="/administracion" element={<AdminDashboard />} />
+        </Routes>
+      </main>
       <Footer />
-    </>
+    </div>
   );
 }
 

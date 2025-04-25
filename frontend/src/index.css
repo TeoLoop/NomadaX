@@ -1,22 +1,19 @@
 :root {
-  /* Primary palette */
-  --color-primary: #225ad6;         /* blue-600 */
-  --color-primary-hover: #1a46a7;   /* blue-700 */
-  --color-primary-light: #2563eb;   /* blue-500 */
+  /*  Paleta de Colores */
+  --color-primary: #225ad6;             /* Azul principal (blue-600) */
+  --color-primary-hover: #1a46a7;       /* Hover (blue-700) */
+  --color-primary-light: #2563eb;       /* Variante clara (blue-500) */
 
-  /* Secondary / Accent colors */
-  --color-accent: #6d96f2;          /* blue-300 */
-  --color-accent-light: #9bb7f6;    /* blue-200 */
-  --color-accent-extra-light: #bbcff9; /* blue-100 */
+  --color-accent: #6d96f2;              /* Acento (blue-300) */
+  --color-accent-light: #9bb7f6;        /* Acento claro (blue-200) */
+  --color-accent-extra-light: #bbcff9;  /* Acento muy claro (blue-100) */
 
-  /* Neutrals / Backgrounds */
-  --color-background: #e9effd;      /* blue-50 */
-  --color-border: #d1d5db;          /* neutro para bordes (opcional) */
+  --color-background: #e9effd;          /* Fondo (blue-50) */
+  --color-border: #d1d5db;              /* Bordes (neutro) */
 
-  /* Typography / Text */
-  --color-text: #1f2937;            /* blue-900 */
-  --color-text-light: #143681;      /* blue-800 */
-  --color-text-muted: #5182ef;      /* blue-400 */
+  --color-text: #1f2937;                /* Texto oscuro (blue-900) */
+  --color-text-light: #143681;          /* Texto intermedio (blue-800) */
+  --color-text-muted: #5182ef;          /* Texto apagado (blue-400) */
 }
 
 * {
@@ -25,6 +22,11 @@
   box-sizing: border-box;
 }
 
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   font-family: 'Inter', sans-serif;
@@ -32,4 +34,15 @@ body {
   color: #333;
   overflow-x: hidden;
   width: 100%;
+}
+
+/* Estructura de Layout Principal */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1; /* Empuja el footer al fondo de la página */
 }
