@@ -7,7 +7,7 @@ NomadaX es una aplicación de reservas tipo Airbnb, enfocada en alojamientos tem
 - Backend: Java + Spring Boot
 - Frontend: React + Vite
 - Base de datos: MySQL
-- Otros: Node.js, Maven, Git
+- Otros: Maven, Git
 
 ## 📁 Estructura general
 

@@ -1,11 +1,16 @@
 import "../styles/HotelDetailPage.css";
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { TbArrowBarLeft } from "react-icons/tb";
+import { fetchById } from '../services/hotelService';
 
 const HotelDetailPage = () => {
 
   const carouselRef = useRef();
+  const { id } = useParams();
+  const [hotel, setHotel] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+
 
   const scrollLeft = () => {
     carouselRef.current.scrollBy({ left: -600, behavior: 'smooth' });
@@ -15,18 +20,19 @@ const HotelDetailPage = () => {
     carouselRef.current.scrollBy({ left: 600, behavior: 'smooth' });
   };
 
-  const { id } = useParams();
-  const [hotel, setHotel] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/hotels/${id}`)
-      .then((response) => response.json())
-      .then((data) => setHotel(data))
-      .catch((error) => console.error('Error fetching hotel details:', error));
+
+    const getHotelDetails = async () =>{
+      const hotelData = await fetchById(id);           //llamo a la funcion
+      setHotel(hotelData);
+    }
+
+    getHotelDetails(); 
   }, [id]);
+
+  
 
   const handleBackToHome = () => {
     navigate('/');

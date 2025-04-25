@@ -59,3 +59,15 @@ export const fetchHotelsPageables = async(page = 0, size = 10) =>{
 
   return await response.json();
 }
+
+
+export const fetchById = async (id) => {
+  try {
+    const response = await fetch(`${BASE_URL}/hotels/${id}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching hotel details:', error);
+    throw error;
+  }
+};
