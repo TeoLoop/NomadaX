@@ -1,29 +1,19 @@
-# Usar OpenJDK 17 con Maven
-FROM openjdk:17-slim
+# Usa una imagen base de OpenJDK
+FROM openjdk:17-jdk-slim
 
-# Instalar Maven
-RUN apt-get update && apt-get install -y maven dos2unix && rm -rf /var/lib/apt/lists/*
-
-# Establecer el directorio de trabajo en /app
+# Establece el directorio de trabajo en el contenedor
 WORKDIR /app
 
-# Copiar el archivo pom.xml para descargar las dependencias
-COPY pom.xml .
+# Copia todos los archivos del proyecto al contenedor
+COPY . /app
 
-# Descargar las dependencias de Maven
-RUN mvn dependency:go-offline -B
+RUN chmod +x ./mvnw
 
-# Copiar todo el código fuente del proyecto
-COPY . .
+# skipeo los test
+RUN ./mvnw clean install -DskipTests
 
-# Convertir archivos a formato Unix (si es necesario)
-RUN find . -type f -name "*.properties" -exec dos2unix {} \;
-
-# Ejecutar Maven para empaquetar el proyecto y crear el archivo JAR en modo depuración
-RUN mvn clean package -DskipTests -X
-
-# Exponer el puerto 8080 (puerto por defecto de Spring Boot)
+# Expongo el puerto en el que correrá el back
 EXPOSE 8080
 
-# Ejecutar la aplicación Spring Boot
-ENTRYPOINT ["java", "-jar", "target/nomadax-backend.jar"]
+# Ejecuta el comando para iniciar la aplicación Java
+CMD ["java", "-jar", "target/api.jar"]

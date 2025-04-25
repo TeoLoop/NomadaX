@@ -1,17 +1,17 @@
-# Usa una imagen base de Node.js
-FROM node:16
+# Usa una imagen base de Node.js 18
+FROM node:18
 
-# Establece el directorio de trabajo
+
 WORKDIR /app
 
 # Copia los archivos del proyecto React
 COPY . .
 
-# Instala las dependencias de React
-RUN npm install
+
+RUN npm install --legacy-peer-deps
 
 # Expón el puerto 3000
 EXPOSE 3000
 
-# Ejecuta la aplicación React
-CMD ["npm", "start"]
+
+CMD ["npm", "run", "dev"]
