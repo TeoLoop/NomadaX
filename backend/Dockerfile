@@ -2,7 +2,7 @@
 FROM openjdk:17-slim
 
 # Instalar Maven
-RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y maven dos2unix && rm -rf /var/lib/apt/lists/*
 
 # Establecer el directorio de trabajo en /app
 WORKDIR /app
@@ -19,8 +19,8 @@ COPY . .
 # Convertir archivos a formato Unix (si es necesario)
 RUN find . -type f -name "*.properties" -exec dos2unix {} \;
 
-# Ejecutar Maven para empaquetar el proyecto y crear el archivo JAR
-RUN mvn clean package -DskipTests
+# Ejecutar Maven para empaquetar el proyecto y crear el archivo JAR en modo depuración
+RUN mvn clean package -DskipTests -X
 
 # Exponer el puerto 8080 (puerto por defecto de Spring Boot)
 EXPOSE 8080
