@@ -1,5 +1,5 @@
 # Usar OpenJDK 17 con Maven
-FROM openjdk:17-slim
+FROM openjdk:17
 
 # Instalar Maven
 RUN apt-get update && apt-get install -y maven dos2unix && rm -rf /var/lib/apt/lists/*
