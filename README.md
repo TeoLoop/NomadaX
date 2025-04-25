@@ -41,6 +41,10 @@ nomadax-app/
 
 ## 🚀 Cómo ejecutar el proyecto con Docker
 
+### 📦 Requisitos previos
+
+- Tener [Docker](https://www.docker.com/products/docker-desktop/) instalado en tu sistema.
+
 Asegúrate de tener Docker y Docker Compose instalados.
 
 1. Clona el repositorio:
@@ -50,7 +54,7 @@ Asegúrate de tener Docker y Docker Compose instalados.
    cd NomadaX
    ```
 
-2. Ejecuta todos los servicios:
+2. Ejecuta todos los servicios: (en windows asegurarse de tener Docker Desktop abierto)
 
    ```bash
    docker-compose up --build
@@ -58,7 +62,7 @@ Asegúrate de tener Docker y Docker Compose instalados.
 
 3. Accedé a la app:
 
-   - Frontend (React): [http://localhost:5173](http://localhost:5173)
+   - Frontend (React): [http://localhost:3000](http://localhost:3000)
    - Backend (Spring Boot): [http://localhost:8080](http://localhost:8080)
    - Base de datos MySQL corriendo en el puerto `3306`.
 
