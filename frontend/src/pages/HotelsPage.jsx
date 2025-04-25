@@ -17,6 +17,7 @@ export const HotelsPage = () => {
             .then(data => {
                 setHotels(data.content);     //hoteles de esa pagina
                 setTotalPaginas(data.totalPages)
+                window.scrollTo(0, 0); // vuelve arriba
             })
             .catch((error) => console.error('Error consultando los hoteles'));
     }, [page]) 
