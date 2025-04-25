@@ -1,11 +1,17 @@
-# Build stage
-FROM node:20-alpine as build
-WORKDIR /app
-COPY . .
-RUN npm install && npm run build
+# Usa una imagen base de Node.js
+FROM node:16
 
-# Production stage (serve with nginx)
-FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Establece el directorio de trabajo
+WORKDIR /app
+
+# Copia los archivos del proyecto React
+COPY . .
+
+# Instala las dependencias de React
+RUN npm install
+
+# Expón el puerto 3000
+EXPOSE 3000
+
+# Ejecuta la aplicación React
+CMD ["npm", "start"]

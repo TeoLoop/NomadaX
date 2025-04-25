@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+  # MySQL Service
   mysql:
     image: mysql:8.0
     container_name: nomadax-mysql
@@ -15,6 +16,33 @@ services:
     ports:
       - "3306:3306"
     command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+
+  # Backend Service (Spring Boot)
+  backend:
+    build:
+      context: ./backend  # Asumiendo que tienes un directorio ./backend con el Dockerfile de tu backend
+    container_name: nomadax-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/nomadax  # Conexión a la base de datos MySQL
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8080:8080"  # Exponer el backend en el puerto 8080
+    depends_on:
+      - mysql  # El backend depende de MySQL, por lo que arranca después de él
+    restart: unless-stopped
+
+  # Frontend Service (React)
+  frontend:
+    build:
+      context: ./frontend  # Asumiendo que tienes un directorio ./frontend con el Dockerfile de tu frontend
+    container_name: nomadax-frontend
+    ports:
+      - "3000:3000"  # Exponer el frontend en el puerto 3000
+    depends_on:
+      - backend  # El frontend depende de que el backend esté disponible
     restart: unless-stopped
 
 volumes:
