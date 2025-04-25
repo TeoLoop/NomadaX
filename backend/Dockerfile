@@ -1,14 +1,18 @@
 # Usa una imagen base de OpenJDK
 FROM openjdk:17-jdk-slim
 
-# Copia el archivo JAR de tu proyecto Spring Boot (ajusta el nombre del archivo)
-COPY target/nomadax-backend.jar /app/nomadax-backend.jar
+# Instala Maven en el contenedor
+RUN apt-get update && apt-get install -y maven
 
-# Define el directorio de trabajo
+# Copia todo el proyecto dentro del contenedor
 WORKDIR /app
+COPY . .
 
-# Expón el puerto 8080
+# Compila el proyecto y genera el archivo JAR
+RUN mvn clean package
+
+# Exponer el puerto 8080
 EXPOSE 8080
 
-# Comando para ejecutar la aplicación Spring Boot
-ENTRYPOINT ["java", "-jar", "nomadax-backend.jar"]
+# Ejecutar la aplicación Spring Boot
+ENTRYPOINT ["java", "-jar", "target/nomadax-backend.jar"]
