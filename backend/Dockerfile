@@ -1,11 +1,14 @@
 # Etapa 1: Construcción del archivo JAR con Maven
-FROM maven:3.8.6 AS build
+FROM maven:3.8.6-openjdk-17 AS build
 
 # Establecer el directorio de trabajo en el contenedor
 WORKDIR /app
 
 # Copiar el código fuente al contenedor
 COPY . .
+
+# Convertir archivos a formato Unix (si es necesario)
+RUN find . -type f -name "*.properties" -exec dos2unix {} \;
 
 # Ejecutar Maven para compilar el proyecto y empaquetarlo en un archivo JAR
 RUN mvn clean package -DskipTests
