@@ -97,7 +97,8 @@ const AdminDashboard = () => {
                 <table>
                     <thead>
                         <tr>
-                            <th>Hotel</th>
+                            <th>ID</th>
+                            <th>Nombre</th>
                             <th>Ubicación</th>
                             <th>Precio</th>
                             <th>Valoración</th>
@@ -107,6 +108,7 @@ const AdminDashboard = () => {
                     <tbody>
                         {hotels.map((hotel) => (
                             <tr key={hotel.id}>
+                                <td>{hotel.id}</td>
                                 <td className="hotel-info">
                                     {hotel.images?.[0]?.url && (
                                         <img src={hotel.images[0].url} alt={hotel.name} className="hotel-image" />
@@ -146,8 +148,8 @@ const AdminDashboard = () => {
             </div>
 
             <div className="mobile-warning" >
-                    El panel de administración no está disponible en dispositivos móviles. Por favor, accede desde un equipo de escritorio.
-            </div>    
+                El panel de administración no está disponible en dispositivos móviles. Por favor, accede desde un equipo de escritorio.
+            </div>
         </div>
     );
 };
