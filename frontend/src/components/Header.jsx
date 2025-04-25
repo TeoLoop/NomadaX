@@ -25,7 +25,7 @@ const Header = () => {
             <span className="navbar-logo-text">NomadaX</span>
           </Link>
 
-          {/* Botón de menú hamburguesa para móvil */}
+          {/* Botón de menú hamburguesa*/}
           <div className="navbar-hamburger" onClick={toggleMenu}>
             <span className="hamburger-icon"></span>
             <span className="hamburger-icon"></span>

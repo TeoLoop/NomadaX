@@ -1,9 +1,12 @@
 const BASE_URL = 'http://localhost:8080';
 
+//GET HOTELES
 export const fetchHotels = () => {
   return fetch(`${BASE_URL}/hotels`).then(res => res.json());
 };
 
+
+//POST PARA HOTEL
 export const addHotel = (hotel) => {
   return fetch(`${BASE_URL}/hotels`, {
     method: 'POST',
@@ -28,6 +31,8 @@ export const deleteHotel = (id) => {
   });
 };
 
+
+//PUT PARA ACTUALIZAR HOTEL
 export const updateHotel = (updatedHotel) => {
   console.log("Mandando el siguiente hotel a actualizar:", updatedHotel); 
   console.log("/*******************************/");
@@ -52,6 +57,7 @@ export const updateHotel = (updatedHotel) => {
 };
 
 
+//GET PARA RECOMENDACIONES
 export const fetchRandomHotels = async () => {
     const response = await fetch(`${BASE_URL}/hotels/random`);
     if (!response.ok) {
@@ -60,6 +66,7 @@ export const fetchRandomHotels = async () => {
     return await response.json();
 };
 
+//GET PARA PAGINA
 export const fetchHotelsPageables = async(page = 0, size = 10) =>{
   const response = await fetch(`${BASE_URL}/hotels/hoteles?page=${page}&size+${size}`);
 
@@ -70,7 +77,7 @@ export const fetchHotelsPageables = async(page = 0, size = 10) =>{
   return await response.json();
 }
 
-
+//GET POR ID
 export const fetchById = async (id) => {
   try {
     const response = await fetch(`${BASE_URL}/hotels/${id}`);

@@ -36,7 +36,6 @@ body {
   width: 100%;
 }
 
-/* Estructura de Layout Principal */
 .app-container {
   display: flex;
   flex-direction: column;
@@ -44,5 +43,5 @@ body {
 }
 
 .main-content {
-  flex: 1; /* Empuja el footer al fondo de la página */
+  flex: 1;
 }

@@ -37,7 +37,6 @@ const AdminDashboard = () => {
 
         let parsedValue = value;
 
-        // Si es el rating, convertir coma a punto y limitar entre 1 y 5
         if (name === "rating") {
             parsedValue = parseFloat(value.replace(",", "."));
             if (parsedValue < 1) parsedValue = 1;

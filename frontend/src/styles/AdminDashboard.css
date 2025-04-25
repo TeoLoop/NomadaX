@@ -155,7 +155,6 @@ table td button:hover {
     background-color: #d32f2f;
 }
 
-/* Fondo semitransparente que cubre toda la pantalla */
 .modal-overlay {
     position: fixed;
     top: 0;

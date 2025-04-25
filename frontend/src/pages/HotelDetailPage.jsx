@@ -73,7 +73,6 @@ const HotelDetailPage = () => {
         ))}
       </div>
 
-      {/* MODAL DE TODAS LAS IMÁGENES */}
       {isModalOpen && (
         <div className="modal-gallery" onClick={handleCloseGallery}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>

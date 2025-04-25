@@ -19,7 +19,7 @@ export const HotelsPage = () => {
                 setTotalPaginas(data.totalPages)
             })
             .catch((error) => console.error('Error consultando los hoteles'));
-    }, [page])   // se vuelve a ejecutar cuando cambia la pagina
+    }, [page]) 
 
     const handleViewDetails = (hotelId) => {
         navigate(`/hotel/${hotelId}`);
