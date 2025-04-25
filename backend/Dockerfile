@@ -1,26 +1,26 @@
-# Usa una imagen base de OpenJDK
-FROM openjdk:17-jdk-slim
+# Etapa 1: Construcción del archivo JAR con Maven
+FROM maven:3.8.6-openjdk-17-slim AS build
 
-# Establecer el directorio de trabajo dentro del contenedor
+# Establecer el directorio de trabajo en el contenedor
 WORKDIR /app
 
-# Copiar los archivos del proyecto al contenedor
+# Copiar el código fuente al contenedor
 COPY . .
 
-# Instalamos el paquete `dos2unix` para manejar problemas de codificación de archivos de texto
-RUN apt-get update && apt-get install -y dos2unix
+# Ejecutar Maven para compilar el proyecto y empaquetarlo en un archivo JAR
+RUN mvn clean package -DskipTests
 
-# Convertir todos los archivos .properties a formato UNIX (para evitar problemas de saltos de línea)
-RUN find . -type f -name "*.properties" -exec dos2unix {} \;
+# Etapa 2: Imagen final para ejecutar la aplicación
+FROM openjdk:17-jdk-slim
 
-# Ejecutar Maven para empaquetar la aplicación
-RUN ./mvnw clean package -DskipTests
+# Establecer el directorio de trabajo en el contenedor
+WORKDIR /app
 
-# Copiar el archivo JAR generado en el contenedor
-COPY target/nomadax-backend.jar /app/nomadax-backend.jar
+# Copiar el archivo JAR desde la etapa de construcción
+COPY --from=build /app/target/nomadax-backend.jar /app/nomadax-backend.jar
 
-# Exponer el puerto donde se ejecuta el backend
+# Exponer el puerto en el que la aplicación escuchará
 EXPOSE 8080
 
-# Definir el comando para ejecutar la aplicación Spring Boot
+# Ejecutar el archivo JAR de Spring Boot
 ENTRYPOINT ["java", "-jar", "nomadax-backend.jar"]
