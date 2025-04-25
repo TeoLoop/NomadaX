@@ -3,6 +3,9 @@ package com.nomadax.controller;
 import com.nomadax.entity.Hotel;
 import com.nomadax.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -59,6 +62,14 @@ public class HotelController {
         }
         Hotel updatedHotel = hotelService.update(hotel);  // Aquí se usa el hotel completo con el id en el cuerpo
         return ResponseEntity.ok(updatedHotel);
+    }
+
+    @GetMapping("/hoteles")
+    public ResponseEntity<Page<Hotel>> getHotels(@RequestParam(defaultValue = "0") int page,
+                                                 @RequestParam (defaultValue = "10") int size){ //pasamos nro de pagina y nro de hoteles
+        Pageable pageable = PageRequest.of(page,size);
+        Page<Hotel> hotels = hotelService.hotelsPageables(pageable);
+        return ResponseEntity.ok(hotels);
     }
 
 }

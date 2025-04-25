@@ -101,6 +101,46 @@
     background-color: #0056b3;
 }
 
+/* Contenedor de la paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 1rem;
+    margin-bottom: 15px;
+  }
+  
+  /* Estilos generales para los botones */
+  .pagination button {
+    padding: 10px 16px; 
+    border-radius: 50%; 
+    background-color: white;
+    color: var(--color-text);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px; 
+    height: 30px; 
+    border: none;
+    transition: all .3s ease;
+  }
+  
+  .pagination button:hover {
+    background-color: #dfdfdf;
+    color: var(--color-text);
+  }
+  
+  .pagination button.active {
+    background-color: var(--color-primary-light);
+    color: white;
+    transform: scale(1.1);
+  }
+  
+  
+
 /* Responsividad: para dispositivos más pequeños */
 @media (max-width: 768px) {
     .hotels-grid {

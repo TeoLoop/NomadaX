@@ -5,6 +5,8 @@ import com.nomadax.entity.Image;
 import com.nomadax.exception.DuplicateHotelNameException;
 import com.nomadax.repository.IHotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -113,6 +115,12 @@ public class HotelService {
         }
 
         return randomHotels;
+    }
+
+    //hacer servicio para las paginas del hotel osea que te devuelva 10 hoteles
+    //Page es de Spring Data que inclie Pageable PageRequest sort Slice
+    public Page<Hotel> hotelsPageables(Pageable pageable){
+        return hotelRepository.findAll(pageable);
     }
 
 }

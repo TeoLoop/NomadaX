@@ -14,8 +14,8 @@ function App() {
       <Routes>  {/* Usa Routes para gestionar las rutas */}
         <Route path="/" element={<HomePage />} />
         <Route path="/hotel/:id" element={<HotelDetailPage />} />
-        <Route path="/hotels" element={<HotelsPage />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/hoteles" element={<HotelsPage />} />
+        <Route path="/administracion" element={<AdminDashboard />} />
       </Routes>
       <Footer />
     </>

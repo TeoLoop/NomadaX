@@ -68,51 +68,85 @@
 .modal-gallery {
   position: fixed;
   inset: 0;
-  background-color: rgba(15, 15, 15, 0.85);
+  background-color: rgba(0, 0, 0, 0.85);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  padding: 20px;
 }
 
 .modal-content {
-  background: white;
-  padding: 20px;
-  max-width: 90vw;
-  max-height: 90vh;
-  overflow-y: auto;
-  border-radius: 12px;
+  background: #fff;
+  padding: 0;
+  border-radius: 16px;
+  max-width: 900px;
+  width: 100%;
   position: relative;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
 .modal-images {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 12px;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  width: 100%;
+  height: 100%;
 }
 
 .modal-images img {
   width: 100%;
-  height: 180px;
+  height: 550px;
   object-fit: cover;
-  border-radius: 8px;
+  flex-shrink: 0;
+  scroll-snap-align: center;
+  border-radius: 16px 16px 0 0;
 }
 
-.hotel-description{
-  font-size: 25px;
-  font-weight: 550;
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #222;
+  font-size: 28px;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  z-index: 10;
+}
+
+.carousel-button:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.carousel-button.left {
+  left: 20px;
+}
+
+.carousel-button.right {
+  right: 20px;
 }
 
 .close-button {
   position: absolute;
-  top: 10px;
-  right: 14px;
-  font-size: 24px;
-  background: transparent;
+  top: 16px;
+  right: 16px;
+  background: white;
   border: none;
-  color: #222;
+  font-size: 24px;
+  padding: 4px 10px;
+  border-radius: 8px;
   cursor: pointer;
+  z-index: 15;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
+
 
 .back-button{
   display: flex;
@@ -124,6 +158,7 @@
   border-radius: 3px;
   letter-spacing: 1px;
   transition: all 0.2s linear;
+  margin-left: auto;
   cursor: pointer;
   border: none;
   background: #e9e9e9;
@@ -212,4 +247,18 @@ select {
 
 .reserve-btn:hover {
   background-color: var(--color-text-muted);
+}
+
+
+@media (max-width: 768px) {
+  .hotel-images-grid {
+    grid-template-areas:
+      "img1"
+      "img2"
+      "img3"
+      "img4"
+      "img5";
+    grid-template-columns: 1fr;
+    grid-auto-rows: 200px;
+  }
 }

@@ -30,9 +30,9 @@ const Header = () => {
 
           {/* Menú */}
           <ul className={`navbar-menu ${isMenuOpen ? 'open' : ''}`}>
-            <li><Link to="/home" className="navbar-item">Inicio</Link></li>
-            <li><Link to="/hotels" className="navbar-item">Hoteles</Link></li>
-            <li><Link to="/admin" className="navbar-item">Admin</Link></li>
+            <li><Link to="/" className="navbar-item">Inicio</Link></li>
+            <li><Link to="/hoteles" className="navbar-item">Hoteles</Link></li>
+            <li><Link to="/administracion" className="navbar-item">Admin</Link></li>
 
             {/* Contenedor de Iniciar sesión - Register*/}
             <li className="auth-buttons">

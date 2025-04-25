@@ -1,9 +1,20 @@
 import "../styles/HotelDetailPage.css";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { TbArrowBarLeft } from "react-icons/tb";
 
 const HotelDetailPage = () => {
+
+  const carouselRef = useRef();
+
+  const scrollLeft = () => {
+    carouselRef.current.scrollBy({ left: -600, behavior: 'smooth' });
+  };
+
+  const scrollRight = () => {
+    carouselRef.current.scrollBy({ left: 600, behavior: 'smooth' });
+  };
+
   const { id } = useParams();
   const [hotel, setHotel] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -61,11 +72,15 @@ const HotelDetailPage = () => {
         <div className="modal-gallery" onClick={handleCloseGallery}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="close-button" onClick={handleCloseGallery}>✕</button>
-            <div className="modal-images">
+            <button className="carousel-button left" onClick={scrollLeft}>‹</button>
+
+            <div className="modal-images" ref={carouselRef}>
               {hotel.images.map((img) => (
                 <img key={img.id} src={img.url} alt={img.title} />
               ))}
             </div>
+
+            <button className="carousel-button right" onClick={scrollRight}>›</button>
           </div>
         </div>
       )}
@@ -77,18 +92,18 @@ const HotelDetailPage = () => {
           <p className="hotel-description">{hotel.description}</p>
           <p className="capacity">Capacidad: Hasta {hotel.capacity} personas</p>
         </div>
-        <div class="booking-card">
-          <div class="price">${hotel.pricePerNight}<span>/ noche</span></div>
+        <div className="booking-card">
+          <div className="price">${hotel.pricePerNight}<span>/ noche</span></div>
 
-          <div class="date-section">
+          <div className="date-section">
             <label>Llegada</label>
             <input type="date" />
             <label>Salida</label>
             <input type="date" />
           </div>
 
-          <div class="guests-section">
-            <label for="guests">Huéspedes</label>
+          <div className="guests-section">
+            <label htmlFor="guests">Huéspedes</label>
             <select id="guests">
               <option>1 huésped</option>
               <option>2 huéspedes</option>
@@ -97,7 +112,7 @@ const HotelDetailPage = () => {
             </select>
           </div>
 
-          <button class="reserve-btn">Reservar</button>
+          <button className="reserve-btn">Reservar</button>
         </div>
       </div>
     </div>

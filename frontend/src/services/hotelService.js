@@ -49,3 +49,13 @@ export const fetchRandomHotels = async () => {
     }
     return await response.json();
 };
+
+export const fetchHotelsPageables = async(page = 0, size = 10) =>{
+  const response = await fetch(`${BASE_URL}/hotels/hoteles?page=${page}&size+${size}`);
+
+  if (!response.ok) {
+    throw new Error("Error al obtener los hoteles paginados");  
+  }
+
+  return await response.json();
+}
