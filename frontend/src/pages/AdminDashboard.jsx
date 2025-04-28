@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/AdminDashboard.css';
 import { FaEdit, FaTrash, FaPlus, FaStar } from 'react-icons/fa';
-import { fetchHotels, addHotel, deleteHotel, updateHotel } from '../services/hotelService';
+import { fetchHotelsAdmin, addHotel, deleteHotel, updateHotel } from '../services/hotelService';
 import AddHotelModal from '../components/AddHotelModal';
 import EditHotelModal from '../components/EditHotelModal';
 import Swal from 'sweetalert2';
@@ -14,7 +14,7 @@ const AdminDashboard = () => {
     const [form, setForm] = useState({});
 
     useEffect(() => {
-        fetchHotels().then(setHotels);
+        fetchHotelsAdmin().then(setHotels);
     }, []);
 
     const openAddModal = () => {

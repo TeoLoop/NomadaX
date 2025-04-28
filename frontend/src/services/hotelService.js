@@ -5,6 +5,11 @@ export const fetchHotels = () => {
   return fetch(`${BASE_URL}/hotels`).then(res => res.json());
 };
 
+//GET HOTELES ADMIN
+export const fetchHotelsAdmin = () => {
+  return fetch(`${BASE_URL}/admin`).then(res => res.json());
+};
+
 
 //POST PARA HOTEL
 export const addHotel = (hotel) => {

@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import AdminDashboard from './pages/AdminDashboard';
 import { HotelsPage } from './pages/HotelsPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/hotel/:id" element={<HotelDetailPage />} />
           <Route path="/hoteles" element={<HotelsPage />} />
           <Route path="/administracion" element={<AdminDashboard />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </main>
       <Footer />
