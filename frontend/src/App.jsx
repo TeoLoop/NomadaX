@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import AdminDashboard from './pages/AdminDashboard';
 import { HotelsPage } from './pages/HotelsPage';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/hoteles" element={<HotelsPage />} />
           <Route path="/administracion" element={<AdminDashboard />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </main>
       <Footer />
