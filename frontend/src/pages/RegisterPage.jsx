@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
-import { useForm } from '../hooks/useForm'
-import Image from '../assets/Logo-text.png'
+import React, { useEffect, useState } from 'react';
+import { useForm } from '../hooks/useForm';
+import Image from '../assets/Logo-text.png';
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import '../styles/RegisterPage.css';
+import { register } from '../services/authService';
 
 const RegisterPage = () => {
-
   const [showPassword, setShowPassword] = useState(false);
 
   const initialForm = {
@@ -12,50 +13,61 @@ const RegisterPage = () => {
     lastname: '',
     email: '',
     password: ''
+  };
+
+  //Estado para el formulario
+  const [form, setForm] = useState(initialForm);
+
+  const handleChange = (e) => {
+    //Actualizar el estado del formulario
+    setForm({...form, [e.target.name]: e.target.value});
+  };
+
+  //Funcion para el submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try{
+      await register(form);
+      console.log("Registro existoso");
+      console.log(form);
+      setForm(initialForm);
+    }catch(error){
+      console.log('Error al registrar el usuario', error);
+    }
   }
-
-  const { formState, name, lastname, email, password, onInputChange } = useForm(initialForm)
-
-  const onSubmit = (event) => {
-    event.preventDefault()
-    console.log(formState)
-  }
-
 
   return (
-    <div className="login-main">
-      <div className="login-left">
-        <img src={Image} alt="" />
-      </div>
-      <div className="login-right">
-        <div className="login-right-container">
-          <div className="login-logo">
-          </div>
-          <div className="login-center">
-            <h2>Bienvenido de nuevo!</h2>
+    <div className="register-main">
+      <div className="register-left">
+        <div className="register-left-container">
+          <div className="register-logo"></div>
+          <div className="register-center">
+            <h2>Registrate</h2>
             <p>Por favor, ingrese sus datos</p>
-            <form onSubmit={onSubmit}>
-              <input type="text"
+            <form>
+              <input
+                type="text"
                 placeholder="Nombre"
                 id="name"
                 name="name"
-                value={name}
-                onChange={onInputChange}
+                value={form.name}
+                onChange={handleChange}
               />
-              <input type="text"
+              <input
+                type="text"
                 placeholder="Apellido"
                 id="lastname"
                 name="lastname"
-                value={lastname}
-                onChange={onInputChange}
+                value={form.lastname}
+                onChange={handleChange}
               />
               <input
                 type="email"
                 placeholder="Email"
                 id="email"
                 name="email"
-                value={email}
-                onChange={onInputChange}
+                value={form.email}
+                onChange={handleChange}
               />
               <div className="pass-input-div">
                 <input
@@ -63,36 +75,34 @@ const RegisterPage = () => {
                   placeholder="Password"
                   id="password"
                   name="password"
-                  value={password}
-                  onChange={onInputChange}
+                  value={form.password}
+                  onChange={handleChange}
                 />
-                {showPassword ? <FaEyeSlash onClick={() => { setShowPassword(!showPassword) }} /> : <FaEye onClick={() => { setShowPassword(!showPassword) }} />}
+                {showPassword ? (
+                  <FaEyeSlash onClick={() => setShowPassword(!showPassword)} />
+                ) : (
+                  <FaEye onClick={() => setShowPassword(!showPassword)} />
+                )}
               </div>
 
-              <div className="login-center-options">
-                <div className="remember-div">
-                  <input type="checkbox" id="remember-checkbox" />
-                  <label htmlFor="remember-checkbox">
-                    Recordarme
-                  </label>
-                </div>
-                <a href="#" className="forgot-pass-link">
-                  Olvidaste tu contraseña?
-                </a>
-              </div>
-              <div className="login-center-buttons">
-                <button type="submit">Iniciar sesión</button>
+              <div className="register-center-buttons">
+                <button type="submit" onClick={handleSubmit}>Registrarse</button>
               </div>
             </form>
           </div>
 
-          <p className="login-bottom-p">
-            No tienes una cuenta? <a href="/register">Regístrate</a>
+          <p className="register-bottom-p">
+            ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>
           </p>
         </div>
       </div>
-    </div>
-  )
-}
 
-export default RegisterPage
+      {/* Ahora la imagen */}
+      <div className="register-right">
+        <img src={Image} alt="Logo" />
+      </div>
+    </div>
+  );
+};
+
+export default RegisterPage;

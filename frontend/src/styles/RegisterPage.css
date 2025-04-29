@@ -1,69 +1,61 @@
-
-.login-main{
+.register-main {
     display: flex;
   }
   
-  .login-left{
+  .register-left {
     flex-grow: 1;
     height: 100vh;
-    background-color: #E9E9E9;
-  
     display: flex;
     justify-content: center;
     align-items: center;
   }
   
-  .login-left img{
+  .register-right {
+    flex-grow: 1;
+    height: 100vh;
+    background-color: #E9E9E9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .register-right img {
     width: 400px;
   }
   
-  .login-right{
-  
-    height: 100vh;
-  
-    flex-grow: 1;
-  
-  
-  }
-  
-  .login-right-container{
+  .register-left-container {
     height: 100%;
     width: 80%;
     margin: 0 auto;
-  
     display: flex;
     flex-direction: column;
     justify-content: center;
-  
   }
   
-  .login-right form{
+  .register-left form {
     display: flex;
     flex-direction: column;
   }
   
-  .login-logo{
+  .register-logo {
     align-self: center;
     padding-top: 50px;
   }
   
-  .login-center{
+  .register-center {
     margin: auto 0;
-  }
-  
-  .login-logo img{
-    width: 50px;
-  }
-  
-  .login-center h2{
-    font-size: 2rem;
-  }
-  
-  .login-center{
     text-align: center;
   }
   
-  .login-center p{
+  .register-logo img {
+    width: 50px;
+  }
+  
+  .register-center h2 {
+    font-size: 2rem;
+  }
+  
+  .register-center p {
     font-weight: 400;
     font-size: 1rem;
     margin-bottom: 40px;
@@ -71,8 +63,7 @@
   
   form input[type='email'],
   form input[type='password'],
-  form input[type='text']
-   {
+  form input[type='text'] {
     width: 100%;
     padding: 16px;
     margin-bottom: 16px;
@@ -82,69 +73,66 @@
     box-sizing: border-box;
   }
   
-  .pass-input-div{
+  .pass-input-div {
     position: relative;
   }
-  
   
   form button[type='submit'] {
     width: 100%;
     padding: 16px;
     border: none;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
     border-radius: 30px;
+    font-size: 14px;
     font-weight: 600;
+    cursor: pointer;
   }
   
-  
-  .login-center-options{
+  .register-center-options {
     display: flex;
     justify-content: space-between;
   }
   
-  .remember-div{
-    display:flex;
+  .remember-div {
+    display: flex;
     align-items: center;
     column-gap: 5px;
   }
   
-  .remember-div label{
+  .remember-div label {
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
     margin-top: 2px;
   }
   
-  .forgot-pass-link{
+  .forgot-pass-link {
     text-decoration: none;
     font-size: 1rem;
   }
   
-  .forgot-pass-link:hover{
+  .forgot-pass-link:hover {
     text-decoration: underline;
   }
   
-  .login-center-buttons{
+  .register-center-buttons {
     margin-top: 40px;
     display: flex;
     flex-direction: column;
     row-gap: 10px;
   }
   
-  .login-center-buttons button:nth-child(1){
+  .register-center-buttons button:nth-child(1) {
     background-color: black;
     color: white;
     border: 3px solid black;
   }
   
-  .login-center-buttons button:nth-child(1):hover{
+  .register-center-buttons button:nth-child(1):hover {
     color: #333;
     background-color: white;
   }
   
-  .login-center-buttons button:nth-child(2){
+  .register-center-buttons button:nth-child(2) {
     background-color: #F0F0F0;
     display: flex;
     justify-content: center;
@@ -152,25 +140,26 @@
     column-gap: 10px;
   }
   
-  .login-center-buttons button:nth-child(2) img{
+  .register-center-buttons button:nth-child(2) img {
     width: 30px;
   }
   
-  .login-center-buttons button:nth-child(2):hover{
+  .register-center-buttons button:nth-child(2):hover {
     background-color: #c4c4c457;
   }
   
-  .login-bottom-p{
+  .register-bottom-p {
     text-align: center;
     font-size: 1rem;
     padding-bottom: 40px;
   }
   
-  .login-bottom-p a{
+  .register-bottom-p a {
     text-decoration: none;
     font-weight: 600;
   }
   
-  .login-bottom-p a:hover{
+  .register-bottom-p a:hover {
     text-decoration: underline;
   }
+  
