@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { FaEye,FaEyeSlash } from "react-icons/fa6";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import "../styles/LoginPage.css";
 import Image from "../assets/Logo-text.png";
-import { useForm } from "../hooks/useForm";
+import { login } from "../services/authService";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -13,11 +13,21 @@ const Login = () => {
         password: ''
     }
 
-    const { formState, email, password, onInputChange } = useForm(initialForm)
+    const [formState, setFormState] = useState(initialForm);
 
-    const onSubmit = (event) => {
-        event.preventDefault()
-        console.log(formState)
+    const handleChange = (e) => {
+        setFormState({ ...formState, [e.target.name]: e.target.value });
+    }
+
+    const HandleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await login(formState);
+            console.log("Login exitoso");
+            setFormState(initialForm);
+        } catch (error) {
+            console.log("Error al iniciar sesión", error);
+        }
     }
 
 
@@ -34,23 +44,23 @@ const Login = () => {
                         <h2>Bienvenido de nuevo!</h2>
                         <p>Por favor, ingrese sus datos</p>
                         <form onSubmit={onSubmit}>
-                            <input 
-                            type="email" 
-                            placeholder="Email"
-                            id="email"
-                            name="email"
-                            value={email}
-                            onChange={onInputChange}
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                id="email"
+                                name="email"
+                                value={formState.email}
+                                onChange={handleChange}
                             />
                             <div className="pass-input-div">
-                                <input 
-                                type={showPassword ? "text" : "password"} 
-                                placeholder="Password"
-                                id="password"
-                                name="password"
-                                value={password}
-                                onChange={onInputChange}
-                                 />
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="Password"
+                                    id="password"
+                                    name="password"
+                                    value={formState.password}
+                                    onChange={handleChange}
+                                />
                                 {showPassword ? <FaEyeSlash onClick={() => { setShowPassword(!showPassword) }} /> : <FaEye onClick={() => { setShowPassword(!showPassword) }} />}
                             </div>
 
@@ -66,7 +76,7 @@ const Login = () => {
                                 </a>
                             </div>
                             <div className="login-center-buttons">
-                                <button type="submit">Iniciar sesión</button>
+                                <button type="submit" onClick={HandleSubmit}>Iniciar sesión</button>
                             </div>
                         </form>
                     </div>
