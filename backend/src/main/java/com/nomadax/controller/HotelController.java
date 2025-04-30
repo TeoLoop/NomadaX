@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,9 +39,9 @@ public class HotelController {
 
     }
 
-    //Obtener todos
+    //Obtener todos para publico
     @GetMapping
-    public ResponseEntity<List<Hotel>> update(){
+    public ResponseEntity<List<Hotel>> findAll(){
         List<Hotel> hotels =  hotelService.findAll();
         return ResponseEntity.ok(hotels);
     }
