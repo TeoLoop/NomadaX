@@ -8,6 +8,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import { HotelsPage } from './pages/HotelsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import { HotelsCategoryPage } from './pages/HotelsCategoryPage';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/administracion" element={<AdminDashboard />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/categorias/:category" element={<HotelsCategoryPage />} />
         </Routes>
       </main>
       <Footer />

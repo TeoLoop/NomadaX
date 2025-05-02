@@ -5,11 +5,6 @@ export const fetchHotels = () => {
   return fetch(`${BASE_URL}/hotels`).then(res => res.json());
 };
 
-//GET HOTELES ADMIN
-export const fetchHotelsAdmin = () => {
-  return fetch(`${BASE_URL}/admin`).then(res => res.json());
-};
-
 
 //POST PARA HOTEL
 export const addHotel = (hotel) => {
@@ -86,6 +81,18 @@ export const fetchHotelsPageables = async(page = 0, size = 10) =>{
 export const fetchById = async (id) => {
   try {
     const response = await fetch(`${BASE_URL}/hotels/${id}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching hotel details:', error);
+    throw error;
+  }
+};
+
+//GET POR CATEGORIA
+export const fetchHotelsCategory = async(category) => {
+  try {
+    const response = await fetch(`${BASE_URL}/hotels/categoria/${category}`);
     const data = await response.json();
     return data;
   } catch (error) {

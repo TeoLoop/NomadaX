@@ -7,7 +7,7 @@ export const login = (user) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user),
     }).then(res => {
-      if(!res.ok){
+      if(!res.ok){ //Si no es ok, es porque el usuario o contraseña son incorrectos
   
         if(res.status === 400){
           throw new Error("Usuario o contraseña incorrectos");
@@ -17,7 +17,7 @@ export const login = (user) => {
       }
       return res.json();
     })
-    };
+};
 
 //REGISTER
 export const register = (user) => {

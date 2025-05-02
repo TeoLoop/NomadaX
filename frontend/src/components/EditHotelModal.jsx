@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form}) => {
+const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [image, setImage] = useState("");
   const [imageTitle, setImageTitle] = useState("");
 
-  const handleAddImage = () =>{
+  const handleAddImage = () => {
     //preguntso que no esten vacias
-    if(!image || !imageTitle) return;
+    if (!image || !imageTitle) return;
 
     //creo el objeto
     const nuevaImagen = {
@@ -17,7 +17,7 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form}) => {
 
     //agrego sin borrar las anteriores
     onChange({
-      target:{
+      target: {
         name: "images",
         value: [...form.images, nuevaImagen]
       }
@@ -53,6 +53,19 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form}) => {
         <input name="country" placeholder="País" value={form.country || ""} onChange={onChange} />
         <input name="pricePerNight" placeholder="Precio por noche" type="number" value={form.pricePerNight || ""} onChange={onChange} />
         <input name="capacity" placeholder="Capacidad" type="number" value={form.capacity || ""} onChange={onChange} />
+        <select
+          name="category"
+          value={form.category || ""}
+          onChange={onChange}
+          className="category-dropdown"
+        >
+          <option value="" disabled>Selecciona una categoría</option>
+          <option value="Hoteles">Hoteles</option>
+          <option value="Apartamentos">Apartamentos</option>
+          <option value="Casas">Casas</option>
+          <option value="Bungalows">Bungalows</option>
+          <option value="Lugares de lujo">Lugares de lujo</option>
+        </select>
         <input
           name="rating"
           type="number"
@@ -63,11 +76,11 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form}) => {
           onChange={onChange}
         />
         <input type='text'
-        placeholder='Agregue el Url de la imagen' value={image} 
-        onChange={(e) => setImage(e.target.value)} />
+          placeholder='Agregue el Url de la imagen' value={image}
+          onChange={(e) => setImage(e.target.value)} />
         <input type='text'
-        placeholder='Titulo de la imagen' value={imageTitle} 
-        onChange={(e) => setImageTitle(e.target.value)} />
+          placeholder='Titulo de la imagen' value={imageTitle}
+          onChange={(e) => setImageTitle(e.target.value)} />
 
         <button onClick={handleAddImage} className='add-image'>+ Añadir Imagen</button>
 

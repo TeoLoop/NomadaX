@@ -17,7 +17,7 @@ const HotelDetailPage = () => {
   };
 
   const scrollRight = () => {
-    carouselRef.current.scrollBy({ left: 600, behavior: 'smooth' });
+    carouselRef.current.scrollBy({ left: 600, behavior: 'smooth' }); 
   };
 
 
@@ -26,7 +26,7 @@ const HotelDetailPage = () => {
 
     const getHotelDetails = async () =>{
       const hotelData = await fetchById(id);           //llamo a la funcion
-      setHotel(hotelData);
+      setHotel(hotelData); 
     }
 
     getHotelDetails(); 

@@ -60,6 +60,19 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form}) => {
         <input name="pricePerNight" placeholder="Precio por noche" type="number" value={form.pricePerNight} onChange={onChange} />
         <input name="capacity" placeholder="Capacidad" type="number" value={form.capacity} onChange={onChange} />
         <input name="rating" placeholder="Valoración (1-5)" type="number" value={form.rating} onChange={handleRatingChange} min="1" max="5" />
+        <select
+          name="category"
+          value={form.category || ""}
+          onChange={onChange}
+          className="category-dropdown"
+        >
+          <option value="" disabled>Selecciona una categoría</option>
+          <option value="Hoteles">Hoteles</option>
+          <option value="Apartamentos">Apartamentos</option>
+          <option value="Casas">Casas</option>
+          <option value="Bungalows">Bungalows</option>
+          <option value="Lugares de lujo">Lugares de lujo</option>
+        </select>
         
         <input type='text'
           placeholder='Agregue el Url de las imagene' value={image}

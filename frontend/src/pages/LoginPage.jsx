@@ -6,6 +6,7 @@ import Image from "../assets/Logo-text.png";
 import { login } from "../services/authService";
 
 const Login = () => {
+    const navigate = useNavigate(); //Se utiliza para navegar entre las rutas
     const [showPassword, setShowPassword] = useState(false);
 
     const initialForm = {
@@ -21,9 +22,23 @@ const Login = () => {
 
     const HandleSubmit = async (e) => {
         e.preventDefault();
+
+        if(formState.email === '' || formState.password === ''){
+            alert("Por favor, ingrese sus datos");
+            return;
+        }
+
         try {
-            await login(formState);
+            const response = await login(formState); //Se llama a la función login del servicio authService y se guarda en la variable response
+
             console.log("Login exitoso");
+            const token = response.token;
+
+            localStorage.setItem("token", token);   //Se almacena el token en el localStorage
+            console.log("Token almacenado en localStorage:");
+
+            navigate("/");
+
             setFormState(initialForm);
         } catch (error) {
             console.log("Error al iniciar sesión", error);
@@ -43,7 +58,7 @@ const Login = () => {
                     <div className="login-center">
                         <h2>Bienvenido de nuevo!</h2>
                         <p>Por favor, ingrese sus datos</p>
-                        <form onSubmit={onSubmit}>
+                        <form>
                             <input
                                 type="email"
                                 placeholder="Email"
@@ -87,7 +102,10 @@ const Login = () => {
                 </div>
             </div>
         </div>
+
     );
 };
 
 export default Login;
+
+
