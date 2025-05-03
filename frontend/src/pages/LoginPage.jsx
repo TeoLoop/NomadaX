@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/LoginPage.css";
 import Image from "../assets/Logo-text.png";
 import { login } from "../services/authService";
+import { isAdmin } from "../services/userService";
 
 const Login = () => {
     const navigate = useNavigate(); //Se utiliza para navegar entre las rutas
@@ -35,7 +36,9 @@ const Login = () => {
             const token = response.token;
 
             localStorage.setItem("token", token);   //Se almacena el token en el localStorage
-            console.log("Token almacenado en localStorage:");
+            localStorage.setItem("email", formState.email); //Se almacena el email en el localStorage
+            isAdmin(localStorage.getItem("email"));
+            console.log("Token y email almacenado en localStorage:");
 
             navigate("/");
 

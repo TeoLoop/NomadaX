@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { User } from 'lucide-react';
 import '../styles/Header.css';
 import logo from "../assets/Logo96x96.png";
+import { isAdmin } from '../services/userService';
 
 const Header = () => {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -14,6 +16,20 @@ const Header = () => {
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
+ 
+
+  const clickAdmin = async () => {
+    const email = localStorage.getItem("email");
+    const esAdmin = await isAdmin(email); // espera la respuesta del backend
+  
+    if (esAdmin) {
+      navigate("/administracion");
+    } else {
+      alert("No tienes permisos para acceder");
+    }
+  };
+  
+
 
   return (
     <header>
@@ -36,7 +52,7 @@ const Header = () => {
           <ul className={`navbar-menu ${isMenuOpen ? 'open' : ''}`}>
             <li><Link to="/" className="navbar-item" onClick={closeMenu}>Inicio</Link></li>
             <li><Link to="/hoteles" className="navbar-item" onClick={closeMenu}>Hoteles</Link></li>
-            <li><Link to="/administracion" className="navbar-item" onClick={closeMenu}>Admin</Link></li>
+            <li><Link to="#" className="navbar-item" onClick={clickAdmin}>Admin</Link></li>
 
             {/* Contenedor de Iniciar sesión - Register*/}
             <li className="auth-buttons">
