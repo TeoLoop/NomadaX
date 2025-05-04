@@ -131,13 +131,114 @@ header {
   transition: transform 0.3s ease;
 }
 
+/* Menu desplegable Usuario */
+
+.action .profile {
+  position: relative;
+  background-color: aqua;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.action .profile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.action .menu {
+  position: absolute;
+  top: 120px;
+  right: 10px;
+  padding: 10px 20px;
+  background: #fff;
+  width: 200px;
+  box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  transition: 0.5s;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.action .menu.active {
+  top: 100px;
+  right: 10px;
+  visibility: visible;
+  opacity: 1;
+}
+
+.action .menu::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  right: 28px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  transform: rotate(45deg);
+}
+
+.action .menu h3 {
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  padding: 20px 0;
+  font-weight: 500;
+  color: #555;
+  line-height: 1.5em;
+}
+
+.action .menu h3 span {
+  font-size: 14px;
+  color: #cecece;
+  font-weight: 300;
+}
+
+.action .menu ul li {
+  list-style: none;
+  padding: 10px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+}
+
+.action .menu ul li .icon {
+  max-width: 20px;
+  margin-right: 10px;
+  opacity: 0.5;
+  transition: 0.5s;
+}
+
+.action .menu ul li:hover .icon {
+  opacity: 1;
+}
+
+.action .menu ul li a {
+  display: inline-block;
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  transition: 0.5s;
+}
+
+.action .menu ul li:hover a {
+  color: var(--color-primary-light);
+}
+
+.logout {
+  color: rgb(248, 82, 82);
+}
+
+
 @media (max-width: 768px) {
   .navbar-menu {
     display: flex;
     position: absolute;
     top: 60px;
     left: 0;
-    background-color: #fff;
+    background-color: #ebebeb;
     width: 100%;
     flex-direction: column;
     align-items: flex-start; 
@@ -156,8 +257,11 @@ header {
 
   .navbar-item {
     width: 100%; 
-    text-align: left; 
-    padding-left: 20px; 
+    text-align: left;  
+  }
+
+  .navbar-menu li{
+    padding-left: 20px;
   }
 
   .auth-buttons {
@@ -207,6 +311,40 @@ header {
   .register-message {
     font-size: 10px;
     margin-top: 15px;
+  }
+
+  /* Menu desplegable Usuario */
+
+  .action .menu {
+    position: absolute;
+    top: 200px;
+    left: 5px;
+    padding: 10px 20px;
+    background: #fff;
+    width: 200px;
+    box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    transition: 0.5s;
+    visibility: hidden;
+    opacity: 0;
+  }
+  
+  .action .menu.active {
+    top: 200px;
+    right: 10px;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .action .menu::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 28px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    transform: rotate(45deg);
   }
 }
 
