@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/AdminDashboard.css';
 import { FaEdit, FaTrash, FaPlus, FaStar } from 'react-icons/fa';
-import { fetchHotelsAdmin } from '../services/adminService'; 
+import { fetchHotelsAdmin } from '../services/adminService';
 import { addHotel, deleteHotel, updateHotel } from '../services/hotelService';
 import AddHotelModal from '../components/AddHotelModal';
 import EditHotelModal from '../components/EditHotelModal';
@@ -17,13 +17,13 @@ const AdminHotelDashboard = () => {
 
     useEffect(() => {
         fetchHotelsAdmin()
-        .then(data => setHotels(data));   
+            .then(data => setHotels(data));
     }, []);
 
     const openAddModal = () => {
         setForm({
             name: '', description: '', address: '', city: '', country: '',
-            pricePerNight: '', capacity: '', rating: '', images: [], categoy: ''
+            pricePerNight: '', capacity: '', rating: '', images: [], category: []
         });
         setAddModalOpen(true);
     };
@@ -36,6 +36,7 @@ const AdminHotelDashboard = () => {
 
     const handleChange = (e) => {
         if (!e?.target?.name) return;
+
         const { name, value } = e.target;
 
         let parsedValue = value;
@@ -46,6 +47,13 @@ const AdminHotelDashboard = () => {
             if (parsedValue > 5) parsedValue = 5;
         }
 
+        if (name === "category") {
+            setForm(prev => ({
+                ...prev,
+                category: value
+            }));
+        }
+
         setForm(prev => ({ ...prev, [name]: parsedValue }));
     };
 
@@ -54,18 +62,19 @@ const AdminHotelDashboard = () => {
     const handleAdd = async () => {
         try {
             const newHotel = await addHotel(form);
-            if(newHotel && newHotel.id){
-                setHotels([...hotels, newHotel]);
+            if (newHotel && newHotel.id) {
+                const updatedHotels = await fetchHotelsAdmin(); // actualiza lista completa
+                setHotels(updatedHotels);
                 setAddModalOpen(false);
-            }else{
+            } else {
                 alert("Error al agregar hotel. Intente nuevamente.");
             }
-            
+
         } catch (error) {
 
-            if(error.message.includes("ya existe")){
+            if (error.message.includes("ya existe")) {
                 alert("El nombre del hotel ya existe. Por favor, elige otro.");
-            }else{
+            } else {
                 alert("Ocurrió un error inesperado. Intente nuevamente.");
             }
         }
@@ -77,7 +86,8 @@ const AdminHotelDashboard = () => {
             console.log("No se pudo actualizar el hotel");
             return;
         }
-        setHotels(hotels.map(h => h.id === updated.id ? updated : h));
+        const updatedHotels = await fetchHotelsAdmin();
+        setHotels(updatedHotels);
         setEditModalOpen(false);
     };
 
@@ -102,7 +112,7 @@ const AdminHotelDashboard = () => {
 
     return (
         <div className="container">
-            
+
             <div className='admin-panel'>
                 <div className="admin-header">
                     <h1>Panel de Administración</h1>
@@ -134,7 +144,7 @@ const AdminHotelDashboard = () => {
                                     <span className="hotel-name">{hotel.name}</span>
                                 </td>
                                 <td>{hotel.city}, {hotel.country}</td>
-                                <td>{hotel.category}</td>
+                                <td>{hotel.category?.title || 'Sin categoría'}</td>
                                 <td>${hotel.pricePerNight}</td>
                                 <td>
                                     <FaStar style={{ color: 'rgb(234, 179, 8)', marginRight: '5px' }} />

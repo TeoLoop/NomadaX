@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/AdminDashboard.css';
+import { fetchCategories } from '../services/categoryService';
 
 const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [image, setImage] = useState("");
   const [imageTitle, setImageTitle] = useState("");
+  const [categories, setCategories] = useState([]);
 
   const handleAddImage = () => {
     //preguntso que no esten vacias
@@ -23,12 +25,16 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
         value: [...form.images, nuevaImagen]
       }
     })
-
     //limpio los campos
 
     setImage("");
     setImageTitle("");
   };
+
+  useEffect(() => {
+    fetchCategories()
+      .then(data => setCategories(data));
+  }, []);
 
   useEffect(() => {
     if (isOpen) setModalVisible(true);
@@ -56,16 +62,20 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
         <input name="capacity" placeholder="Capacidad" type="number" value={form.capacity || ""} onChange={onChange} />
         <select
           name="category"
-          value={form.category || ""}
-          onChange={onChange}
+          value={form.category?.id || ""}
+          onChange={(e) =>
+            onChange({
+              target: {
+                name: "category",
+                value: { id: parseInt(e.target.value) }
+              }
+            })}
           className="category-dropdown"
         >
           <option value="" disabled>Selecciona una categoría</option>
-          <option value="Hoteles">Hoteles</option>
-          <option value="Apartamentos">Apartamentos</option>
-          <option value="Casas">Casas</option>
-          <option value="Bungalows">Bungalows</option>
-          <option value="Lugares de lujo">Lugares de lujo</option>
+          {categories.map(category => (
+            <option key={category.id} value={category.id}>{category.title}</option>
+          ))}
         </select>
         <input
           name="rating"

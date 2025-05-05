@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { fetchCategories } from '../services/categoryService';
 
-const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form}) => {
+const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [image, setImage] = useState("");
+  const [imageTitle, setImageTitle] = useState("");
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     if (isOpen) {
@@ -12,29 +16,28 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form}) => {
     }
   }, [isOpen]);
 
-  const [image, setImage] = useState("");
-  const [imageTitle, setImageTitle] = useState("");
+  useEffect(() => {
+    fetchCategories()
+      .then(data => setCategories(data));
+    console.log(categories);
+  }, []);
 
-  const handleAddImage = () =>{
+  const handleAddImage = () => {
     //preguntso que no esten vacias
-    if(!image || !imageTitle) return;
-
+    if (!image || !imageTitle) return;
     //creo el objeto
     const nuevaImagen = {
       url: image,
       title: imageTitle
     }
-
     //agrego sin borrar las anteriores
     onChange({
-      target:{
+      target: {
         name: "images",
         value: [...form.images, nuevaImagen]
       }
     })
-
     //limpio los campos
-
     setImage("");
     setImageTitle("");
   };
@@ -62,18 +65,22 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form}) => {
         <input name="rating" placeholder="Valoración (1-5)" type="number" value={form.rating} onChange={handleRatingChange} min="1" max="5" />
         <select
           name="category"
-          value={form.category || ""}
-          onChange={onChange}
+          value={form.category?.id || ""}
+          onChange={(e) =>
+            onChange({
+              target: {
+                name: "category",
+                value: { id: parseInt(e.target.value) }
+              }
+            })}
           className="category-dropdown"
         >
           <option value="" disabled>Selecciona una categoría</option>
-          <option value="Hoteles">Hoteles</option>
-          <option value="Apartamentos">Apartamentos</option>
-          <option value="Casas">Casas</option>
-          <option value="Bungalows">Bungalows</option>
-          <option value="Lugares de lujo">Lugares de lujo</option>
+          {categories.map(category => (
+            <option key={category.id} value={category.id}>{category.title}</option>
+          ))}
         </select>
-        
+
         <input type='text'
           placeholder='Agregue el Url de las imagene' value={image}
           onChange={(e) => setImage(e.target.value)} />
@@ -82,7 +89,7 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form}) => {
           onChange={(e) => setImageTitle(e.target.value)} />
 
         <button onClick={handleAddImage} className='add-image'>
-        + Añadir Imagen</button>
+          + Añadir Imagen</button>
         <div className="preview-container">
           {form.images?.map((file, i) => (
             <img
