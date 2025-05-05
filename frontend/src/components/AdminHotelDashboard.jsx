@@ -7,7 +7,8 @@ import AddHotelModal from '../components/AddHotelModal';
 import EditHotelModal from '../components/EditHotelModal';
 import Swal from 'sweetalert2';
 
-const AdminDashboard = () => {
+const AdminHotelDashboard = () => {
+
     const [hotels, setHotels] = useState([]);
     const [isAddModalOpen, setAddModalOpen] = useState(false);
     const [isEditModalOpen, setEditModalOpen] = useState(false);
@@ -116,6 +117,7 @@ const AdminDashboard = () => {
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Ubicación</th>
+                            <th>Categoria</th>
                             <th>Precio</th>
                             <th>Valoración</th>
                             <th>Acciones</th>
@@ -132,6 +134,7 @@ const AdminDashboard = () => {
                                     <span className="hotel-name">{hotel.name}</span>
                                 </td>
                                 <td>{hotel.city}, {hotel.country}</td>
+                                <td>{hotel.category}</td>
                                 <td>${hotel.pricePerNight}</td>
                                 <td>
                                     <FaStar style={{ color: 'rgb(234, 179, 8)', marginRight: '5px' }} />
@@ -168,6 +171,6 @@ const AdminDashboard = () => {
             </div>
         </div>
     );
-};
+}
 
-export default AdminDashboard;
+export default AdminHotelDashboard;

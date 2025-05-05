@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -17,6 +19,19 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private IUserRepository userRepository;
+
+    //OBTENER TODOS LOS USUARIOS
+    public List<UserDTO> findAll(){
+        List<User> users = userRepository.findAll();
+
+        List<UserDTO> userDTOList= new ArrayList<>();
+
+        for (User user : users){
+            userDTOList.add(new UserDTO(user.getId(), user.getName(), user.getLastName(), user.getEmail(), user.getRole(), user.getImage()));
+        }
+
+        return userDTOList;
+    }
 
     //BUSCAR USUARIO CUANDO ALGUIEN INTENTA LOGUEARSE
 
@@ -29,7 +44,7 @@ public class UserService implements UserDetailsService {
 
     //DEVULEVE info DE LA PERSONA
     public UserDTO getUserInfo( String email){
-        UserDTO user= new UserDTO(userRepository.findByEmail(email).get().getName(), userRepository.findByEmail(email).get().getLastName(), userRepository.findByEmail(email).get().getRole(), userRepository.findByEmail(email).get().getImage());
+        UserDTO user= new UserDTO(userRepository.findByEmail(email).get().getId(), userRepository.findByEmail(email).get().getName(), userRepository.findByEmail(email).get().getLastName(), userRepository.findByEmail(email).get().getEmail(), userRepository.findByEmail(email).get().getRole(), userRepository.findByEmail(email).get().getImage());
         return user;
     }
 

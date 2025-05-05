@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/AdminDashboard.css';
 
 const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   const [modalVisible, setModalVisible] = useState(false);

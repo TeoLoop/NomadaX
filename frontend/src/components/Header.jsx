@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { User } from 'lucide-react';
-import { IoLogOut, IoSettings, IoPencil, IoPerson } from "react-icons/io5";
+import { IoLogOut, IoSettings, IoPencil, IoPerson, IoChevronDown } from "react-icons/io5";
 import '../styles/Header.css';
 import logo from "../assets/Logo96x96.png";
 import { useDispatch } from "react-redux";
@@ -10,6 +10,9 @@ import { logoutUser } from "../redux/slices/userSlice";
 const Header = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  
+  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
   const dispatch = useDispatch();
 
@@ -76,7 +79,17 @@ const Header = () => {
           <ul className={`navbar-menu ${isMenuOpen ? 'open' : ''}`}>
             <li><Link to="/" className="navbar-item" onClick={closeMenu}>Inicio</Link></li>
             <li><Link to="/hoteles" className="navbar-item" onClick={closeMenu}>Hoteles</Link></li>
-            <li><Link to="#" className="navbar-item" onClick={(e) => {e.preventDefault(); clickAdmin()}}>Admin</Link></li>
+            <div className="dropdown">
+                    <button className="dropdown-btn" onClick={toggleDropdown}>
+                        Administracion <IoChevronDown />
+                    </button>
+                    {dropdownOpen && (
+                        <div className="dropdown-content">
+                            <button><Link to="/administracion/hoteles">Hoteles</Link></button>
+                            <button><Link to="/administracion/usuarios">Usuarios</Link></button>
+                        </div>
+                    )}
+                </div>
             {/* Contenedor de Iniciar sesión - Register*/}
             <li>
               {

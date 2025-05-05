@@ -1,10 +1,8 @@
-import { CodeSquare } from "lucide-react";
-
 const BASE_URL = 'http://localhost:8080';
 
 
 //OBTENER USUARIOS
-export const fetchUser = async () => {
+export const fetchUsers = async () => {
     try {
         const response = await fetch  (`${BASE_URL}/user`);
         const data = await response.json();

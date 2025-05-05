@@ -6,9 +6,11 @@ import com.nomadax.dto.AuthResponse;
 import com.nomadax.dto.RegisterRequest;
 import com.nomadax.entity.Role;
 import com.nomadax.entity.User;
+import com.nomadax.exception.GlobalExceptionHandler;
 import com.nomadax.repository.IUserRepository;
 import com.nomadax.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -45,7 +47,9 @@ public class AuthController {
                     new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword())
             );
         } catch (BadCredentialsException e) {
-            throw new Exception("Credenciales incorrectas, ", e);
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body("Credenciales incorrectas");
         }
 
         final UserDetails userDetails = userService.loadUserByUsername(authRequest.getEmail());

@@ -217,10 +217,22 @@ table td button:hover {
 .btn-save {
     background-color: #4CAF50;
     color: white;
+    transition: background-color 0.4s ease;
 }
 
 .btn-cancel {
     background-color: #f44336;
+    color: white;
+    transition: background-color 0.4s ease;
+}
+
+.btn-save:hover {
+    background-color: #3e8e41;
+    color: white;
+}
+
+.btn-cancel:hover {
+    background-color: #d32f2f;
     color: white;
 }
 
@@ -294,6 +306,7 @@ table td button:hover {
     justify-content: center;
     align-items: center;
 }
+
 
 @media screen and (max-width: 768px) {
     .admin-panel {

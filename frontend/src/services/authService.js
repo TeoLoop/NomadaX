@@ -9,8 +9,10 @@ export const login = (user) => {
     }).then(res => {
       if(!res.ok){ //Si no es ok, es porque el usuario o contraseña son incorrectos
   
-        if(res.status === 400){
-          throw new Error("Usuario o contraseña incorrectos");
+        if(res.status === 401){
+          return res.text().then((text) => {
+            throw new Error(text || "Usuario o contraseña incorrectos");
+          });
         }else{
           throw new Error('Error al iniciar sesión');
         }

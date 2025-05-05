@@ -20,7 +20,7 @@
   }
   
   .register-right img {
-    width: 400px;
+    width: 350px;
   }
   
   .register-left-container {
@@ -162,4 +162,19 @@
   .register-bottom-p a:hover {
     text-decoration: underline;
   }
-  
+
+  @media (max-width: 768px) {
+    .register-main {
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .register-right {
+      display: none;
+    }
+
+    .register-bottom-p{
+      margin-bottom: 60px;
+    }
+    
+  }

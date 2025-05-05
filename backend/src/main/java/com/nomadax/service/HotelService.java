@@ -60,6 +60,7 @@ public class HotelService {
         hotelToUpdate.setPricePerNight(updatedHotel.getPricePerNight());
         hotelToUpdate.setCapacity(updatedHotel.getCapacity());
         hotelToUpdate.setRating(updatedHotel.getRating());
+        hotelToUpdate.setCategory(updatedHotel.getCategory());
 
         System.out.println("updatedHotel: " + updatedHotel);
         System.out.println("hotel para actualizar: " + hotelToUpdate);

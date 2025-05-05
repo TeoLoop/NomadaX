@@ -14,23 +14,18 @@
   }
   
   .login-left img{
-    width: 400px;
+    width: 350px;
   }
   
   .login-right{
-  
     height: 100vh;
-  
-    flex-grow: 1;
-  
-  
+    flex-grow: 1; 
   }
   
   .login-right-container{
     height: 100%;
     width: 80%;
     margin: 0 auto;
-  
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -68,6 +63,12 @@
     font-size: 1rem;
     margin-bottom: 40px;
   }
+
+  .error-message {
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+  }
   
   form input[type='email'],
   form input[type='password'],
@@ -102,12 +103,7 @@
   .login-center-options{
     display: flex;
     justify-content: space-between;
-  }
-  
-  .remember-div{
-    display:flex;
     align-items: center;
-    column-gap: 5px;
   }
   
   .remember-div label{
@@ -163,7 +159,7 @@
   .login-bottom-p{
     text-align: center;
     font-size: 1rem;
-    padding-bottom: 40px;
+    padding-bottom: 60px;
   }
   
   .login-bottom-p a{
@@ -173,4 +169,26 @@
   
   .login-bottom-p a:hover{
     text-decoration: underline;
+  }
+
+  
+  @media (max-width: 768px) {
+    .login-main {
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .login-left {
+      display: none;
+    }
+
+    .login-center-options{
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .login-bottom-p{
+      margin-bottom: 40px;
+    }
+    
   }

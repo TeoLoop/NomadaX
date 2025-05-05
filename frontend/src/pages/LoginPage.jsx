@@ -11,6 +11,7 @@ import { infoOfUser } from "../services/userService";
 const Login = () => {
     const navigate = useNavigate(); //Se utiliza para navegar entre las rutas
     const [showPassword, setShowPassword] = useState(false);
+    const [error, setError] = useState("");
 
     const dispatch = useDispatch(); //Se utiliza para enviar acciones al store
 
@@ -65,6 +66,7 @@ const Login = () => {
 
             setFormState(initialForm);
         } catch (error) {
+            setError(error.message);
             console.log("Error al iniciar sesión", error);
         }
     }
@@ -82,6 +84,7 @@ const Login = () => {
                     <div className="login-center">
                         <h2>Bienvenido de nuevo!</h2>
                         <p>Por favor, ingrese sus datos</p>
+                        {error && <p className="error-message">{error}</p>}
                         <form>
                             <input
                                 type="email"
