@@ -20,6 +20,8 @@ public class User implements UserDetails {
 
     private String lastName;
 
+    private String image;
+
     @Column(unique = true)
     private String email;
 
@@ -88,6 +90,14 @@ public class User implements UserDetails {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     //A CONTINUACION OBLIGATORIOS por UserDetails

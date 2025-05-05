@@ -74,12 +74,20 @@ public class HotelController {
         return ResponseEntity.ok(updatedHotel);
     }
 
+
     @GetMapping("/hoteles")
     public ResponseEntity<Page<Hotel>> getHotels(@RequestParam(defaultValue = "0") int page,
                                                  @RequestParam (defaultValue = "10") int size){ //pasamos nro de pagina y nro de hoteles
         Pageable pageable = PageRequest.of(page,size);
         Page<Hotel> hotels = hotelService.hotelsPageables(pageable);
         return ResponseEntity.ok(hotels);
+    }
+
+    //Obtener Hoteles Por categoria
+    @GetMapping("/categoria/{category}")
+    public ResponseEntity<List<Hotel>> findByCategory(@PathVariable String category){
+        List <Hotel> hotelsCategory = hotelService.findByCategory(category);
+        return ResponseEntity.ok(hotelsCategory);
     }
 
 }

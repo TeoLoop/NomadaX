@@ -20,6 +20,7 @@ public class HotelService {
     @Autowired
     private IHotelRepository hotelRepository;
 
+
     public List<Hotel> findAll(){
         return hotelRepository.findAll();
     }
@@ -121,6 +122,10 @@ public class HotelService {
     //Page es de Spring Data que inclie Pageable PageRequest sort Slice
     public Page<Hotel> hotelsPageables(Pageable pageable){
         return hotelRepository.findAll(pageable);
+    }
+
+    public List<Hotel> findByCategory(String name){
+        return hotelRepository.findByCategory(name);
     }
 
 

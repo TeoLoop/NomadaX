@@ -33,6 +33,7 @@ public class Hotel {
 
     private Double rating;
 
+    private String category;
 
     public Long getId() {
         return id;
@@ -113,5 +114,13 @@ public class Hotel {
 
     public void setRating(Double rating) {
         this.rating = rating;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
