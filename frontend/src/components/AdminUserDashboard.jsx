@@ -1,6 +1,6 @@
 // AdminUsersDashboard.js
 import React, { useEffect, useState } from 'react';
-import { fetchUsers } from '../services/userService';
+import { fetchUsers, updateUser } from '../services/userService';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import '../styles/AdminDashboard.css';
 import EditUserModal from '../components/EditUserModal';
@@ -11,6 +11,7 @@ const AdminUsersDashboard = () => {
     const [selectedUser, setSelectedUser] = useState(null);
 
     const [form, setForm] = useState({
+        id: '',
         name: '',
         email: '',
         role: ''
@@ -22,7 +23,10 @@ const AdminUsersDashboard = () => {
 
     const handleUpdate = async () => {
         try {
-            await updateUser(selectedUser.id, form);
+            console.log("Mandando el siguiente usuario a actualizar:", form);
+            await updateUser(form);
+            const updatedUsers = await fetchUsers();
+            setUsers(updatedUsers);
             setEditModalOpen(false);
         } catch (error) {
             console.error('Error al actualizar el usuario:', error);    
@@ -39,7 +43,6 @@ const AdminUsersDashboard = () => {
         console.log(user);
         setEditModalOpen(true);
     };
-
 
 
     return (

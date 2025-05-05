@@ -46,4 +46,19 @@ export const isAdmin = async (email) => {
   };
 
 
+  //UPDATE USER
+  export const updateUser = async (user) => {
+    try {
+      const res = await fetch(`${BASE_URL}/user`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user)  
+      });
+      const data = await res.json();
+      return data;
+    } catch (e) {
+      console.error("Error:", e);
+      return false;
+    }
+  };
   

@@ -47,3 +47,8 @@ export const addCategory = (category) => {
   };
 
 
+  export const deleteCategory = (id) => {
+    return fetch(`${BASE_URL}/categorias/${id}`, {
+      method: 'DELETE',
+    });
+  };

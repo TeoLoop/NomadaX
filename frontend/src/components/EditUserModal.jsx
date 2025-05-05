@@ -40,8 +40,8 @@ const EditUserModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
           className="category-dropdown"
         >
           <option value="" disabled>Selecciona un rol</option>
-          <option value="admin">ADMIN</option>
-          <option value="user">USER</option>
+          <option value="ADMIN">ADMIN</option>
+          <option value="USER">USER</option>
         </select>
 
         <button onClick={onSubmit} className="btn btn-save">Actualizar</button>

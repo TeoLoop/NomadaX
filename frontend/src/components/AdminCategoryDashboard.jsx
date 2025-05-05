@@ -1,6 +1,6 @@
 // AdminUsersDashboard.js
 import React, { useEffect, useState } from 'react';
-import { fetchCategories, addCategory, updateCategory } from '../services/categoryService';
+import { fetchCategories, addCategory, updateCategory, deleteCategory } from '../services/categoryService';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import '../styles/AdminDashboard.css';
 import EditCategoryModal from './EditCategoryModal';
@@ -67,6 +67,25 @@ const AdminUsersDashboard = () => {
                 alert("El nombre de la categoria ya existe. Por favor, elige otro.");
             }
             throw error;
+        }
+    };
+
+    const handleDelete = async (id) => {
+        const result = await Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡Esta categoria será eliminada permanentemente!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminarlo!',
+            cancelButtonText: 'Cancelar'
+        });
+
+        if (result.isConfirmed) {
+            await deleteCategory(id);
+            setCategories(categories.filter(c => c.id !== id));
+            Swal.fire('¡Eliminado!', 'La categoria ha sido eliminada.', 'success');
         }
     };
 

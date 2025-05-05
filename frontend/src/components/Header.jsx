@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { User } from 'lucide-react';
 import { IoLogOut, IoSettings, IoPencil, IoPerson, IoChevronDown } from "react-icons/io5";
@@ -11,8 +11,23 @@ const Header = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  
+  const dropdownRef = useRef(null);
+
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+
+  // Cerrar el dropdown si se hace clic fuera de él
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Cleanup al desmontar el componente
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const dispatch = useDispatch();
 
@@ -20,6 +35,7 @@ const Header = () => {
   const lastName = localStorage.getItem("lastName");
   const image = localStorage.getItem("image");
   const role = localStorage.getItem("role");
+
 
 
   const toggleMenu = () => {
@@ -32,13 +48,17 @@ const Header = () => {
 
   const token = localStorage.getItem("token");
 
-  const clickAdmin = async () => {
+  const clickAdmin = async (path) => {
     console.log("ROL ACTUAL:", role);
-    if (role == "ADMIN") {
-      navigate("/administracion");
+    if (role === "ADMIN") {
+      navigate(path); // Redirige al área de administración según el enlace
     } else {
       alert("No tienes permisos para acceder");
     }
+  };
+
+  const closeDropdown = () => {
+    setDropdownOpen(false);
   };
 
   const userToggle = () => {
@@ -80,17 +100,17 @@ const Header = () => {
             <li><Link to="/" className="navbar-item" onClick={closeMenu}>Inicio</Link></li>
             <li><Link to="/hoteles" className="navbar-item" onClick={closeMenu}>Hoteles</Link></li>
             <div className="dropdown">
-                    <button className="dropdown-btn" onClick={toggleDropdown}>
-                        Administracion <IoChevronDown />
-                    </button>
-                    {dropdownOpen && (
-                        <div className="dropdown-content">
-                            <button><Link to="/administracion/hoteles">Hoteles</Link></button>
-                            <button><Link to="/administracion/usuarios">Usuarios</Link></button>
-                            <button><Link to="/administracion/categorias">Categorias</Link></button>
-                        </div>
-                    )}
+              <button className="dropdown-btn" onClick={toggleDropdown}>
+                Administracion <IoChevronDown />
+              </button>
+              {dropdownOpen && (
+                <div className="dropdown-content" ref={dropdownRef}>
+                  <button onClick={() => clickAdmin("/administracion/hoteles")}>Hoteles</button>
+                  <button onClick={() => clickAdmin("/administracion/usuarios")}>Usuarios</button>
+                  <button onClick={() => clickAdmin("/administracion/categorias")}>Categorías</button>
                 </div>
+              )}
+            </div>
             {/* Contenedor de Iniciar sesión - Register*/}
             <li>
               {
