@@ -33,4 +33,19 @@ export const isAdmin = async (email) => {
       return false;
     }
   };
+
+  //OBTENER NOMBRE DE USUARIO
+  export const infoOfUser = async (email) => {
+    try {
+      const res = await fetch(`${BASE_URL}/user/${email}`);
+      const data = await res.json();
+      console.log(data);
+      return data;
+    } catch (e) {
+      console.error("Error:", e);
+      return false;
+    }
+  };
+
+
   

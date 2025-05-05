@@ -4,11 +4,20 @@ import { User } from 'lucide-react';
 import { IoLogOut, IoSettings, IoPencil, IoPerson } from "react-icons/io5";
 import '../styles/Header.css';
 import logo from "../assets/Logo96x96.png";
-import { isAdmin } from '../services/userService';
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../redux/slices/userSlice";
 
 const Header = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const name = localStorage.getItem("name");
+  const lastName = localStorage.getItem("lastName");
+  const image = localStorage.getItem("image");
+  const role = localStorage.getItem("role");
+
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -21,10 +30,8 @@ const Header = () => {
   const token = localStorage.getItem("token");
 
   const clickAdmin = async () => {
-    const email = localStorage.getItem("email");
-    const esAdmin = await isAdmin(email); // espera la respuesta del backend
-
-    if (esAdmin) {
+    console.log("ROL ACTUAL:", role);
+    if (role == "ADMIN") {
       navigate("/administracion");
     } else {
       alert("No tienes permisos para acceder");
@@ -34,6 +41,16 @@ const Header = () => {
   const userToggle = () => {
     const toggleMenu = document.querySelector(".menu");
     toggleMenu.classList.toggle("active");
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("name");
+    localStorage.removeItem("lastName");
+    localStorage.removeItem("role");
+    localStorage.removeItem("image");
+    dispatch(logoutUser());
+    navigate("/");
   }
 
 
@@ -59,17 +76,17 @@ const Header = () => {
           <ul className={`navbar-menu ${isMenuOpen ? 'open' : ''}`}>
             <li><Link to="/" className="navbar-item" onClick={closeMenu}>Inicio</Link></li>
             <li><Link to="/hoteles" className="navbar-item" onClick={closeMenu}>Hoteles</Link></li>
-            <li><Link to="#" className="navbar-item" onClick={clickAdmin}>Admin</Link></li>
+            <li><Link to="#" className="navbar-item" onClick={(e) => {e.preventDefault(); clickAdmin()}}>Admin</Link></li>
             {/* Contenedor de Iniciar sesión - Register*/}
             <li>
               {
                 token ? (
                   <div className="action">
                     <div className="profile" onClick={userToggle}>
-                      <span>IMAGEN DE PERFIL</span>
+                      <img src={image} alt="Imagen de perfil" className="profile-image" />
                     </div>
                     <div className="menu">
-                      <h3>NOMBRE USUARIO</h3>
+                      <h3>{name + " " + lastName}</h3>
                       <ul>
                         <li>
                           <span className='icon'><IoPerson size={20} /></span><a href="#">Mi perfil</a>
@@ -81,7 +98,7 @@ const Header = () => {
                           <span className='icon'><IoSettings size={20} /></span><a href="#">Ajustes</a>
                         </li>
                         <li className='logout'>
-                          <span className='icon'><IoLogOut size={20} /></span><a href="#">Cerrar sesión</a>
+                          <span className='icon'><IoLogOut size={20} /></span><a onClick={handleLogout}>Cerrar sesión</a>
                         </li>
                       </ul>
                     </div>

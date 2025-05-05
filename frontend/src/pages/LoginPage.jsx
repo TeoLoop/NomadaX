@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import "../styles/LoginPage.css";
 import Image from "../assets/Logo-text.png";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../redux/slices/userSlice";
 import { login } from "../services/authService";
-import { isAdmin } from "../services/userService";
+import { infoOfUser } from "../services/userService";
 
 const Login = () => {
     const navigate = useNavigate(); //Se utiliza para navegar entre las rutas
     const [showPassword, setShowPassword] = useState(false);
+
+    const dispatch = useDispatch(); //Se utiliza para enviar acciones al store
 
     const initialForm = {
         email: '',
@@ -31,13 +35,30 @@ const Login = () => {
 
         try {
             const response = await login(formState); //Se llama a la función login del servicio authService y se guarda en la variable response
+           
+            const infoUser = await infoOfUser(formState.email);
 
+            dispatch(loginUser({
+                name: infoUser.name,
+                lastName: infoUser.lastName,
+                role: infoUser.role,
+                image: infoUser.image
+            })); //Se envía la información del usuario al store
+
+
+            // Se almacena la información del usuario en el localStorage
+            localStorage.setItem("name", infoUser.name);
+            localStorage.setItem("lastName", infoUser.lastName);
+            localStorage.setItem("role", infoUser.role);
+            localStorage.setItem("image", infoUser.image);
+
+
+            // Se almacena el token en el localStorage
             console.log("Login exitoso");
             const token = response.token;
-
-            localStorage.setItem("token", token);   //Se almacena el token en el localStorage
-            localStorage.setItem("email", formState.email); //Se almacena el email en el localStorage
-            isAdmin(localStorage.getItem("email"));
+            localStorage.setItem("token", token);
+            
+            
             console.log("Token y email almacenado en localStorage:");
 
             navigate("/");

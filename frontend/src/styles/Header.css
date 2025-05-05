@@ -136,8 +136,8 @@ header {
 .action .profile {
   position: relative;
   background-color: aqua;
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   overflow: hidden;
   cursor: pointer;
@@ -164,7 +164,7 @@ header {
 }
 
 .action .menu.active {
-  top: 100px;
+  top: 80px;
   right: 10px;
   visibility: visible;
   opacity: 1;
@@ -174,7 +174,7 @@ header {
   content: "";
   position: absolute;
   top: -5px;
-  right: 28px;
+  right: 20px;
   width: 20px;
   height: 20px;
   background: #fff;
@@ -317,8 +317,8 @@ header {
 
   .action .menu {
     position: absolute;
-    top: 200px;
-    left: 5px;
+    top: 180px;
+    left: 10px;
     padding: 10px 20px;
     background: #fff;
     width: 200px;
@@ -330,7 +330,7 @@ header {
   }
   
   .action .menu.active {
-    top: 200px;
+    top: 180px;
     right: 10px;
     visibility: visible;
     opacity: 1;
@@ -340,7 +340,7 @@ header {
     content: "";
     position: absolute;
     top: -5px;
-    left: 28px;
+    left: 20px;
     width: 20px;
     height: 20px;
     background: #fff;
