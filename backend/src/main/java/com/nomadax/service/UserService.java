@@ -3,6 +3,7 @@ package com.nomadax.service;
 import com.nomadax.dto.UserDTO;
 import com.nomadax.entity.User;
 import com.nomadax.repository.IUserRepository;
+import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,6 +32,24 @@ public class UserService implements UserDetailsService {
         }
 
         return userDTOList;
+    }
+
+    //ACTUALIZAR USUARIO
+    public UserDTO update(UserDTO userUpdated){
+        Optional<User> userToUpdate= userRepository.findById(userUpdated.getId());
+        if (userToUpdate.isPresent()){
+            userToUpdate.get().setName(userUpdated.getName());
+            userToUpdate.get().setLastName(userUpdated.getLastName());
+            userToUpdate.get().setRole(userUpdated.getRole());
+            userToUpdate.get().setEmail(userUpdated.getEmail());
+
+            userRepository.save(userToUpdate.get());
+
+            return userUpdated;
+        }else{
+            return null;
+        }
+
     }
 
     //BUSCAR USUARIO CUANDO ALGUIEN INTENTA LOGUEARSE

@@ -92,7 +92,7 @@ export const fetchById = async (id) => {
 //GET POR CATEGORIA
 export const fetchHotelsCategory = async(category) => {
   try {
-    const response = await fetch(`${BASE_URL}/hotels/categorias?titles=${category},Apartamentos`);
+    const response = await fetch(`${BASE_URL}/hotels/categorias?titles=${category}`);
     const data = await response.json();
     return data;
   } catch (error) {

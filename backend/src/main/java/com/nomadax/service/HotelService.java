@@ -125,8 +125,8 @@ public class HotelService {
         return hotelRepository.findAll(pageable);
     }
 
-    public List<Hotel> findByCategory(String name){
-        return hotelRepository.findByCategory(name);
+    public List<Hotel> findByCategory(List<String> titles){
+        return hotelRepository.findByCategoryTitleIn(titles);
     }
 
 

@@ -108,6 +108,7 @@ const Header = () => {
                   <button onClick={() => clickAdmin("/administracion/hoteles")}>Hoteles</button>
                   <button onClick={() => clickAdmin("/administracion/usuarios")}>Usuarios</button>
                   <button onClick={() => clickAdmin("/administracion/categorias")}>Categorías</button>
+                  <button onClick={() => clickAdmin("/administracion/caracteristicas")}>Características</button>
                 </div>
               )}
             </div>

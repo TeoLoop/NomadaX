@@ -3,8 +3,8 @@ import '../styles/AdminDashboard.css';
 import { FaEdit, FaTrash, FaPlus, FaStar } from 'react-icons/fa';
 import { fetchHotelsAdmin } from '../services/adminService';
 import { addHotel, deleteHotel, updateHotel } from '../services/hotelService';
-import AddHotelModal from '../components/AddHotelModal';
-import EditHotelModal from '../components/EditHotelModal';
+import AddHotelModal from './modals/AddHotelModal';
+import EditHotelModal from './modals/EditHotelModal';
 import Swal from 'sweetalert2';
 
 const AdminHotelDashboard = () => {

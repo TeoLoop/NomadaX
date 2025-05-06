@@ -1,7 +1,7 @@
 package com.nomadax.exception;
 
-public class DuplicateCategoryException extends RuntimeException {
-  public DuplicateCategoryException(String message) {
-    super(message);
-  }
+public class DuplicateCategoryTitleException extends RuntimeException {
+    public DuplicateCategoryTitleException(String message) {
+        super(message);
+    }
 }

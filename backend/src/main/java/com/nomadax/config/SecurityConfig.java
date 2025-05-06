@@ -40,6 +40,8 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll()// Permitir acceso a todas las rutas sin autenticación
                         .requestMatchers("/admin/**").hasRole(Role.ADMIN.name())
                         .requestMatchers("/hotels/**").permitAll()
+                        .requestMatchers("/categorias/**").permitAll()
+                        .requestMatchers("/caracteristicas/**").permitAll()
                         .requestMatchers("/user/**").permitAll()
                         .anyRequest().authenticated())  // Requiere autenticación para otras rutas
                 .sessionManagement(session -> session

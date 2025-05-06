@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { fetchCategories } from '../services/categoryService';
-
-const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
+import React, { useState, useEffect } from 'react'; 
+import '../../styles/modalStyle.css';
+const AddFeatureModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
@@ -18,11 +17,10 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <h2>Añadir Categoria</h2>
+        <h2>Añadir Caracteristica</h2>
 
-        <input name="title" placeholder="Titulo" value={form.title} onChange={onChange} />
-        <input name="description" placeholder="Descripción" value={form.description} onChange={onChange} />
-        <input name="image" placeholder="Url de la imagen" value={form.image} onChange={onChange} />
+        <input name="name" placeholder="Nombre" value={form.name} onChange={onChange} />
+        <input name="icon" placeholder="Icono" value={form.icon} onChange={onChange} />
 
         <button onClick={onSubmit} className="btn btn-save">
           Guardar
@@ -35,4 +33,4 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   );
 };
 
-export default AddHotelModal;
+export default AddFeatureModal;

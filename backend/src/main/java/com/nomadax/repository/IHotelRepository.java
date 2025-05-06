@@ -10,6 +10,7 @@ public interface IHotelRepository extends JpaRepository<Hotel, Long> {
 
     Optional<Hotel> findByName(String name);
 
-    List<Hotel> findByCategory(String name);
+    List<Hotel> findByCategoryTitleIn(List<String> titles);
+
 
 }

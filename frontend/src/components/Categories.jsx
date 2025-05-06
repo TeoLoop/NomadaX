@@ -1,29 +1,28 @@
-import React, { useEffect } from 'react';
-import { FaHotel, FaHome, FaBriefcase, FaBed, FaStar } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { fetchCategories } from '../services/categoryService';
 
 const Categories = () => {
   const navigate = useNavigate();
-  const categories = [
-    { name: "Hoteles", icon: <FaHotel /> },
-    { name: "Apartamentos", icon: <FaHome /> },
-    { name: "Casas", icon: <FaBed /> },
-    { name: "Bungalows", icon: <FaBriefcase /> },
-    { name: "Lugares de lujo", icon: <FaStar /> }
-  ];
+
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetchCategories().then(data => setCategories(data));
+  }, []);
 
   const handleCategoryClick = (category) => {
-    navigate(`/categorias/${category.name.toLowerCase()}`);
+    navigate(`/categorias/${category.title}`);
   };
 
   return (
     <div className="categories">
       <ul className="category-list">
-        {categories.map((category, index) => (
-          <li key={index} className="category-item">
-            <a onClick={() => handleCategoryClick(category)} className="category-link"> 
-              <div className="category-icon">{category.icon}</div>
-              <p>{category.name}</p>
+        {categories.map((category) => (
+          <li key={category.id} className="category-item">
+            <a onClick={() => handleCategoryClick(category)} className="category-link">
+              <img src={category.image} alt={category.title} />
+              <p>{category.title}</p>
             </a>
           </li>
         ))}

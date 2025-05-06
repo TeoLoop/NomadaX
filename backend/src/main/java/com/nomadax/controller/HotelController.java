@@ -84,9 +84,9 @@ public class HotelController {
     }
 
     //Obtener Hoteles Por categoria
-    @GetMapping("/categoria/{category}")
-    public ResponseEntity<List<Hotel>> findByCategory(@PathVariable String category){
-        List <Hotel> hotelsCategory = hotelService.findByCategory(category);
+    @GetMapping("/categorias")
+    public ResponseEntity<List<Hotel>> findByCategory(@RequestParam List<String> titles){
+        List <Hotel> hotelsCategory = hotelService.findByCategory(titles);
         return ResponseEntity.ok(hotelsCategory);
     }
 

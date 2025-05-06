@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import '../styles/AdminDashboard.css'; // mismo CSS que usa el modal de hoteles
+  import React, { useState, useEffect } from 'react';
+  import '../../styles/modalStyle.css';
 
-const EditUserModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
+const EditCategoryModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
@@ -41,4 +41,4 @@ const EditUserModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   );
 };
 
-export default EditUserModal;
+export default EditCategoryModal; 

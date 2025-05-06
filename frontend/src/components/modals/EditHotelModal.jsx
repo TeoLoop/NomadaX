@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/AdminDashboard.css';
-import { fetchCategories } from '../services/categoryService';
+import '../../styles/modalStyle.css';
+import { fetchCategories } from '../../services/categoryService';
 
 const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   const [modalVisible, setModalVisible] = useState(false);

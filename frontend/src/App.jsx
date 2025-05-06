@@ -11,6 +11,7 @@ import { HotelsCategoryPage } from './pages/HotelsCategoryPage';
 import AdminHotelsDashboard from './components/AdminHotelDashboard';
 import AdminUsersDashboard from './components/AdminUserDashboard';
 import AdminCategoriesDashboard from './components/AdminCategoryDashboard';
+import AdminFeaturesDashboard from './components/AdminFeatureDashboard';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/administracion/hoteles" element={<AdminHotelsDashboard />} />
           <Route path="/administracion/usuarios" element={<AdminUsersDashboard />} />
           <Route path="/administracion/categorias" element={<AdminCategoriesDashboard />} />
+          <Route path="/administracion/caracteristicas" element={<AdminFeaturesDashboard />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/categorias/:category" element={<HotelsCategoryPage />} />

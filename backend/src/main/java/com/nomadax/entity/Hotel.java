@@ -33,7 +33,17 @@ public class Hotel {
 
     private Double rating;
 
-    private String category;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @ManyToMany
+    @JoinTable(
+            name = "hotel_features",
+            joinColumns = @JoinColumn(name ="hotel_id"),
+            inverseJoinColumns = @JoinColumn(name = "feature_id")
+    )
+    private List<Feature> features;
 
     public Long getId() {
         return id;
@@ -116,11 +126,19 @@ public class Hotel {
         this.rating = rating;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public List<Feature> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(List<Feature> features) {
+        this.features = features;
     }
 }

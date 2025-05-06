@@ -25,4 +25,6 @@ public class AdminController {
         List<Hotel> hotels =  hotelService.findAll();
         return ResponseEntity.ok(hotels);
     }
+
+
 }
