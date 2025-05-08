@@ -37,13 +37,13 @@ public class Hotel {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "hotel_features",
             joinColumns = @JoinColumn(name ="hotel_id"),
             inverseJoinColumns = @JoinColumn(name = "feature_id")
     )
-    private List<Feature> features;
+    private List<Feature> features = new ArrayList<>();
 
     public Long getId() {
         return id;

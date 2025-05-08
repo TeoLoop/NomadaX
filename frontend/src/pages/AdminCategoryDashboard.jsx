@@ -1,31 +1,32 @@
 // AdminUsersDashboard.js
 import React, { useEffect, useState } from 'react';
-import { fetchFeatures, addFeature, updateFeature, deleteFeature } from '../services/featureService';
+import { fetchCategories, addCategory, updateCategory, deleteCategory } from '../services/categoryService';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import '../styles/AdminDashboard.css';
-import EditFeatureModal from './modals/EditFeatureModal';   
-import AddFeatureModal from './modals/AddFeatureModal';
+import EditCategoryModal from '../components/modals/EditCategoryModal';
+import AddCategoryModal from '../components/modals/AddCategoryModal';
 import Swal from 'sweetalert2';
 
 const AdminUsersDashboard = () => {
-    const [features, setFeatures] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [isEditModalOpen, setEditModalOpen] = useState(false);
     const [isAddModalOpen, setAddModalOpen] = useState(false);
-    const [selectedFeature, setSelectedFeature] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState(null);
 
     useEffect(() => {
-        fetchFeatures().then(data => setFeatures(data));
+        fetchCategories().then(data => setCategories(data));
     }, []);
 
 
     const [form, setForm] = useState({
-        name: '',
-        icon: '',
+        title: '',
+        description: '',
+        image: ''
     });
 
     const openAddModal = () => {
         setForm({
-            name: '', icon: ''
+            title: '', description: '', image: ''
         });
         setAddModalOpen(true);
     };
@@ -34,36 +35,36 @@ const AdminUsersDashboard = () => {
         const { name, value } = e.target;
         setForm((prevForm) => ({
           ...prevForm,
-          [name]: name === "feature" ? { id: parseInt(value) } : value
+          [name]: name === "category" ? { id: parseInt(value) } : value
         }));
       };
 
     const handleUpdate = async () => {
-        const updated = await updateFeature(form);
+        const updated = await updateCategory(form);
         if (!updated) {
             console.log("No se pudo actualizar la categoria");
             return;
         }
-        const updatedFeatures = await fetchFeatures();
-        setFeatures(updatedFeatures);
+        const updatedCategories = await fetchCategories();
+        setCategories(updatedCategories);
         setEditModalOpen(false);
     };
 
     const handleAdd = async () => {
         try {
-            const newFeature = await addFeature(form);
-            if (newFeature && newFeature.id) {
-                const updatedFeatures = await fetchFeatures(); // actualiza lista completa
-                setFeatures(updatedFeatures);
+            const newCategory = await addCategory(form);
+            if (newCategory && newCategory.id) {
+                const updatedCategories = await fetchCategories(); // actualiza lista completa
+                setCategories(updatedCategories);
                 setAddModalOpen(false);
             } else {
-                alert("Error al agregar caracteristica. Intente nuevamente.");    
+                alert("Error al agregar categoria. Intente nuevamente.");
             }
 
         } catch (error) {
 
             if (error.message.includes("ya existe")) {
-                alert("El nombre de la caracteristica ya existe. Por favor, elige otro.");
+                alert("El nombre de la categoria ya existe. Por favor, elige otro.");
             }
             throw error;
         }
@@ -72,7 +73,7 @@ const AdminUsersDashboard = () => {
     const handleDelete = async (id) => {
         const result = await Swal.fire({
             title: '¿Estás seguro?',
-            text: "¡Esta caracteristica será eliminada permanentemente!",
+            text: "¡Esta categoria será eliminada permanentemente!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -82,17 +83,17 @@ const AdminUsersDashboard = () => {
         });
 
         if (result.isConfirmed) {
-            await deleteFeature(id);
-            setFeatures(features.filter(f => f.id !== id));
-            Swal.fire('¡Eliminado!', 'La caracteristica ha sido eliminada.', 'success');
+            await deleteCategory(id);
+            setCategories(categories.filter(c => c.id !== id));
+            Swal.fire('¡Eliminado!', 'La categoria ha sido eliminada.', 'success');
         }
     };
 
 
-    const openEditModal = (feature) => {
-        setSelectedFeature(feature);
-        setForm(feature);
-        console.log(feature);
+    const openEditModal = (category) => {
+        setSelectedCategory(category);
+        setForm(category);
+        console.log(category);
         setEditModalOpen(true);
     };
 
@@ -101,42 +102,44 @@ const AdminUsersDashboard = () => {
     return (
         <div className="admin-panel">
             <div className='admin-header'>
-                <h1>Panel de Administración de Caracteristicas</h1>
+                <h1>Panel de Administración de Categorias</h1>
                 <button onClick={openAddModal} className="add-btn">
-                    <FaPlus /> Añadir Caracteristica
+                    <FaPlus /> Añadir Categoria
                 </button>
             </div>
             <table>
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Icono</th>
-                        <th>Nombre</th>
+                        <th>Imagen</th>
+                        <th>Titulo</th>
+                        <th>Descripción</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {features.map((feature) => (
-                        <tr key={feature.id}>
-                            <td>{feature.id}</td>
-                            <td><img src={feature.icon} alt={feature.name} /></td>
-                            <td>{feature.name}</td>
+                    {categories.map((category) => (
+                        <tr key={category.id}>
+                            <td>{category.id}</td>
+                            <td><img src={category.image} alt={category.title} /></td>
+                            <td>{category.title}</td>
+                            <td>{category.description}</td>
                             <td className="actions">
-                                <FaEdit className="icon edit-icon" onClick={() => openEditModal(feature)} />
-                                <FaTrash className="icon delete-icon" onClick={() => handleDelete(feature.id)} />
+                                <FaEdit className="icon edit-icon" onClick={() => openEditModal(category)} />
+                                <FaTrash className="icon delete-icon" onClick={() => handleDelete(category.id)} />
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <AddFeatureModal
+            <AddCategoryModal
                 isOpen={isAddModalOpen}
                 onClose={() => setAddModalOpen(false)}
                 onChange={handleChange}
                 onSubmit={handleAdd}
                 form={form}
             />
-            <EditFeatureModal
+            <EditCategoryModal
                 isOpen={isEditModalOpen}
                 onClose={() => setEditModalOpen(false)}
                 onChange={handleChange}

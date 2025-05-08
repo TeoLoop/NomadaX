@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/modalStyle.css';
 import { fetchCategories } from '../../services/categoryService';
+import { fetchFeatures } from '../../services/featureService';
 
 const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [image, setImage] = useState("");
   const [imageTitle, setImageTitle] = useState("");
   const [categories, setCategories] = useState([]);
+  const [features, setFeatures] = useState([]);
+  const [featureIdSelected, setFeatureIdSelected] = useState("");
+
+  useEffect(() => {
+    console.log("fetching features");
+    fetchFeatures().then(data => setFeatures(data));
+    console.log(features);
+  }, []);
 
   const handleAddImage = () => {
     //preguntso que no esten vacias
@@ -31,10 +40,6 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
     setImageTitle("");
   };
 
-  useEffect(() => {
-    fetchCategories()
-      .then(data => setCategories(data));
-  }, []);
 
   useEffect(() => {
     if (isOpen) setModalVisible(true);
@@ -43,6 +48,26 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
       return () => clearTimeout(timer);
     }
   }, [isOpen]);
+
+  const handleAddFeature = () => {
+    if (!featureIdSelected) return;
+  
+    const selected = features.find(f => f.id === parseInt(featureIdSelected));
+    if (!selected) return;
+  
+    // Evitar duplicados
+    const alreadyAdded = form.features.some(f => f.id === selected.id);
+    if (alreadyAdded) return;
+  
+    onChange({
+      target: {
+        name: "features",
+        value: [...form.features, selected]
+      }
+    });
+  
+    setFeatureIdSelected("");
+  };
 
 
 
@@ -77,6 +102,33 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
             <option key={category.id} value={category.id}>{category.title}</option>
           ))}
         </select>
+
+        <select
+          name="features"
+          value={featureIdSelected}
+          onChange={(e) => setFeatureIdSelected(e.target.value)}
+          className="feature-dropdown"
+        >
+          <option value="" disabled>Selecciona una característica</option>
+          {features.map(feature => (
+            <option key={feature.id} value={feature.id}>{feature.name}</option>
+          ))}
+        </select>
+
+        <button onClick={handleAddFeature} className='add-feature'>+ Añadir Caracteristica</button>
+
+        <div className="preview-container">
+          {form.features?.map((feature, i) => (
+            <img
+              key={i}
+              src={feature.preview || feature.icon}
+              alt={feature.name || `preview-${i}`}
+              className="preview-image"
+            />
+          ))}
+        </div>
+
+
         <input
           name="rating"
           type="number"

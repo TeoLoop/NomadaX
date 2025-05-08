@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/modalStyle.css';
 import { fetchCategories } from '../../services/categoryService';
+import { fetchFeatures } from '../../services/featureService';
 
 const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [image, setImage] = useState("");
   const [imageTitle, setImageTitle] = useState("");
   const [categories, setCategories] = useState([]);
+  const [features, setFeatures] = useState([]);
+  const [featureIdSelected, setFeatureIdSelected] = useState("");
 
   useEffect(() => {
     if (isOpen) {
@@ -18,9 +21,9 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   }, [isOpen]);
 
   useEffect(() => {
-    fetchCategories()
-      .then(data => setCategories(data));
-    console.log(categories);
+    console.log("fetching features");
+    fetchFeatures().then(data => setFeatures(data));
+    console.log(features);
   }, []);
 
   const handleAddImage = () => {
@@ -42,6 +45,28 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
     setImage("");
     setImageTitle("");
   };
+
+  const handleAddFeature = () => {
+    if (!featureIdSelected) return;
+  
+    const selected = features.find(f => f.id === parseInt(featureIdSelected));
+    if (!selected) return;
+  
+    // Evitar duplicados
+    const alreadyAdded = form.features.some(f => f.id === selected.id);
+    if (alreadyAdded) return;
+  
+    onChange({
+      target: {
+        name: "features",
+        value: [...form.features, selected]
+      }
+    });
+  
+    setFeatureIdSelected("");
+  };
+  
+
 
   const handleRatingChange = (e) => {
     let value = Number(e.target.value);
@@ -81,6 +106,33 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
             <option key={category.id} value={category.id}>{category.title}</option>
           ))}
         </select>
+        <select
+          name="features"
+          value={featureIdSelected}
+          onChange={(e) => setFeatureIdSelected(e.target.value)}
+          className="feature-dropdown"
+        >
+          <option value="" disabled>Selecciona una característica</option>
+          {features.map(feature => (
+            <option key={feature.id} value={feature.id}>{feature.name}</option>
+          ))}
+        </select>
+
+        <button onClick={handleAddFeature} className='add-feature'>+ Añadir Caracteristica</button>
+
+        <div className="preview-container">
+          {form.features?.map((feature, i) => (
+            <img
+              key={i}
+              src={feature.preview || feature.icon}
+              alt={feature.name || `preview-${i}`}
+              className="preview-image"
+            />
+          ))}
+        </div>
+
+
+
 
         <input type='text'
           placeholder='Agregue el Url de las imagene' value={image}

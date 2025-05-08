@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchUsers, updateUser } from '../services/userService';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import '../styles/AdminDashboard.css';
-import EditUserModal from './modals/EditUserModal';
+import EditUserModal from '../components/modals/EditUserModal';
 
 const AdminUsersDashboard = () => {
     const [users, setUsers] = useState([]);

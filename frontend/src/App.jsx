@@ -8,10 +8,10 @@ import { HotelsPage } from './pages/HotelsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { HotelsCategoryPage } from './pages/HotelsCategoryPage';
-import AdminHotelsDashboard from './components/AdminHotelDashboard';
-import AdminUsersDashboard from './components/AdminUserDashboard';
-import AdminCategoriesDashboard from './components/AdminCategoryDashboard';
-import AdminFeaturesDashboard from './components/AdminFeatureDashboard';
+import AdminHotelsDashboard from './pages/AdminHotelDashboard';
+import AdminUsersDashboard from './pages/AdminUserDashboard';  
+import AdminCategoriesDashboard from './pages/AdminCategoryDashboard';
+import AdminFeaturesDashboard from './pages/AdminFeatureDashboard';
 
 function App() {
   return (

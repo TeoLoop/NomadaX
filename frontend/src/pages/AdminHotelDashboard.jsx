@@ -3,8 +3,8 @@ import '../styles/AdminDashboard.css';
 import { FaEdit, FaTrash, FaPlus, FaStar } from 'react-icons/fa';
 import { fetchHotelsAdmin } from '../services/adminService';
 import { addHotel, deleteHotel, updateHotel } from '../services/hotelService';
-import AddHotelModal from './modals/AddHotelModal';
-import EditHotelModal from './modals/EditHotelModal';
+import AddHotelModal from '../components/modals/AddHotelModal';
+import EditHotelModal from '../components/modals/EditHotelModal';
 import Swal from 'sweetalert2';
 
 const AdminHotelDashboard = () => {
@@ -23,7 +23,7 @@ const AdminHotelDashboard = () => {
     const openAddModal = () => {
         setForm({
             name: '', description: '', address: '', city: '', country: '',
-            pricePerNight: '', capacity: '', rating: '', images: [], category: []
+            pricePerNight: '', capacity: '', rating: '', images: [], category: [], features: []
         });
         setAddModalOpen(true);
     };
@@ -54,6 +54,13 @@ const AdminHotelDashboard = () => {
             }));
         }
 
+        if (name === "features") {
+            setForm(prev => ({
+                ...prev,
+                features: [...prev.features, value] // features es el estado anterior y le quiero sumar el valor del input
+            }));
+        }
+
         setForm(prev => ({ ...prev, [name]: parsedValue }));
     };
 
@@ -81,15 +88,21 @@ const AdminHotelDashboard = () => {
     };
 
     const handleUpdate = async () => {
-        const updated = await updateHotel(form);
+        const cleanedForm = {
+          ...form,
+          features: form.features.map(f => ({ id: f.id })) // solo ids
+        };
+      
+        const updated = await updateHotel(cleanedForm);
         if (!updated) {
-            console.log("No se pudo actualizar el hotel");
-            return;
+          console.log("No se pudo actualizar el hotel");
+          return;
         }
+      
         const updatedHotels = await fetchHotelsAdmin();
         setHotels(updatedHotels);
         setEditModalOpen(false);
-    };
+      };
 
     const handleDelete = async (id) => {
         const result = await Swal.fire({

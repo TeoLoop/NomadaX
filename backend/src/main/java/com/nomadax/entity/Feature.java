@@ -1,7 +1,9 @@
 package com.nomadax.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,7 +19,8 @@ public class Feature {
     private String icon;
 
     @ManyToMany(mappedBy = "features")
-    private List<Hotel> hotels;
+    @JsonBackReference
+    private List<Hotel> hotels = new ArrayList<>();
 
     public Long getId() {
         return id;

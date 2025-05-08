@@ -1,8 +1,10 @@
 package com.nomadax.service;
 
+import com.nomadax.entity.Feature;
 import com.nomadax.entity.Hotel;
 import com.nomadax.entity.Image;
 import com.nomadax.exception.DuplicateHotelNameException;
+import com.nomadax.repository.IFeatureRepository;
 import com.nomadax.repository.IHotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,12 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class HotelService {
 
     @Autowired
     private IHotelRepository hotelRepository;
+
+    @Autowired
+    private IFeatureRepository featureRepository;
 
 
     public List<Hotel> findAll(){
@@ -38,6 +44,15 @@ public class HotelService {
         if (existingHotel.isPresent()) {
             throw new DuplicateHotelNameException("Ya existe un hotel con ese nombre");
         }
+
+        if (hotel.getFeatures() != null) {
+            List<Feature> resolvedFeatures = hotel.getFeatures().stream()
+                    .map(f -> featureRepository.findById(f.getId()).orElseThrow(() ->
+                            new RuntimeException("Feature no encontrada con ID: " + f.getId())))
+                    .collect(Collectors.toList());
+            hotel.setFeatures(resolvedFeatures);
+        }
+
         return hotelRepository.save(hotel);
     }
 
