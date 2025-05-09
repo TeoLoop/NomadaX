@@ -60,11 +60,6 @@ public class HotelController {
         return ResponseEntity.noContent().build(); // Respuesta con código 204 (No Content)
     }
 
-    @GetMapping("/random")
-    public List<Hotel> getRandomHotels() {
-        return hotelService.getRandomHotels();
-    }
-
     @PutMapping
     public ResponseEntity<Hotel> update(@RequestBody Hotel hotel) {
         if (hotel.getId() == null) {

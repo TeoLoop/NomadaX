@@ -21,9 +21,11 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   }, [isOpen]);
 
   useEffect(() => {
-    console.log("fetching features");
+    fetchCategories().then(data => setCategories(data));
+}, []);
+
+  useEffect(() => {
     fetchFeatures().then(data => setFeatures(data));
-    console.log(features);
   }, []);
 
   const handleAddImage = () => {
@@ -65,7 +67,6 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   
     setFeatureIdSelected("");
   };
-  
 
 
   const handleRatingChange = (e) => {
@@ -122,15 +123,27 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
 
         <div className="preview-container">
           {form.features?.map((feature, i) => (
-            <img
-              key={i}
-              src={feature.preview || feature.icon}
-              alt={feature.name || `preview-${i}`}
-              className="preview-image"
-            />
+            <div key={i} className="feature-item">
+              <img
+                src={feature.preview || feature.icon}
+                alt={feature.name || `preview-${i}`}
+                className="preview-icon"
+              />
+              <button 
+                onClick={() => onChange({
+                  target: {
+                    name: "features",
+                    value: form.features.filter(f => f.id !== feature.id)
+                  }
+                })} 
+                className='remove-feature'
+              >
+                X
+              </button>
+            </div>
           ))}
         </div>
-
+        
 
 
 

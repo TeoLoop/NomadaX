@@ -29,12 +29,12 @@ const AdminUsersDashboard = () => {
             setUsers(updatedUsers);
             setEditModalOpen(false);
         } catch (error) {
-            console.error('Error al actualizar el usuario:', error);    
+            console.error('Error al actualizar el usuario:', error);
         }
     };
 
     useEffect(() => {
-        fetchUsers().then(data => setUsers(data));   
+        fetchUsers().then(data => setUsers(data));
     }, []);
 
     const openEditModal = (user) => {
@@ -46,41 +46,47 @@ const AdminUsersDashboard = () => {
 
 
     return (
-        <div className="admin-panel">
-            <div className='admin-header'>
-                <h1>Panel de Administración de Usuarios</h1>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Rol</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users.map((user) => (
-                        <tr key={user.id}>
-                            <td>{user.id}</td>
-                            <td>{user.name}</td>
-                            <td>{user.email}</td>
-                            <td>{user.role}</td>
-                            <td className="actions">
-                                <FaEdit className="icon edit-icon" onClick={() => openEditModal(user)} />
-                            </td>
+        <div className="container">
+            <div className="admin-panel">
+                <div className='admin-header'>
+                    <h1>Panel de Administración de Usuarios</h1>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Rol</th>
+                            <th>Acciones</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-            <EditUserModal
+                    </thead>
+                    <tbody>
+                        {users.map((user) => (
+                            <tr key={user.id}>
+                                <td>{user.id}</td>
+                                <td>{user.name}</td>
+                                <td>{user.email}</td>
+                                <td>{user.role}</td>
+                                <td className="actions">
+                                    <FaEdit className="icon edit-icon" onClick={() => openEditModal(user)} />
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <EditUserModal
                     isOpen={isEditModalOpen}
                     onClose={() => setEditModalOpen(false)}
                     onChange={handleChange}
                     onSubmit={handleUpdate}
                     form={form}
                 />
+            </div>
+
+            <div className="mobile-warning" >
+                El panel de administración no está disponible en dispositivos móviles. Por favor, accede desde un equipo de escritorio.
+            </div>
         </div>
     );
 };

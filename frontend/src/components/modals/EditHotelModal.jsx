@@ -11,10 +11,13 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   const [features, setFeatures] = useState([]);
   const [featureIdSelected, setFeatureIdSelected] = useState("");
 
+
   useEffect(() => {
-    console.log("fetching features");
+    fetchCategories().then(data => setCategories(data));
+  }, []);
+
+  useEffect(() => {
     fetchFeatures().then(data => setFeatures(data));
-    console.log(features);
   }, []);
 
   const handleAddImage = () => {
@@ -41,6 +44,7 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   };
 
 
+
   useEffect(() => {
     if (isOpen) setModalVisible(true);
     else {
@@ -51,21 +55,21 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
 
   const handleAddFeature = () => {
     if (!featureIdSelected) return;
-  
+
     const selected = features.find(f => f.id === parseInt(featureIdSelected));
     if (!selected) return;
-  
+
     // Evitar duplicados
     const alreadyAdded = form.features.some(f => f.id === selected.id);
     if (alreadyAdded) return;
-  
+
     onChange({
       target: {
         name: "features",
         value: [...form.features, selected]
       }
     });
-  
+
     setFeatureIdSelected("");
   };
 
@@ -119,12 +123,24 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
 
         <div className="preview-container">
           {form.features?.map((feature, i) => (
-            <img
-              key={i}
-              src={feature.preview || feature.icon}
-              alt={feature.name || `preview-${i}`}
-              className="preview-image"
-            />
+            <div key={i} className="feature-item">
+              <img
+                src={feature.preview || feature.icon}
+                alt={feature.name || `preview-${i}`}
+                className="preview-icon"
+              />
+              <button
+                onClick={() => onChange({
+                  target: {
+                    name: "features",
+                    value: form.features.filter(f => f.id !== feature.id)
+                  }
+                })}
+                className='remove-feature'
+              >
+                X
+              </button>
+            </div>
           ))}
         </div>
 

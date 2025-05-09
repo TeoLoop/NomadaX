@@ -109,6 +109,16 @@ public class HotelService {
         hotelToUpdate.getImages().clear();
         hotelToUpdate.getImages().addAll(imageToKeep);
 
+        if (updatedHotel.getFeatures() != null && !updatedHotel.getFeatures().isEmpty()) {
+            List<Feature> resolvedFeatures = updatedHotel.getFeatures().stream()
+                    .map(f -> featureRepository.findById(f.getId()).orElseThrow(() ->
+                            new RuntimeException("Feature no encontrada con ID: " + f.getId())))
+                    .collect(Collectors.toList());
+            hotelToUpdate.setFeatures(resolvedFeatures);
+        }else{
+            hotelToUpdate.setFeatures(updatedHotel.getFeatures());
+        }
+
         return hotelRepository.save(hotelToUpdate);
     }
 
@@ -118,20 +128,6 @@ public class HotelService {
             throw new RuntimeException("No se encontró un hotel con ID: " + id);
         }
         hotelRepository.deleteById(id);
-    }
-
-    public List<Hotel> getRandomHotels() {
-        List<Hotel> allHotels = hotelRepository.findAll();
-        Random rand = new Random();
-        List<Hotel> randomHotels = new ArrayList<>();
-
-        // Selecciona hasta 10 hoteles aleatorios
-        for (int i = 0; i < 10 && i < allHotels.size(); i++) {
-            Hotel randomHotel = allHotels.get(rand.nextInt(allHotels.size()));
-            randomHotels.add(randomHotel);
-        }
-
-        return randomHotels;
     }
 
     //hacer servicio para las paginas del hotel osea que te devuelva 10 hoteles

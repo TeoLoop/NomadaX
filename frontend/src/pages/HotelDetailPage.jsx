@@ -2,6 +2,7 @@ import "../styles/HotelDetailPage.css";
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchById } from '../services/hotelService';
+import { fetchFeatures } from '../services/featureService';
 
 const HotelDetailPage = () => {
 
@@ -17,22 +18,20 @@ const HotelDetailPage = () => {
   };
 
   const scrollRight = () => {
-    carouselRef.current.scrollBy({ left: 600, behavior: 'smooth' }); 
+    carouselRef.current.scrollBy({ left: 600, behavior: 'smooth' });
   };
-
-
 
   useEffect(() => {
 
-    const getHotelDetails = async () =>{
+    const getHotelDetails = async () => {
       const hotelData = await fetchById(id);           //llamo a la funcion
-      setHotel(hotelData); 
+      setHotel(hotelData);
     }
 
-    getHotelDetails(); 
+    getHotelDetails();
   }, [id]);
 
-  
+
 
   const handleBackToHome = () => {
     navigate('/');
@@ -96,6 +95,17 @@ const HotelDetailPage = () => {
         <div className="hotel-extra-info">
           <p className="hotel-description">{hotel.description}</p>
           <p className="capacity">Capacidad: Hasta {hotel.capacity} personas</p>
+          <h3>Características:</h3>
+          <div className="hotel-features">
+            {hotel.features.map((feature) => (
+              <ul key={feature.id} className="feature-list">
+                <li>
+                  <img src={feature.icon} alt={feature.name} className="feature-icon" />
+                  {feature.name}
+                </li>
+              </ul>
+            ))}
+          </div>
         </div>
         <div className="booking-card">
           <div className="price">${hotel.pricePerNight}<span>/ noche</span></div>

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchFeatures, addFeature, updateFeature, deleteFeature } from '../services/featureService';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import '../styles/AdminDashboard.css';
-import EditFeatureModal from '../components/modals/EditFeatureModal';   
+import EditFeatureModal from '../components/modals/EditFeatureModal';
 import AddFeatureModal from '../components/modals/AddFeatureModal';
 import Swal from 'sweetalert2';
 
@@ -33,10 +33,10 @@ const AdminUsersDashboard = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setForm((prevForm) => ({
-          ...prevForm,
-          [name]: name === "feature" ? { id: parseInt(value) } : value
+            ...prevForm,
+            [name]: name === "feature" ? { id: parseInt(value) } : value
         }));
-      };
+    };
 
     const handleUpdate = async () => {
         const updated = await updateFeature(form);
@@ -57,7 +57,7 @@ const AdminUsersDashboard = () => {
                 setFeatures(updatedFeatures);
                 setAddModalOpen(false);
             } else {
-                alert("Error al agregar caracteristica. Intente nuevamente.");    
+                alert("Error al agregar caracteristica. Intente nuevamente.");
             }
 
         } catch (error) {
@@ -99,50 +99,55 @@ const AdminUsersDashboard = () => {
 
 
     return (
-        <div className="admin-panel">
-            <div className='admin-header'>
-                <h1>Panel de Administración de Caracteristicas</h1>
-                <button onClick={openAddModal} className="add-btn">
-                    <FaPlus /> Añadir Caracteristica
-                </button>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Icono</th>
-                        <th>Nombre</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {features.map((feature) => (
-                        <tr key={feature.id}>
-                            <td>{feature.id}</td>
-                            <td><img src={feature.icon} alt={feature.name} /></td>
-                            <td>{feature.name}</td>
-                            <td className="actions">
-                                <FaEdit className="icon edit-icon" onClick={() => openEditModal(feature)} />
-                                <FaTrash className="icon delete-icon" onClick={() => handleDelete(feature.id)} />
-                            </td>
+        <div className="container">
+            <div className="admin-panel">
+                <div className='admin-header'>
+                    <h1>Panel de Administración de Caracteristicas</h1>
+                    <button onClick={openAddModal} className="add-btn">
+                        <FaPlus /> Añadir Caracteristica
+                    </button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Icono</th>
+                            <th>Nombre</th>
+                            <th>Acciones</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-            <AddFeatureModal
-                isOpen={isAddModalOpen}
-                onClose={() => setAddModalOpen(false)}
-                onChange={handleChange}
-                onSubmit={handleAdd}
-                form={form}
-            />
-            <EditFeatureModal
-                isOpen={isEditModalOpen}
-                onClose={() => setEditModalOpen(false)}
-                onChange={handleChange}
-                onSubmit={handleUpdate}
-                form={form}
-            />
+                    </thead>
+                    <tbody>
+                        {features.map((feature) => (
+                            <tr key={feature.id}>
+                                <td>{feature.id}</td>
+                                <td><img src={feature.icon} alt={feature.name} className="feature-image" /></td>
+                                <td>{feature.name}</td>
+                                <td className="actions">
+                                    <FaEdit className="icon edit-icon" onClick={() => openEditModal(feature)} />
+                                    <FaTrash className="icon delete-icon" onClick={() => handleDelete(feature.id)} />
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <AddFeatureModal
+                    isOpen={isAddModalOpen}
+                    onClose={() => setAddModalOpen(false)}
+                    onChange={handleChange}
+                    onSubmit={handleAdd}
+                    form={form}
+                />
+                <EditFeatureModal
+                    isOpen={isEditModalOpen}
+                    onClose={() => setEditModalOpen(false)}
+                    onChange={handleChange}
+                    onSubmit={handleUpdate}
+                    form={form}
+                />
+            </div>
+            <div className="mobile-warning" >
+                El panel de administración no está disponible en dispositivos móviles. Por favor, accede desde un equipo de escritorio.
+            </div>
         </div>
     );
 };

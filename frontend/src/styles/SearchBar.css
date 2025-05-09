@@ -76,6 +76,9 @@
     color: #666;
   }
   
+  .filter-group{
+    color: black;
+  }
 
   @media (max-width: 768px) {
     .search-bar {

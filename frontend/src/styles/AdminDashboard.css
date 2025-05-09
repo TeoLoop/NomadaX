@@ -198,6 +198,19 @@ table td button:hover {
     align-items: center;
 }
 
+.category-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    margin-bottom: 0;
+}
+
+.feature-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    margin-bottom: 0;
+}
 
 @media screen and (max-width: 768px) {
     .admin-panel {

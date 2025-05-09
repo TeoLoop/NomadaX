@@ -8,6 +8,7 @@ import { HotelsPage } from './pages/HotelsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { HotelsCategoryPage } from './pages/HotelsCategoryPage';
+import FilterHotelPage from './pages/FilterHotelPage';
 import AdminHotelsDashboard from './pages/AdminHotelDashboard';
 import AdminUsersDashboard from './pages/AdminUserDashboard';  
 import AdminCategoriesDashboard from './pages/AdminCategoryDashboard';
@@ -28,7 +29,7 @@ function App() {
           <Route path="/administracion/caracteristicas" element={<AdminFeaturesDashboard />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/categorias/:category" element={<HotelsCategoryPage />} />
+          <Route path="/categorias/:category" element={<FilterHotelPage />} />
         </Routes>
       </main>
       <Footer />

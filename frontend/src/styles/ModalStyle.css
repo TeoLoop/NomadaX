@@ -106,3 +106,41 @@
     background-color: var(--color-primary-hover);
     transform: translateY(-2px);
   }
+
+  .preview-icon{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .add-feature{
+    background-color: var(--color-primary);
+    color: white;
+    font-size: 1.1em;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .add-feature:hover{
+    background-color: var(--color-primary-hover);
+  }
+
+  .remove-feature{
+    background-color: rgb(236, 79, 79);
+    color: white;
+    font-size: 10px;
+    padding: 3px 8px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+  }
+
+  .remove-feature:hover{
+    background-color: red;
+  }
