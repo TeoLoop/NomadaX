@@ -1,24 +1,33 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
-import { fetchHotelsCategory } from '../services/hotelService';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { fetchHotelSearch } from '../services/hotelService';
 import { FaStar, FaMapMarkerAlt } from 'react-icons/fa';
 import "../styles/HotelsPage.css"
 import SearchBar from '../components/SearchBar';
 
-export const HotelsCategoryPage = () => {
 
+
+export const HotelsCategoryPage = () => {
+    const location = useLocation();
     const [hotels, setHotels] = useState([]);
-    const { category } = useParams();   // esto hace que se pueda acceder a la categoria que se esta buscando
     const navigate = useNavigate();
 
+    const queryParams = new URLSearchParams(location.search);
+    const query = queryParams.get('query');
+    const categories = queryParams.get('categories');
+    const checkIn = queryParams.get('checkIn');
+    const checkOut = queryParams.get('checkOut');
+
+    console.log(query, categories, checkIn, checkOut);
+
     useEffect(() => {
-        fetchHotelsCategory(category)
+        fetchHotelSearch(query, categories, checkIn, checkOut)
             .then(data => {
                 console.log(data);
                 setHotels(data);
             })
             .catch(error => console.error('Error fetching hotels:', error));
-    }, [category]);
+    }, [query, categories, checkIn, checkOut]);
 
     const handleViewDetails = (hotelId) => {
         navigate(`/hotel/${hotelId}`);

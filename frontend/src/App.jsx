@@ -13,6 +13,7 @@ import AdminHotelsDashboard from './pages/AdminHotelDashboard';
 import AdminUsersDashboard from './pages/AdminUserDashboard';  
 import AdminCategoriesDashboard from './pages/AdminCategoryDashboard';
 import AdminFeaturesDashboard from './pages/AdminFeatureDashboard';
+import CategoriesPage from './pages/CategoriesPage';
 
 function App() {
   return (
@@ -29,7 +30,8 @@ function App() {
           <Route path="/administracion/caracteristicas" element={<AdminFeaturesDashboard />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/categorias/:category" element={<FilterHotelPage />} />
+          <Route path="/resultados" element={<FilterHotelPage />} />
+          <Route path="/categorias/:id" element={<CategoriesPage />} />
         </Routes>
       </main>
       <Footer />

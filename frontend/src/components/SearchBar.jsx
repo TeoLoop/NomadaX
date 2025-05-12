@@ -14,10 +14,7 @@ const SearchBar = () => {
   const [endDate, setEndDate] = useState(null);
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState("");
-  const [hotels, setHotels] = useState([]);
   const navigate = useNavigate();
-
-
 
   const startRef = useRef();
   const endRef = useRef();
@@ -27,15 +24,47 @@ const SearchBar = () => {
   }, []);
 
   const handleCategoryChange = (values) => {
-    const categoriesString = values.toString();
-    setSelectedCategories(categoriesString);
-  };
 
+    const categoriesIds = values;
+    console.log("Categorías seleccionadas:", categoriesIds);
+    setSelectedCategories(categoriesIds); 
+  };
 
 
   const handleSearch = (e) => {
-    navigate(`/categorias/${selectedCategories}`);
+    const params = new URLSearchParams();
+
+    console.log("las categorias seleccionadas dsp son: ", selectedCategories);
+
+    console.log("Empieza el handleSearch");
+  
+    // Solo agrega los parámetros si tienen un valor válido
+    if (query) params.append('query', query);
+    console.log("Query", query);
+    if (selectedCategories) params.append('categories', selectedCategories);
+
+    console.log("selectedCategories", selectedCategories.toString());
+    
+    if (startDate) {
+      params.append('checkIn', startDate.toISOString().split('T')[0]);
+    }
+    
+    if (endDate) {
+      params.append('checkOut', endDate.toISOString().split('T')[0]);
+    }
+
+    console.log("params", params);
+  
+    // Imprime los parámetros que se van a enviar en la solicitud
+    console.log("Sending search with params: ", params.toString());
+    
+    // Enviar la solicitud con los parámetros
+    navigate(`/resultados?${params.toString()}`);
   };
+  
+  
+  
+  
 
   return (
     <div className="search-bar">

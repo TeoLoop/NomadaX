@@ -1,44 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate,  useParams } from 'react-router-dom';
 import { fetchHotelSearch } from '../services/hotelService';
 import { FaStar, FaMapMarkerAlt } from 'react-icons/fa';
 import "../styles/HotelsPage.css"
 import SearchBar from '../components/SearchBar';
 
-const FilterHotelPage = () => {
-
+const CategoriesPage = () => {
     const [hotels, setHotels] = useState([]);
     const navigate = useNavigate();
-    const location = useLocation();
-    const [page, setPage] = useState(0);                        //seteo la pagina por defectoo
-    const [totalPaginas, setTotalPaginas] = useState(0)
+    const { id: categoryId } = useParams(); // <-- aquí obtienes el parámetro `:id` de la URL
+    const [page, setPage] = useState(0);
+    const [totalPaginas, setTotalPaginas] = useState(0);
 
-    const queryParams = new URLSearchParams(location.search);
-    const query = queryParams.get('query');
-    const categories = queryParams.get('categories');
-    const checkIn = queryParams.get('checkIn');
-    const checkOut = queryParams.get('checkOut');
-
-    const checkInDate = checkIn ? new Date(checkIn) : null;
-    const checkOutDate = checkOut ? new Date(checkOut) : null;
-
-    const checkInDateString = checkInDate ? checkInDate.toISOString().split('T')[0] : null;
-    const checkOutDateString = checkOutDate ? checkOutDate.toISOString().split('T')[0] : null;
-
-    console.log(query, categories, checkIn, checkOut);
-
-    // Recuperar los hoteles si la búsqueda tiene parámetros válidos
     useEffect(() => {
-        console.log("Fetching hotels with query:", query, "categories:", categories, "checkIn:", checkInDateString, "checkOut:", checkOutDateString);
-        fetchHotelSearch(query, categories, checkInDateString, checkOutDateString, page, 10)
+        console.log("Fetching hotels with categoryId:", categoryId);
+        fetchHotelSearch(null,categoryId, null, null, page, 10)
             .then(data => {
-                console.log("Hotels fetched:", data);
                 setHotels(data.content);
                 setTotalPaginas(data.totalPages);
                 window.scrollTo(0, 0);
             })
             .catch(error => console.error('Error fetching hotels:', error));
-    }, [query, categories, checkInDateString, checkOutDateString, page]);
+    }, [categoryId, page]);
 
 
     const handleViewDetails = (hotelId) => {
@@ -95,4 +78,4 @@ const FilterHotelPage = () => {
     )
 }
 
-export default FilterHotelPage;
+export default CategoriesPage;

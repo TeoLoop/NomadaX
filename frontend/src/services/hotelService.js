@@ -90,9 +90,13 @@ export const fetchById = async (id) => {
 };
 
 //GET POR CATEGORIA
-export const fetchHotelsCategory = async(category) => {
+export const fetchHotelSearch = async(query, categories, checkIn, checkOut, page = 0, size = 10) => {
   try {
-    const response = await fetch(`${BASE_URL}/hotels/categorias?titles=${category}`);
+    console.log("categories en el service", categories);
+    //imprimo como seria el url
+    console.log(`${BASE_URL}/hotels/search?query=${query}${categories ? `&categories=${categories}` : ''}${checkIn ? `&checkIn=${checkIn}` : ''}${checkOut ? `&checkOut=${checkOut}` : ''}&page=${page}&size=${size}`);
+    
+    const response = await fetch(`${BASE_URL}/hotels/search?${query ? `query=${query}` : ''}${categories ? `&categories=${categories}` : ''}${checkIn ? `&checkIn=${checkIn}` : ''}${checkOut ? `&checkOut=${checkOut}` : ''}&page=${page}&size=${size}`);
     const data = await response.json();
     return data;
   } catch (error) {

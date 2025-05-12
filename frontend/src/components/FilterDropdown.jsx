@@ -11,7 +11,7 @@ function FiltersDropdown({ categories, onCategoryChange }) {
 
   const categoryOptions = categories.map((category) => ({
     label: category.title,
-    value: category.title,
+    value: category.id,
   }));
 
   const handleCategorySelect = (selected) => {

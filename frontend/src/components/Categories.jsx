@@ -12,7 +12,7 @@ const Categories = () => {
   }, []);
 
   const handleCategoryClick = (category) => {
-    navigate(`/categorias/${category.title}`);
+    navigate(`/categorias/${category.id}`);
   };
 
   return (
