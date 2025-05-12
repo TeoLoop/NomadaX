@@ -11,10 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -139,6 +137,18 @@ public class HotelService {
     public List<Hotel> findByCategory(List<String> titles){
         return hotelRepository.findByCategoryTitleIn(titles);
     }
+
+
+
+    public Page<Hotel> searchHotels(String query, List<Long> categories,
+                                    LocalDate checkIn, LocalDate checkOut, Pageable pageable) {
+        String keyword = (query != null && !query.equalsIgnoreCase("null")) ? query.toLowerCase() : null;
+
+        return hotelRepository.searchWithFilters(keyword, categories, checkIn, checkOut, pageable);
+    }
+
+
+
 
 
 }

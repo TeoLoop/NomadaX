@@ -45,6 +45,9 @@ public class Hotel {
     )
     private List<Feature> features = new ArrayList<>();
 
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> reservations =new ArrayList<>();
+
     public Long getId() {
         return id;
     }
@@ -140,5 +143,13 @@ public class Hotel {
 
     public void setFeatures(List<Feature> features) {
         this.features = features;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }
