@@ -104,3 +104,8 @@ export const fetchHotelSearch = async(query, categories, checkIn, checkOut, page
     throw error;
   }
 };
+
+export const fetchDestinations = () =>{
+  return fetch(`${BASE_URL}/hotels/destinations`)
+    .then(res => res.json());
+}

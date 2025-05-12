@@ -247,6 +247,27 @@
   gap: 5px;
 }
 
+.custom-datepicker {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.reserved-day {
+  background-color: #ff4d4f !important;
+  color: white !important;
+  border-radius: 50%;
+}
+
+.available-day {
+  background-color: #52c41a33;
+  border-radius: 50%;
+}
+
+
+
 input[type="date"],
 select {
   padding: 8px;

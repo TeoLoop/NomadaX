@@ -147,8 +147,17 @@ public class HotelService {
         return hotelRepository.searchWithFilters(keyword, categories, checkIn, checkOut, pageable);
     }
 
+    public Set<String> destinations(){
+        List<Hotel> hotelList=  hotelRepository.findAll();
+        Set<String> destinationSet = new HashSet<>();
 
+        for (Hotel hotel : hotelRepository.findAll()) {
+            destinationSet.add(hotel.getCountry());
+            destinationSet.add(hotel.getCity());
+        }
 
+        return destinationSet;
+    }
 
 
 }

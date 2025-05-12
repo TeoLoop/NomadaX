@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -91,7 +92,7 @@ public class HotelController {
 
 
     @GetMapping("/search")
-    public Page<Hotel> searchHotels(
+    public ResponseEntity<Page<Hotel>> searchHotels(
             @RequestParam(required = false) String query,
             @RequestParam(required = false) String[] categories,  
             @RequestParam(required = false) String checkIn,
@@ -119,10 +120,13 @@ public class HotelController {
                     .collect(Collectors.toList());
         }
 
-        return hotelService.searchHotels(query, categoryIds, checkInDate, checkOutDate, pageable);
+        return ResponseEntity.ok(hotelService.searchHotels(query, categoryIds, checkInDate, checkOutDate, pageable));
     }
 
 
-
+    @GetMapping("/destinations")
+    public ResponseEntity<Set<String>> destinations(){
+        return ResponseEntity.ok(hotelService.destinations());
+    }
 
 }

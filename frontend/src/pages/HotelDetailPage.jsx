@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchById } from '../services/hotelService';
 import { fetchFeatures } from '../services/featureService';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const HotelDetailPage = () => {
 
@@ -10,6 +12,9 @@ const HotelDetailPage = () => {
   const { id } = useParams();
   const [hotel, setHotel] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [checkIn, setCheckIn] = useState(null);
+  const [checkOut, setCheckOut] = useState(null);
+
   const navigate = useNavigate();
 
 
@@ -30,6 +35,33 @@ const HotelDetailPage = () => {
 
     getHotelDetails();
   }, [id]);
+
+  //BUSCO LOS DIAS RESERVADOS PARA EL HOTEL
+  const getReservedDates = (reservations) => {
+    const dates = [];
+    reservations.forEach(res => {
+      const start = new Date(res.checkIn);
+      const end = new Date(res.checkOut);
+
+      for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+        dates.push(new Date(d)); // importante clonar
+      }
+    });
+    return dates;
+  };
+
+
+  const reservedDates = hotel ? getReservedDates(hotel.reservations) : [];
+
+  const isReserved = (date) => {
+    return reservedDates.some(
+      d => d.toDateString() === date.toDateString()
+    );
+  };
+
+  const dayClassName = (date) => {
+    return isReserved(date) ? 'reserved-day' : 'available-day';
+  };
 
 
 
@@ -112,10 +144,28 @@ const HotelDetailPage = () => {
 
           <div className="date-section">
             <label>Llegada</label>
-            <input type="date" />
+            <DatePicker
+              selected={checkIn}
+              onChange={(date) => setCheckIn(date)}
+              dayClassName={dayClassName}
+              placeholderText="Selecciona fecha de llegada"
+              className="custom-datepicker"
+              dateFormat="yyyy-MM-dd"
+            />
+
             <label>Salida</label>
-            <input type="date" />
+            <DatePicker
+              selected={checkOut}
+              onChange={(date) => setCheckOut(date)}
+              dayClassName={dayClassName}
+              placeholderText="Selecciona fecha de salida"
+              className="custom-datepicker"
+              dateFormat="yyyy-MM-dd"
+            />
+            
           </div>
+
+
 
           <div className="guests-section">
             <label htmlFor="guests">Huéspedes</label>
