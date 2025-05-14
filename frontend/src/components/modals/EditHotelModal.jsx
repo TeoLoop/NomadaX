@@ -174,6 +174,7 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
           ))}
         </div>
 
+
         <button onClick={onSubmit} className="btn btn-save">Actualizar</button>
         <button onClick={onClose} className="btn btn-cancel">Cancelar</button>
       </div>

@@ -3,8 +3,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchById } from '../services/hotelService';
 import { fetchFeatures } from '../services/featureService';
+import { FaHeart, FaRegHeart, FaShareAlt } from 'react-icons/fa';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { addFavorite, removeFavorite, isHotelFavorite } from "../services/favoriteService";
+import ShareModal from '../components/modals/ShareModal';
+import Policies from "../components/Policies";
+import HotelRatings from "./HotelRatings";
+import StarRating from "../components/StarRating";
+import RatingForm from "../components/modals/RatingForm";
+
 
 const HotelDetailPage = () => {
 
@@ -14,9 +22,15 @@ const HotelDetailPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [checkIn, setCheckIn] = useState(null);
   const [checkOut, setCheckOut] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const userId = localStorage.getItem("id");
+  const [showRatingForm, setShowRatingForm] = useState(false);
+
+
+  const [showModal, setShowModal] = useState(false);
+
 
   const navigate = useNavigate();
-
 
   const scrollLeft = () => {
     carouselRef.current.scrollBy({ left: -600, behavior: 'smooth' });
@@ -29,7 +43,7 @@ const HotelDetailPage = () => {
   useEffect(() => {
 
     const getHotelDetails = async () => {
-      const hotelData = await fetchById(id);           //llamo a la funcion
+      const hotelData = await fetchById(id);
       setHotel(hotelData);
     }
 
@@ -48,6 +62,21 @@ const HotelDetailPage = () => {
       }
     });
     return dates;
+  };
+
+  useEffect(() => {
+    if (userId && hotel) {
+      isHotelFavorite(userId, hotel.id).then(setIsFavorite);
+    }
+  }, [userId, hotel]);
+
+  const handleToggleFavorite = () => {
+    if (isFavorite) {
+      removeFavorite(userId, id);
+    } else {
+      addFavorite(userId, id);
+    }
+    setIsFavorite(!isFavorite);
   };
 
 
@@ -79,13 +108,41 @@ const HotelDetailPage = () => {
   const imagesToShow = hotel.images.slice(0, 5);
   const extraCount = hotel.images.length - 5;
 
+
   return (
     <div className="hotel-detail">
       <button onClick={handleBackToHome} className="back-button">
         <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path></svg>
         <span>Regresar</span></button>
 
-      <h1 >{hotel.name}</h1>
+      <div className="title-fav">
+        <h1 >{hotel.name}</h1>
+        <div className="actions">
+          <button
+            className={`fav-icon ${isFavorite ? 'favorited' : ''}`}
+            onClick={handleToggleFavorite}
+          >
+            {isFavorite ? <FaHeart size={20} /> : <FaRegHeart size={20} />}
+          </button>
+
+          <button
+            onClick={() => setShowModal(true)}
+            className="btn-share"
+          >
+            <FaShareAlt />
+          </button>
+        </div>
+
+        {/* Modal de compartir */}
+        {showModal && (
+          <ShareModal
+            hotel={hotel}
+            onClose={() => setShowModal(false)}
+          />
+        )}
+
+
+      </div>
 
       <div className="hotel-images-grid">
         {imagesToShow.map((img, index) => (
@@ -125,9 +182,10 @@ const HotelDetailPage = () => {
       <div className="container-info">
 
         <div className="hotel-extra-info">
-          <p className="hotel-description">{hotel.description}</p>
+          <span className="avg-rating"><p>Valoracion media del hotel</p>  <StarRating value={hotel.rating} /></span>
+          <h3 className="hotel-description">{hotel.description}</h3>
           <p className="capacity">Capacidad: Hasta {hotel.capacity} personas</p>
-          <h3>Características:</h3>
+          <h4>Lo que ofrece este lugar</h4>
           <div className="hotel-features">
             {hotel.features.map((feature) => (
               <ul key={feature.id} className="feature-list">
@@ -162,10 +220,8 @@ const HotelDetailPage = () => {
               className="custom-datepicker"
               dateFormat="yyyy-MM-dd"
             />
-            
+
           </div>
-
-
 
           <div className="guests-section">
             <label htmlFor="guests">Huéspedes</label>
@@ -180,6 +236,25 @@ const HotelDetailPage = () => {
           <button className="reserve-btn">Reservar</button>
         </div>
       </div>
+      <Policies />
+      <HotelRatings hotelId={hotel.id} />
+
+      <button
+        className="rate-btn"
+        onClick={() => setShowRatingForm(true)}
+      >
+        Dejar una valoración
+      </button>
+
+      {showRatingForm && (
+        <div className="rating-form-container">
+          <RatingForm
+            hotelId={hotel.id}
+            onClose={() => setShowRatingForm(false)}
+          />
+        </div>
+      )}
+
     </div>
   );
 };

@@ -43,6 +43,8 @@ public class SecurityConfig {
                         .requestMatchers("/categorias/**").permitAll()
                         .requestMatchers("/caracteristicas/**").permitAll()
                         .requestMatchers("/reservations/**").permitAll()
+                        .requestMatchers("/favorites/**").permitAll()
+                        .requestMatchers("/ratings/**").permitAll()
                         .requestMatchers("/user/**").permitAll()
                         .anyRequest().authenticated())  // Requiere autenticación para otras rutas
                 .sessionManagement(session -> session

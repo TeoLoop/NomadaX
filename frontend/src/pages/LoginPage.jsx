@@ -40,6 +40,7 @@ const Login = () => {
             const infoUser = await infoOfUser(formState.email);
 
             dispatch(loginUser({
+                id: infoUser.id,
                 name: infoUser.name,
                 lastName: infoUser.lastName,
                 role: infoUser.role,
@@ -48,6 +49,7 @@ const Login = () => {
 
 
             // Se almacena la información del usuario en el localStorage
+            localStorage.setItem("id", infoUser.id)
             localStorage.setItem("name", infoUser.name);
             localStorage.setItem("lastName", infoUser.lastName);
             localStorage.setItem("role", infoUser.role);

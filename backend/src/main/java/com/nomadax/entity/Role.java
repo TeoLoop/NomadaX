@@ -8,6 +8,4 @@ public enum Role {
     public String getFullRoleName(){
         return "ROLE_" + this.name();
     }
-
-
 }

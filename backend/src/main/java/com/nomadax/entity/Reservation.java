@@ -21,6 +21,11 @@ public class Reservation {
     @JsonBackReference
     private Hotel hotel;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User user;
+
     public Long getId() {
         return id;
     }
@@ -51,5 +56,13 @@ public class Reservation {
 
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

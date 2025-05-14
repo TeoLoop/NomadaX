@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { User } from 'lucide-react';
 import { IoLogOut, IoSettings, IoPencil, IoPerson, IoChevronDown } from "react-icons/io5";
+import { FaHeart } from "react-icons/fa";
 import '../styles/Header.css';
 import logo from "../assets/Logo96x96.png";
 import { useDispatch } from "react-redux";
@@ -12,6 +13,9 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const profileRef = useRef(null);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
@@ -57,14 +61,24 @@ const Header = () => {
     }
   };
 
-  const closeDropdown = () => {
-    setDropdownOpen(false);
-  };
 
   const userToggle = () => {
-    const toggleMenu = document.querySelector(".menu");
-    toggleMenu.classList.toggle("active");
+    setProfileMenuOpen((prev) => !prev);
   }
+
+  useEffect(() => {
+    const handleClickOutsideProfile = (event) => {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setProfileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutsideProfile);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutsideProfile);
+    };
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -105,10 +119,10 @@ const Header = () => {
               </button>
               {dropdownOpen && (
                 <div className="dropdown-content" ref={dropdownRef}>
-                  <button onClick={() => {clickAdmin("/administracion/hoteles"); closeMenu()}}>Hoteles</button>
-                  <button onClick={() => {clickAdmin("/administracion/usuarios"); closeMenu()}}>Usuarios</button>
-                  <button onClick={() => {clickAdmin("/administracion/categorias"); closeMenu()}}>Categorías</button>
-                  <button onClick={() => {clickAdmin("/administracion/caracteristicas"); closeMenu()}}>Características</button>
+                  <button onClick={() => { clickAdmin("/administracion/hoteles"); closeMenu() }}>Hoteles</button>
+                  <button onClick={() => { clickAdmin("/administracion/usuarios"); closeMenu() }}>Usuarios</button>
+                  <button onClick={() => { clickAdmin("/administracion/categorias"); closeMenu() }}>Categorías</button>
+                  <button onClick={() => { clickAdmin("/administracion/caracteristicas"); closeMenu() }}>Características</button>
                 </div>
               )}
             </div>
@@ -116,11 +130,11 @@ const Header = () => {
             <li>
               {
                 token ? (
-                  <div className="action">
+                  <div className="action" ref={profileRef}>
                     <div className="profile" onClick={userToggle}>
                       <img src={image} alt="Imagen de perfil" className="profile-image" />
                     </div>
-                    <div className="menu">
+                    <div className={`menu ${profileMenuOpen ? 'active' : ''}`}>
                       <h3>{name + " " + lastName}</h3>
                       <ul>
                         <li>
@@ -129,8 +143,8 @@ const Header = () => {
                         <li>
                           <span className='icon'><IoPencil size={20} /></span><a href="#">Editar perfil</a>
                         </li>
-                        <li>
-                          <span className='icon'><IoSettings size={20} /></span><a href="#">Ajustes</a>
+                        <li className="favorite-icon">
+                          <span className='icon'><FaHeart size={20} /></span><Link to="/favoritos" >Favoritos</Link>
                         </li>
                         <li className='logout'>
                           <span className='icon'><IoLogOut size={20} /></span><a onClick={handleLogout}>Cerrar sesión</a>

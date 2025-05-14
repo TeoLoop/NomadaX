@@ -1,11 +1,15 @@
 package com.nomadax.controller;
 
+import com.nomadax.dto.ReservationDTO;
 import com.nomadax.entity.Hotel;
 import com.nomadax.entity.Reservation;
+import com.nomadax.entity.User;
 import com.nomadax.service.HotelService;
 import com.nomadax.service.ReservationService;
+import com.nomadax.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,16 +23,30 @@ public class ReservationController {
 
     @Autowired
     private HotelService hotelService;
+    @Autowired
+    private UserService userService;
 
     @PostMapping
-    public ResponseEntity<Reservation> save(@RequestBody Reservation reservationInput) {
-        Hotel hotel = hotelService.findHotelById(reservationInput.getHotel().getId())
-                .orElseThrow(() -> new RuntimeException("Hotel no encontrado"));
+    public ResponseEntity<Reservation> save(@RequestBody ReservationDTO reservationInput) {
 
-        reservationInput.setHotel(hotel);
-        Reservation saved = reservationService.save(reservationInput);
-        return ResponseEntity.ok(saved);
+        // Buscar el hotel
+        Hotel hotel = hotelService.findHotelById(reservationInput.getHotelId())
+                .orElseThrow(() -> new RuntimeException("Hotel no encontrado"));
+        User user = userService.findById(reservationInput.getUserId())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        // Crear la reserva con la información proporcionada
+        Reservation reservation = new Reservation();
+        reservation.setHotel(hotel);
+        reservation.setUser(user);
+        reservation.setCheckIn(reservationInput.getCheckIn());
+        reservation.setCheckOut(reservationInput.getCheckOut());
+
+        Reservation savedReservation = reservationService.save(reservation);
+
+        return ResponseEntity.ok(savedReservation);
     }
+
 
     @GetMapping
     public ResponseEntity<List<Reservation>> findAll(){

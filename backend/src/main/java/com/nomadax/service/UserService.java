@@ -34,6 +34,10 @@ public class UserService implements UserDetailsService {
         return userDTOList;
     }
 
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
     //ACTUALIZAR USUARIO
     public UserDTO update(UserDTO userUpdated){
         Optional<User> userToUpdate= userRepository.findById(userUpdated.getId());

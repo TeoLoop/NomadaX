@@ -18,4 +18,8 @@ public interface IReservationRepository extends JpaRepository<Reservation, Long>
                                                   @Param("checkIn") LocalDate checkIn,
                                                   @Param("checkOut") LocalDate checkOut);
 
+    @Query("SELECT r FROM Reservation r WHERE r.user.id = :userId AND r.hotel.id = :hotelId")
+    List<Reservation> findByUserAndHotel(@Param("userId") Long userId, @Param("hotelId") Long hotelId);
+
+
 }

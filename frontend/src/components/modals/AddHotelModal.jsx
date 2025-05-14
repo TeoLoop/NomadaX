@@ -22,7 +22,7 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
 
   useEffect(() => {
     fetchCategories().then(data => setCategories(data));
-}, []);
+  }, []);
 
   useEffect(() => {
     fetchFeatures().then(data => setFeatures(data));
@@ -50,21 +50,21 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
 
   const handleAddFeature = () => {
     if (!featureIdSelected) return;
-  
+
     const selected = features.find(f => f.id === parseInt(featureIdSelected));
     if (!selected) return;
-  
+
     // Evitar duplicados
     const alreadyAdded = form.features.some(f => f.id === selected.id);
     if (alreadyAdded) return;
-  
+
     onChange({
       target: {
         name: "features",
         value: [...form.features, selected]
       }
     });
-  
+
     setFeatureIdSelected("");
   };
 
@@ -129,13 +129,13 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
                 alt={feature.name || `preview-${i}`}
                 className="preview-icon"
               />
-              <button 
+              <button
                 onClick={() => onChange({
                   target: {
                     name: "features",
                     value: form.features.filter(f => f.id !== feature.id)
                   }
-                })} 
+                })}
                 className='remove-feature'
               >
                 X
@@ -143,7 +143,7 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
             </div>
           ))}
         </div>
-        
+
 
 
 
@@ -166,7 +166,6 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
             />
           ))}
         </div>
-
 
         <button onClick={onSubmit} className="btn btn-save">
           Guardar

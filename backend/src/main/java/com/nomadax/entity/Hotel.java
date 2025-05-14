@@ -48,6 +48,7 @@ public class Hotel {
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reservation> reservations =new ArrayList<>();
 
+
     public Long getId() {
         return id;
     }

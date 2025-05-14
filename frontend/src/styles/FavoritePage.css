@@ -1,0 +1,132 @@
+h2 {
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .favorites-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .favorite-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    padding: 1rem;
+    gap: 1.5rem;
+    transition: transform 0.2s ease;
+  }
+  
+  .favorite-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .favorite-image {
+    width: 220px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+  
+
+  .favorite-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .favorite-details h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.3rem;
+    color: #333;
+  }
+  
+  .favorite-details p.description {
+    margin: 0.5rem 0;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  
+  .favorite-details .price {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+  }
+  
+  .precio-noche {
+    font-weight: normal;
+    font-size: 0.9rem;
+    color: #888;
+  }
+  
+  .favorite-details .icon-location {
+    color: #778d9c;
+    margin-right: 5px;
+  }
+  
+  .favorite-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .favorite-actions button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  
+  .favorite-actions button:hover {
+    transform: scale(1.03);
+  }
+  
+  .favorite-actions button:first-of-type {
+    background-color: var(--color-primary-light, #007bff);
+    color: #fff;
+  }
+  
+  .favorite-actions button:first-of-type:hover {
+    background-color: #005ecb;
+  }
+  
+  .remove-favorite-button {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  .remove-favorite-button:hover {
+    background-color: #b62a39;
+  }
+  
+  @media (max-width: 768px) {
+    .favorite-card {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .favorite-image {
+      width: 100%;
+      height: auto;
+    }
+  
+    .favorite-actions {
+      justify-content: center;
+    }
+  }
+  

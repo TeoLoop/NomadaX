@@ -48,4 +48,10 @@ public class ReservationService {
         reservationRepository.deleteById(id);
     }
 
+    public boolean userHasReservation(Long userId, Long hotelId) {
+        List<Reservation> reservations = reservationRepository.findByUserAndHotel(userId, hotelId);
+        return !reservations.isEmpty();
+    }
+
+
 }

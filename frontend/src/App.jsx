@@ -14,6 +14,7 @@ import AdminUsersDashboard from './pages/AdminUserDashboard';
 import AdminCategoriesDashboard from './pages/AdminCategoryDashboard';
 import AdminFeaturesDashboard from './pages/AdminFeatureDashboard';
 import CategoriesPage from './pages/CategoriesPage';
+import FavoritesPage from './pages/FavoritesPage';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/administracion/categorias" element={<AdminCategoriesDashboard />} />
           <Route path="/administracion/caracteristicas" element={<AdminFeaturesDashboard />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/favoritos" element={<FavoritesPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/resultados" element={<FilterHotelPage />} />
           <Route path="/categorias/:id" element={<CategoriesPage />} />

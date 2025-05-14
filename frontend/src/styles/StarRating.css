@@ -1,0 +1,21 @@
+.star-rating {
+    display: flex;
+  }
+  
+  .star-rating svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .star-rating .full {
+    fill: #fbbf24; 
+  }
+  
+  .star-rating .half path {
+    fill: url(#halfGrad);
+  }
+  
+  .star-rating .empty {
+    fill: lightgray;
+  }
+  
