@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { User } from 'lucide-react';
-import { IoLogOut, IoSettings, IoPencil, IoPerson, IoChevronDown } from "react-icons/io5";
-import { FaHeart } from "react-icons/fa";
+import { IoLogOut, IoPencil, IoPerson, IoChevronDown } from "react-icons/io5";
+import { FaHeart, FaHistory  } from "react-icons/fa";
 import '../styles/Header.css';
 import logo from "../assets/Logo96x96.png";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../redux/slices/userSlice";
+import swal from 'sweetalert';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ const Header = () => {
     if (role === "ADMIN") {
       navigate(path); // Redirige al área de administración según el enlace
     } else {
-      alert("No tienes permisos para acceder");
+      swal ( "Error" ,  "Debes ser Administrador para ingresar a esta seccion!" ,  "error" )
     }
   };
 
@@ -86,6 +87,7 @@ const Header = () => {
     localStorage.removeItem("lastName");
     localStorage.removeItem("role");
     localStorage.removeItem("image");
+    localStorage.removeItem("id");
     dispatch(logoutUser());
     navigate("/");
   }
@@ -141,7 +143,7 @@ const Header = () => {
                           <span className='icon'><IoPerson size={20} /></span><a href="#">Mi perfil</a>
                         </li>
                         <li>
-                          <span className='icon'><IoPencil size={20} /></span><a href="#">Editar perfil</a>
+                          <span className='icon'><FaHistory size={20} /></span><a href="#">Historial de reservas</a>
                         </li>
                         <li className="favorite-icon">
                           <span className='icon'><FaHeart size={20} /></span><Link to="/favoritos" >Favoritos</Link>

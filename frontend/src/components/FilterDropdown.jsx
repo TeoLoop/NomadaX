@@ -45,27 +45,6 @@ function FiltersDropdown({ categories, onCategoryChange }) {
               placeholder="Selecciona una o más"
             />
           </div>
-
-          <div className="filter-group">
-            <label>Precio</label>
-            <select className="filter-select">
-              <option value="">Cualquier precio</option>
-              <option value="0-50">$0 - $50</option>
-              <option value="51-100">$51 - $100</option>
-              <option value="101-200">$101 - $200</option>
-              <option value="201+">$201+</option>
-            </select>
-          </div>
-
-          <div className="filter-group">
-            <label>Valoración</label>
-            <select className="filter-select">
-              <option value="">Cualquier valoración</option>
-              <option value="4">4+ estrellas</option>
-              <option value="3">3+ estrellas</option>
-              <option value="2">2+ estrellas</option>
-            </select>
-          </div>
         </div>
       )}
     </div>

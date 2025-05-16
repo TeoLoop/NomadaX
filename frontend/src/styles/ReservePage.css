@@ -1,0 +1,50 @@
+.reserve-page {
+    max-width: 600px;
+    margin: 30px auto;
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.07);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .reserve-page h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: var(--color-primary-light, #1e88e5);
+  }
+  
+  .info-block {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+  }
+  
+  .info-block h3 {
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  .info-block p {
+    margin: 4px 0;
+    color: #555;
+  }
+  
+  .btn-confirm {
+    display: block;
+    margin: 20px auto 0;
+    background-color: var(--color-primary-light, #1e88e5);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-confirm:hover {
+    background-color: #1565c0;
+  }
+  

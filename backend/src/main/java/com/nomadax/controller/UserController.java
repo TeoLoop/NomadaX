@@ -39,4 +39,5 @@ public class UserController {
     public ResponseEntity<Boolean> isAdmin(@PathVariable String name){
         return ResponseEntity.ok(userService.isAdmin(name));
     }
+    
 }

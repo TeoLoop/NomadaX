@@ -24,6 +24,7 @@
     "react-slick": "^0.30.3",
     "redux": "^5.0.1",
     "slick-carousel": "^1.8.1",
+    "sweetalert": "^2.1.2",
     "sweetalert2": "^11.19.1"
   },
   "devDependencies": {

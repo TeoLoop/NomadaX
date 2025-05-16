@@ -12,6 +12,7 @@ import Policies from "../components/Policies";
 import HotelRatings from "./HotelRatings";
 import StarRating from "../components/StarRating";
 import RatingForm from "../components/modals/RatingForm";
+import swal from 'sweetalert';
 
 
 const HotelDetailPage = () => {
@@ -58,7 +59,7 @@ const HotelDetailPage = () => {
       const end = new Date(res.checkOut);
 
       for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-        dates.push(new Date(d)); // importante clonar
+        dates.push(new Date(d));
       }
     });
     return dates;
@@ -107,6 +108,27 @@ const HotelDetailPage = () => {
 
   const imagesToShow = hotel.images.slice(0, 5);
   const extraCount = hotel.images.length - 5;
+
+  const handleReserve = () => {
+    if (localStorage.getItem("id") != null) {
+      console.log("Reservar")
+
+      const formattedCheckIn = checkIn?.toISOString().split('T')[0];
+      const formattedCheckOut = checkOut?.toISOString().split('T')[0];
+
+      navigate('/reservar', {
+        state: {
+          hotel: hotel,
+          checkIn: formattedCheckIn,
+          checkOut: formattedCheckOut,
+        }
+      });
+      console.log(formattedCheckIn, formattedCheckOut)
+    } else {
+      swal("Error", "Debes estar logueado para poder reservar!", "error")
+      navigate('/login')
+    }
+  }
 
 
   return (
@@ -223,17 +245,7 @@ const HotelDetailPage = () => {
 
           </div>
 
-          <div className="guests-section">
-            <label htmlFor="guests">Huéspedes</label>
-            <select id="guests">
-              <option>1 huésped</option>
-              <option>2 huéspedes</option>
-              <option>3 huéspedes</option>
-              <option>4 huéspedes</option>
-            </select>
-          </div>
-
-          <button className="reserve-btn">Reservar</button>
+          <button className="reserve-btn" onClick={handleReserve}>Reservar</button>
         </div>
       </div>
       <Policies />

@@ -15,6 +15,7 @@ import AdminCategoriesDashboard from './pages/AdminCategoryDashboard';
 import AdminFeaturesDashboard from './pages/AdminFeatureDashboard';
 import CategoriesPage from './pages/CategoriesPage';
 import FavoritesPage from './pages/FavoritesPage';
+import ReservePage from './pages/ReservePage';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/favoritos" element={<FavoritesPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/reservar" element={<ReservePage />} />
           <Route path="/resultados" element={<FilterHotelPage />} />
           <Route path="/categorias/:id" element={<CategoriesPage />} />
         </Routes>

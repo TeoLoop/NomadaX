@@ -43,6 +43,7 @@ const Login = () => {
                 id: infoUser.id,
                 name: infoUser.name,
                 lastName: infoUser.lastName,
+                email: infoUser.email,
                 role: infoUser.role,
                 image: infoUser.image
             })); //Se envía la información del usuario al store
@@ -52,6 +53,7 @@ const Login = () => {
             localStorage.setItem("id", infoUser.id)
             localStorage.setItem("name", infoUser.name);
             localStorage.setItem("lastName", infoUser.lastName);
+            localStorage.setItem("email", infoUser.email);
             localStorage.setItem("role", infoUser.role);
             localStorage.setItem("image", infoUser.image);
 
