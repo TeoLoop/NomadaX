@@ -25,3 +25,14 @@ export const saveReservation = async (reservationData) => {
   
     return await response.json();
   };
+
+ export const fetchReservationByUserId= async(userId) =>{
+    try {
+      const res = await fetch(`${BASE_URL}/${userId}`);
+      if (!res.ok) throw new Error('Error al obtener Reservas');
+      return await res.json();
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  }

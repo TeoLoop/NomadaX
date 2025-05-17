@@ -16,6 +16,7 @@ import AdminFeaturesDashboard from './pages/AdminFeatureDashboard';
 import CategoriesPage from './pages/CategoriesPage';
 import FavoritesPage from './pages/FavoritesPage';
 import ReservePage from './pages/ReservePage';
+import HistoryPage from './pages/HistoryPage';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/favoritos" element={<FavoritesPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/reservar" element={<ReservePage />} />
+          <Route path="/historial" element={<HistoryPage />} />
           <Route path="/resultados" element={<FilterHotelPage />} />
           <Route path="/categorias/:id" element={<CategoriesPage />} />
         </Routes>

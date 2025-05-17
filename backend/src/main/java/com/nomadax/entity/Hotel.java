@@ -45,6 +45,7 @@ public class Hotel {
     )
     private List<Feature> features = new ArrayList<>();
 
+
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reservation> reservations =new ArrayList<>();
 

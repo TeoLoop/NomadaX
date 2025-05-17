@@ -54,8 +54,8 @@ public class ReservationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Reservation> findById(@PathVariable Long id){
-        return ResponseEntity.ok(reservationService.findById(id));
+    public ResponseEntity<List<ReservationDTO>> findByUserId(@PathVariable Long id){
+        return ResponseEntity.ok(reservationService.findByUserId(id));
     }
 
     @PutMapping

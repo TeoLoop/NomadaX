@@ -1,5 +1,7 @@
 package com.nomadax.service;
 
+import com.nomadax.dto.ReservationDTO;
+import com.nomadax.entity.Hotel;
 import com.nomadax.entity.Reservation;
 import com.nomadax.repository.IReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservationService {
@@ -53,5 +56,19 @@ public class ReservationService {
         return !reservations.isEmpty();
     }
 
+    public List<ReservationDTO> findByUserId(Long userId) {
+        List<Reservation> reservations = reservationRepository.findByUserId(userId);
+        return reservations.stream().map(reservation -> {
+            ReservationDTO dto = new ReservationDTO();
+            dto.setCheckIn(reservation.getCheckIn());
+            dto.setCheckOut(reservation.getCheckOut());
+            dto.setUserId(reservation.getUser().getId());
+            dto.setHotelId(reservation.getHotel().getId());
+            dto.setHotelImage(reservation.getHotel().getImages().get(0));
+            dto.setHotelName(reservation.getHotel().getName());
+            dto.setHotelLocation(reservation.getHotel().getCountry()+ ", "+ reservation.getHotel().getCity());
+            return dto;
+        }).collect(Collectors.toList());
+    }
 
 }

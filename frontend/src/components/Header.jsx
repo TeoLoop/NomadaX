@@ -143,7 +143,7 @@ const Header = () => {
                           <span className='icon'><IoPerson size={20} /></span><a href="#">Mi perfil</a>
                         </li>
                         <li>
-                          <span className='icon'><FaHistory size={20} /></span><a href="#">Historial de reservas</a>
+                          <span className='icon'><FaHistory size={20} /></span><a href="/historial">Historial de reservas</a>
                         </li>
                         <li className="favorite-icon">
                           <span className='icon'><FaHeart size={20} /></span><Link to="/favoritos" >Favoritos</Link>
