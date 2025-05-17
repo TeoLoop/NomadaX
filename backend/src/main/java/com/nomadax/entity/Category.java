@@ -1,6 +1,7 @@
 package com.nomadax.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class Category {
     private String image;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference  // Evita la recursión infinita y gestiona la relación inversa
+    @JsonIgnore // Evita la recursión infinita y gestiona la relación inversa
     private List<Hotel> hotels = new ArrayList<>();
 
     public Long getId() {

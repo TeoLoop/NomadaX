@@ -12,7 +12,6 @@ export const addFeature = (feature) => {
       body: JSON.stringify(feature),
     }).then(res => {
       if(!res.ok){
-  
         if(res.status === 400){
           throw new Error("Nombre de la caracteristica ya existe");
         }else{

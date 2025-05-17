@@ -1,5 +1,6 @@
 package com.nomadax.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -25,6 +26,7 @@ public class Hotel {
     private String country;
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("hotel-images")
     private List<Image> images = new ArrayList<>();
 
     private Double pricePerNight;
@@ -47,6 +49,7 @@ public class Hotel {
 
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("hotel-reservations")
     private List<Reservation> reservations =new ArrayList<>();
 
 

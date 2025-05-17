@@ -18,7 +18,7 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "hotel_id")
-    @JsonBackReference
+    @JsonBackReference("hotel-reservations")
     private Hotel hotel;
 
     @ManyToOne

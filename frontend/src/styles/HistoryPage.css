@@ -1,87 +1,122 @@
 .history-container {
-    padding: 2rem;
-    background-color: #f9f9f9;
-    min-height: 100vh;
-  }
-  
-  .history-title {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    color: #333;
-  }
-  
-  .loading-text,
-  .no-reservations {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #555;
-  }
-  
-  .reservations-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
-  }
-  
+  padding: 2rem;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.history-title {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 2.5rem;
+  color: #2c3e50;
+}
+
+.loading-text,
+.no-reservations {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #777;
+}
+
+.reservations-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.reservation-card {
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.reservation-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+.reservation-image {
+  width: 220px;
+  height: auto;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.reservation-info {
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.hotel-name {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+  color: #1a1a1a;
+}
+
+.hotel-location {
+  display: flex;
+  align-items: center;
+  color: #888;
+  font-size: 0.95rem;
+  margin-bottom: 0.8rem;
+}
+
+.hotel-location svg {
+  margin-right: 0.5rem;
+  color: #e74c3c;
+}
+
+.reservation-dates {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.view-details-btn {
+  align-self: flex-start;
+  background-color: var(--color-primary-light, #3498db);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.view-details-btn:hover {
+  background-color: var(--color-primary-dark, #2c80b4);
+}
+
+/* Responsive: stack elements on mobile */
+@media (max-width: 768px) {
   .reservation-card {
-    background-color: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
+    flex-direction: column;
   }
-  
-  .reservation-card:hover {
-    transform: translateY(-5px);
-  }
-  
+
   .reservation-image {
     width: 100%;
     height: 200px;
-    object-fit: cover;
   }
-  
+
   .reservation-info {
     padding: 1rem;
   }
-  
-  .hotel-name {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-    color: #222;
-  }
-  
-  .hotel-location {
-    display: flex;
-    align-items: center;
-    color: #666;
-    margin-bottom: 0.5rem;
-  }
-  
-  .hotel-location svg {
-    margin-right: 0.4rem;
-  }
-  
-  .reservation-dates {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    margin-bottom: 1rem;
-    color: #444;
-  }
-  
+
   .view-details-btn {
-    background-color: var(--color-primary-light, #007bff);
-    color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+    width: 100%;
+    text-align: center;
   }
-  
-  .view-details-btn:hover {
-    background-color: var(--color-primary-dark, #0056b3);
-  }
-  
+}

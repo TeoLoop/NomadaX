@@ -17,7 +17,7 @@ public class Image {
 
     @ManyToOne
     @JoinColumn(name= "hotel_id")
-    @JsonBackReference  // Evita la recursión infinita y gestiona la relación inversa
+    @JsonBackReference("hotel-images")  // Evita la recursión infinita y gestiona la relación inversa
     private Hotel hotel;
 
     public Long getId() {

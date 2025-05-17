@@ -154,7 +154,7 @@ const AdminHotelDashboard = () => {
                                     {hotel.images?.[0]?.url && (
                                         <img src={hotel.images[0].url} alt={hotel.name} className="hotel-image" />
                                     )}
-                                    <span className="hotel-name">{hotel.name}</span>
+                                    <span className="hotel-name-admin">{hotel.name}</span>
                                 </td>
                                 <td>{hotel.city}, {hotel.country}</td>
                                 <td>{hotel.category?.title || 'Sin categoría'}</td>

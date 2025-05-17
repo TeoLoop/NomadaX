@@ -18,6 +18,7 @@ public class FeatureController {
 
     @PostMapping
     public ResponseEntity<Feature> save(@RequestBody Feature feature){
+        System.out.println(feature);
         return ResponseEntity.ok(featureService.save(feature));
     }
 
