@@ -29,7 +29,6 @@ const RegisterPage = () => {
     try{
       await register(form);
       console.log("Registro existoso");
-      console.log(form);
       setForm(initialForm);
     }catch(error){
       console.log('Error al registrar el usuario', error);

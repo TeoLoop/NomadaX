@@ -6,6 +6,7 @@ import com.nomadax.entity.Image;
 import com.nomadax.exception.DuplicateHotelNameException;
 import com.nomadax.repository.IFeatureRepository;
 import com.nomadax.repository.IHotelRepository;
+import com.nomadax.repository.IImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,13 +24,15 @@ public class HotelService {
 
     @Autowired
     private IFeatureRepository featureRepository;
+    @Autowired
+    private IImageRepository imageRepository;
 
 
-    public List<Hotel> findAll(){
+    public List<Hotel> findAll() {
         return hotelRepository.findAll();
     }
 
-    public Optional<Hotel> findHotelById(Long id){
+    public Optional<Hotel> findHotelById(Long id) {
         return hotelRepository.findById(id);
     }
 
@@ -54,7 +57,6 @@ public class HotelService {
         return hotelRepository.save(hotel);
     }
 
-
     public Hotel update(Hotel updatedHotel) {
         Optional<Hotel> existingHotel = hotelRepository.findById(updatedHotel.getId());
 
@@ -74,46 +76,52 @@ public class HotelService {
         hotelToUpdate.setCapacity(updatedHotel.getCapacity());
         hotelToUpdate.setRating(updatedHotel.getRating());
         hotelToUpdate.setCategory(updatedHotel.getCategory());
+        hotelToUpdate.setContact(updatedHotel.getContact());
 
-        System.out.println("updatedHotel: " + updatedHotel);
-        System.out.println("hotel para actualizar: " + hotelToUpdate);
-
-        //obtenemos las imagenes actuales
+        // Obtener imágenes actuales y nuevas
         List<Image> currentImages = hotelToUpdate.getImages();
-
-        //obtenemos las que vienen del form
         List<Image> newImages = updatedHotel.getImages();
 
-        //creamos lista para guardar
-        List<Image> imageToKeep= new ArrayList<>();
+        // Crear listas de imágenes a mantener y eliminar
+        List<Image> imagesToKeep = new ArrayList<>();
+        List<Long> idsToKeep = new ArrayList<>();
 
-        //recorremos cada imagen nueva
-        for (Image newImage: newImages){
-            //preguntamos si la imagen ya estaba es decir que tiene ID
-            if (newImage.getId() != null){
-                //Buscamos si ya existe en la lista actual
-                for (Image oldImage : currentImages){
-                    imageToKeep.add(oldImage); // la mantenemos
-                    break;
+        for (Image newImage : newImages) {
+            if (newImage.getId() != null) {
+                Optional<Image> match = currentImages.stream()
+                        .filter(oldImage -> oldImage.getId().equals(newImage.getId()))
+                        .findFirst();
+                if (match.isPresent()) {
+                    imagesToKeep.add(match.get());
+                    idsToKeep.add(match.get().getId());
                 }
-            }else {
-                //imagen nueva ( no tiene ID) la asociamos al Hotel
+            } else {
                 newImage.setHotel(hotelToUpdate);
-                imageToKeep.add(newImage);
+                imagesToKeep.add(newImage);
             }
         }
 
-        //Reemplazamos la lista imagenes del hotel con las que tenemos que guardar
-        hotelToUpdate.getImages().clear();
-        hotelToUpdate.getImages().addAll(imageToKeep);
+        // Eliminar de la BD las imágenes que se quitaron
+        List<Image> imagesToDelete = currentImages.stream()
+                .filter(img -> img.getId() != null && !idsToKeep.contains(img.getId()))
+                .collect(Collectors.toList());
 
+        for (Image img : imagesToDelete) {
+            imageRepository.deleteById(img.getId());
+        }
+
+        // Actualizar la lista de imágenes
+        hotelToUpdate.getImages().clear();
+        hotelToUpdate.getImages().addAll(imagesToKeep);
+
+        // Actualizar características
         if (updatedHotel.getFeatures() != null && !updatedHotel.getFeatures().isEmpty()) {
             List<Feature> resolvedFeatures = updatedHotel.getFeatures().stream()
                     .map(f -> featureRepository.findById(f.getId()).orElseThrow(() ->
                             new RuntimeException("Feature no encontrada con ID: " + f.getId())))
                     .collect(Collectors.toList());
             hotelToUpdate.setFeatures(resolvedFeatures);
-        }else{
+        } else {
             hotelToUpdate.setFeatures(updatedHotel.getFeatures());
         }
 
@@ -130,14 +138,13 @@ public class HotelService {
 
     //hacer servicio para las paginas del hotel osea que te devuelva 10 hoteles
     //Page es de Spring Data que inclie Pageable PageRequest sort Slice
-    public Page<Hotel> hotelsPageables(Pageable pageable){
+    public Page<Hotel> hotelsPageables(Pageable pageable) {
         return hotelRepository.findAll(pageable);
     }
 
-    public List<Hotel> findByCategory(List<String> titles){
+    public List<Hotel> findByCategory(List<String> titles) {
         return hotelRepository.findByCategoryTitleIn(titles);
     }
-
 
 
     public Page<Hotel> searchHotels(String query, List<Long> categories,
@@ -147,8 +154,8 @@ public class HotelService {
         return hotelRepository.searchWithFilters(keyword, categories, checkIn, checkOut, pageable);
     }
 
-    public Set<String> destinations(){
-        List<Hotel> hotelList=  hotelRepository.findAll();
+    public Set<String> destinations() {
+        List<Hotel> hotelList = hotelRepository.findAll();
         Set<String> destinationSet = new HashSet<>();
 
         for (Hotel hotel : hotelRepository.findAll()) {

@@ -451,6 +451,23 @@ select {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
+.floating-whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25D366;
+  color: white;
+  padding: 12px 14px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.floating-whatsapp:hover {
+  background-color: #1ebe5b;
+  cursor: pointer;
+}
 
 
 @media (max-width: 768px) {

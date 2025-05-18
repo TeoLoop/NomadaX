@@ -45,6 +45,7 @@ public class SecurityConfig {
                         .requestMatchers("/reservations/**").permitAll()
                         .requestMatchers("/favorites/**").permitAll()
                         .requestMatchers("/ratings/**").permitAll()
+                        .requestMatchers("/mail/**").permitAll()
                         .requestMatchers("/user/**").permitAll()
                         .anyRequest().authenticated())  // Requiere autenticación para otras rutas
                 .sessionManagement(session -> session

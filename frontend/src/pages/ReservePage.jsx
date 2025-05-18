@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/ReservePage.css";
 import swal from "sweetalert";
 import { saveReservation } from "../services/reservationService";
+import { sendMailReservation } from "../services/mailService";
 
 const ReservePage = () => {
   const { state } = useLocation();
@@ -21,8 +22,19 @@ const ReservePage = () => {
     id: localStorage.getItem("id")
   };
 
-  const handleConfirm = () => {
- 
+  const mail = {
+    to: user.email,  // ✅ este campo debe llamarse igual que lo que espera el backend
+    subject: `Confirmación de Reserva hotel: ${hotel.name}, ${hotel.country} - NomadaX`,
+    body: `Gracias por reservar en NomadaX. Tu reserva ha sido confirmada.\nHotel: ${hotel.name}
+  Ciudad: ${hotel.city}, ${hotel.country}
+  Día de llegada: ${checkIn}
+  Día de salida: ${checkOut}
+  
+  Gracias por elegir NomadaX`
+  };
+
+  const handleConfirm = async () => {
+
     try {
       const reservationData = {
         checkIn,
@@ -30,19 +42,25 @@ const ReservePage = () => {
         hotelId: hotel.id,
         userId: user.id,
       };
-      const response = saveReservation(reservationData);
+      const response = await saveReservation(reservationData);
       console.log("Reservacion guardada:", response);
-      swal("Reserva Confirmada", "Tu reserva ha sido registrada exitosamente", "success");
-      navigate('/');
-    }catch (err) {
-        console.log(err);
+      try {
+        await sendMailReservation(mail.to, mail.subject, mail.body);
+        console.log("Mail enviado correctamente: ");
+      } catch (error) {
+        console.log(error);
       }
-    
+      swal("Reserva Confirmada", "Tu reserva ha sido registrada exitosamente, se envio un mail con los datos correspondientes", "success");
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+    }
+
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const ratingData = {
         hotelId: hotelId,
@@ -50,7 +68,7 @@ const ReservePage = () => {
         rating,
         comment,
       };
-  
+
       const response = await submitRating(ratingData);
       console.log("Valoración guardada:", response);
       onClose();

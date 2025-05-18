@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/modalStyle.css';
 import { fetchCategories } from '../../services/categoryService';
 import { fetchFeatures } from '../../services/featureService';
+import 'react-phone-input-2/lib/style.css';
+import PhoneInput from 'react-phone-input-2';
 
 const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -10,6 +12,7 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   const [categories, setCategories] = useState([]);
   const [features, setFeatures] = useState([]);
   const [featureIdSelected, setFeatureIdSelected] = useState("");
+
 
 
   useEffect(() => {
@@ -73,8 +76,6 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
     setFeatureIdSelected("");
   };
 
-
-
   if (!modalVisible) return null;
 
   return (
@@ -88,6 +89,16 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
         <input name="city" placeholder="Ciudad" value={form.city || ""} onChange={onChange} />
         <input name="country" placeholder="País" value={form.country || ""} onChange={onChange} />
         <input name="pricePerNight" placeholder="Precio por noche" type="number" value={form.pricePerNight || ""} onChange={onChange} />
+        <PhoneInput
+          country={'uy'}
+          value={form.contact || ""}
+          onChange={(value) => onChange({
+            target: {
+              name: 'contact',
+              value: value
+            }
+          })}
+        />
         <input name="capacity" placeholder="Capacidad" type="number" value={form.capacity || ""} onChange={onChange} />
         <select
           name="category"
@@ -165,14 +176,29 @@ const EditHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
 
         <div className="preview-container">
           {form.images?.map((file, i) => (
-            <img
-              key={i}
-              src={file.preview || file.url}
-              alt={file.title || `preview-${i}`}
-              className="preview-image"
-            />
+            <div key={i} className="image-item">
+              <img
+                src={file.preview || file.url}
+                alt={file.title || `preview-${i}`}
+                className="preview-image"
+              />
+              <button
+                className="remove-image"
+                onClick={() =>
+                  onChange({
+                    target: {
+                      name: "images",
+                      value: form.images.filter((_, index) => index !== i)
+                    }
+                  })
+                }
+              >
+                X
+              </button>
+            </div>
           ))}
         </div>
+
 
 
         <button onClick={onSubmit} className="btn btn-save">Actualizar</button>

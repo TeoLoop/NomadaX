@@ -52,6 +52,7 @@ public class Hotel {
     @JsonManagedReference("hotel-reservations")
     private List<Reservation> reservations =new ArrayList<>();
 
+    private String contact;
 
     public Long getId() {
         return id;
@@ -156,5 +157,13 @@ public class Hotel {
 
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 }

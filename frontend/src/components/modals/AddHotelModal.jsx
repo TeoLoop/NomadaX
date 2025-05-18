@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/modalStyle.css';
 import { fetchCategories } from '../../services/categoryService';
 import { fetchFeatures } from '../../services/featureService';
+import 'react-phone-input-2/lib/style.css';
+import PhoneInput from 'react-phone-input-2';
 
 const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -89,6 +91,16 @@ const AddHotelModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
         <input name="country" placeholder="País" value={form.country} onChange={onChange} />
         <input name="pricePerNight" placeholder="Precio por noche" type="number" value={form.pricePerNight} onChange={onChange} />
         <input name="capacity" placeholder="Capacidad" type="number" value={form.capacity} onChange={onChange} />
+        <PhoneInput
+          country={'uy'}
+          value={form.contact || ""}
+          onChange={(value) => onChange({
+            target: {
+              name: 'contact',
+              value: value
+            }
+          })}
+        />
         <input name="rating" placeholder="Valoración (1-5)" type="number" value={form.rating} onChange={handleRatingChange} min="1" max="5" />
         <select
           name="category"

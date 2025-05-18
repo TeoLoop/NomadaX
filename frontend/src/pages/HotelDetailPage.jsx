@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchById } from '../services/hotelService';
 import { fetchFeatures } from '../services/featureService';
-import { FaHeart, FaRegHeart, FaShareAlt } from 'react-icons/fa';
+import { FaHeart, FaRegHeart, FaShareAlt, FaWhatsapp } from 'react-icons/fa';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { addFavorite, removeFavorite, isHotelFavorite } from "../services/favoriteService";
@@ -26,6 +26,7 @@ const HotelDetailPage = () => {
   const [isFavorite, setIsFavorite] = useState(false);
   const userId = localStorage.getItem("id");
   const [showRatingForm, setShowRatingForm] = useState(false);
+  const currentUrl = window.location.href;
 
 
   const [showModal, setShowModal] = useState(false);
@@ -110,11 +111,14 @@ const HotelDetailPage = () => {
   const extraCount = hotel.images.length - 5;
 
   const handleReserve = () => {
-    if (localStorage.getItem("id") != null) {
-      console.log("Reservar")
+    if (!checkIn || !checkOut || checkIn >= checkOut) {
+      swal("Fechas inválidas", "Debes ingresar fechas válidas de Llegada y Salida.", "warning");
+      return;
+    }
 
-      const formattedCheckIn = checkIn?.toISOString().split('T')[0];
-      const formattedCheckOut = checkOut?.toISOString().split('T')[0];
+    if (localStorage.getItem("id") != null) {
+      const formattedCheckIn = checkIn.toISOString().split('T')[0];
+      const formattedCheckOut = checkOut.toISOString().split('T')[0];
 
       navigate('/reservar', {
         state: {
@@ -123,12 +127,12 @@ const HotelDetailPage = () => {
           checkOut: formattedCheckOut,
         }
       });
-      console.log(formattedCheckIn, formattedCheckOut)
     } else {
-      swal("Error", "Debes estar logueado para poder reservar!", "error")
-      navigate('/login')
+      swal("Error", "Debes estar logueado para poder reservar!", "error");
+      navigate('/login');
     }
-  }
+  };
+
 
 
   return (
@@ -266,6 +270,20 @@ const HotelDetailPage = () => {
           />
         </div>
       )}
+
+      {hotel.contact && (
+        <a
+          href={`https://wa.me/${hotel.contact.replace(/\D/g, '')}?text=${encodeURIComponent(
+            `Hola, estoy interesado en el hotel ${hotel.name}. Podés ver los detalles acá: ${window.location.href}`
+          )}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="floating-whatsapp"
+        >
+          <FaWhatsapp size={28} />
+        </a>
+      )}
+
 
     </div>
   );

@@ -42,11 +42,30 @@
     margin-top: 10px;
 }
 
+.image-item {
+  position: relative;
+  display: inline-block;
+}
+
 .preview-image {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 6px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.remove-image {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background-color: transparent;
+  color: red;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .btn {

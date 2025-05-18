@@ -23,7 +23,7 @@ const AdminHotelDashboard = () => {
     const openAddModal = () => {
         setForm({
             name: '', description: '', address: '', city: '', country: '',
-            pricePerNight: '', capacity: '', rating: '', images: [], category: [], features: []
+            pricePerNight: '', capacity: '', rating: '', images: [], category: [], features: [], contact: ''
         });
         setAddModalOpen(true);
     };
@@ -46,6 +46,7 @@ const AdminHotelDashboard = () => {
             if (parsedValue < 1) parsedValue = 1;
             if (parsedValue > 5) parsedValue = 5;
         }
+        
 
         if (name === "category") {
             setForm(prev => ({
@@ -92,7 +93,6 @@ const AdminHotelDashboard = () => {
           ...form,
           features: form.features.map(f => ({ id: f.id })) // solo ids
         };
-      
         const updated = await updateHotel(cleanedForm);
         if (!updated) {
           console.log("No se pudo actualizar el hotel");
