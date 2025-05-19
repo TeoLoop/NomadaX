@@ -1,12 +1,13 @@
 // src/pages/HomePage.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/HomePage.css';
 import SearchBar from '../components/SearchBar';
 import Categories from '../components/Categories';
 import Recommendations from '../components/Recomendations';
-
+import Spinner from '../components/Spinner';
 
 const HomePage = () => {
+
   return (
     <main className="home-page">
       <div className="hero-section">
@@ -20,8 +21,10 @@ const HomePage = () => {
       </div>
 
       <div className="content-section">
-        <Categories/>
-        <Recommendations />
+          <>
+            <Categories />
+            <Recommendations />
+          </>
       </div>
     </main>
   );

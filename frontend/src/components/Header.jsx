@@ -8,6 +8,7 @@ import logo from "../assets/Logo96x96.png";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../redux/slices/userSlice";
 import swal from 'sweetalert';
+import avatarDefault from '../assets/avatar-deafult.png';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -88,6 +89,7 @@ const Header = () => {
     localStorage.removeItem("role");
     localStorage.removeItem("image");
     localStorage.removeItem("id");
+    localStorage.removeItem("email");
     dispatch(logoutUser());
     navigate("/");
   }
@@ -134,13 +136,13 @@ const Header = () => {
                 token ? (
                   <div className="action" ref={profileRef}>
                     <div className="profile" onClick={userToggle}>
-                      <img src={image} alt="Imagen de perfil" className="profile-image" />
+                      <img src={image || avatarDefault} alt="Imagen de perfil" className="profile-image" />
                     </div>
                     <div className={`menu ${profileMenuOpen ? 'active' : ''}`}>
                       <h3>{name + " " + lastName}</h3>
                       <ul>
                         <li>
-                          <span className='icon'><IoPerson size={20} /></span><a href="#">Mi perfil</a>
+                          <span className='icon'><IoPerson size={20} /></span><a href="/perfil">Mi perfil</a>
                         </li>
                         <li>
                           <span className='icon'><FaHistory size={20} /></span><a href="/historial">Historial de reservas</a>

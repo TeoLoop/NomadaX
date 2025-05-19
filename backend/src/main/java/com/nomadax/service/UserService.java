@@ -46,6 +46,7 @@ public class UserService implements UserDetailsService {
             userToUpdate.get().setLastName(userUpdated.getLastName());
             userToUpdate.get().setRole(userUpdated.getRole());
             userToUpdate.get().setEmail(userUpdated.getEmail());
+            userToUpdate.get().setImage(userUpdated.getImage());
 
             userRepository.save(userToUpdate.get());
 

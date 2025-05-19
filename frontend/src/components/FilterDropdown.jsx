@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Select from "react-select";
 import { FiChevronDown } from "react-icons/fi";
-import "../styles/FiltersDropdown.css";
 import { IoFilterSharp } from "react-icons/io5";
+import "../styles/FiltersDropdown.css";
 
 function FiltersDropdown({ categories, onCategoryChange }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([]);
-
+  const dropdownRef = useRef(null);
 
   const categoryOptions = categories.map((category) => ({
     label: category.title,
@@ -16,17 +16,28 @@ function FiltersDropdown({ categories, onCategoryChange }) {
 
   const handleCategorySelect = (selected) => {
     const values = selected.map((item) => item.value);
-    console.log("Categorías seleccionadas HIJO:", values);
     setSelectedCategories(values);
     if (onCategoryChange) {
-      onCategoryChange(values); 
+      onCategoryChange(values);
     }
   };
 
+  // Cerrar al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
-    <div className="filters-dropdown">
+    <div className="filters-dropdown" ref={dropdownRef}>
       <button className="filters-toggle" onClick={() => setIsOpen(!isOpen)}>
-      <IoFilterSharp /> <FiChevronDown className="filters-icon" />
+        <IoFilterSharp /> <FiChevronDown className="filters-icon" />
       </button>
 
       {isOpen && (

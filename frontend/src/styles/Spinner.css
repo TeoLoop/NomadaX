@@ -1,0 +1,24 @@
+/* src/styles/Spinner.css */
+.spinner-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    width: 100%;
+  }
+  
+  .spinner {
+    width: 48px;
+    height: 48px;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-top-color: var(--color-primary-light, #00A8E8);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  

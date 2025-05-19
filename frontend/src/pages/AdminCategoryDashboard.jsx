@@ -1,4 +1,3 @@
-// AdminUsersDashboard.js
 import React, { useEffect, useState } from 'react';
 import { fetchCategories, addCategory, updateCategory, deleteCategory } from '../services/categoryService';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
@@ -9,14 +8,10 @@ import Swal from 'sweetalert2';
 
 const AdminUsersDashboard = () => {
     const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [isEditModalOpen, setEditModalOpen] = useState(false);
     const [isAddModalOpen, setAddModalOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
-
-    useEffect(() => {
-        fetchCategories().then(data => setCategories(data));
-    }, []);
-
 
     const [form, setForm] = useState({
         title: '',
@@ -24,10 +19,18 @@ const AdminUsersDashboard = () => {
         image: ''
     });
 
+    useEffect(() => {
+        setLoading(true);
+        fetchCategories()
+            .then(data => {
+                setCategories(data);
+                setLoading(false);
+            })
+            .catch(() => setLoading(false));
+    }, []);
+
     const openAddModal = () => {
-        setForm({
-            title: '', description: '', image: ''
-        });
+        setForm({ title: '', description: '', image: '' });
         setAddModalOpen(true);
     };
 
@@ -54,15 +57,13 @@ const AdminUsersDashboard = () => {
         try {
             const newCategory = await addCategory(form);
             if (newCategory && newCategory.id) {
-                const updatedCategories = await fetchCategories(); // actualiza lista completa
+                const updatedCategories = await fetchCategories();
                 setCategories(updatedCategories);
                 setAddModalOpen(false);
             } else {
                 alert("Error al agregar categoria. Intente nuevamente.");
             }
-
         } catch (error) {
-
             if (error.message.includes("ya existe")) {
                 alert("El nombre de la categoria ya existe. Por favor, elige otro.");
             }
@@ -89,7 +90,6 @@ const AdminUsersDashboard = () => {
         }
     };
 
-
     const openEditModal = (category) => {
         setSelectedCategory(category);
         setForm(category);
@@ -97,42 +97,51 @@ const AdminUsersDashboard = () => {
         setEditModalOpen(true);
     };
 
-
-
     return (
         <div className="container">
             <div className="admin-panel">
-                <div className='admin-header'>
+                <div className="admin-header">
                     <h1>Panel de Administración de Categorias</h1>
                     <button onClick={openAddModal} className="add-btn">
                         <FaPlus /> Añadir Categoria
                     </button>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Imagen</th>
-                            <th>Titulo</th>
-                            <th>Descripción</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {categories.map((category) => (
-                            <tr key={category.id}>
-                                <td>{category.id}</td>
-                                <td><img src={category.image} alt={category.title} className="category-image" /></td>
-                                <td>{category.title}</td>
-                                <td>{category.description}</td>
-                                <td className="actions">
-                                    <FaEdit className="icon edit-icon" onClick={() => openEditModal(category)} />
-                                    <FaTrash className="icon delete-icon" onClick={() => handleDelete(category.id)} />
-                                </td>
+
+                {loading ? (
+                    <div className="spinner-container">
+                        <div className="spinner"></div>
+                        <p>Cargando categorias...</p>
+                    </div>
+                ) : (
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Imagen</th>
+                                <th>Titulo</th>
+                                <th>Descripción</th>
+                                <th>Acciones</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {categories.map((category) => (
+                                <tr key={category.id}>
+                                    <td>{category.id}</td>
+                                    <td>
+                                        <img src={category.image} alt={category.title} className="category-image" />
+                                    </td>
+                                    <td>{category.title}</td>
+                                    <td>{category.description}</td>
+                                    <td className="actions">
+                                        <FaEdit className="icon edit-icon" onClick={() => openEditModal(category)} />
+                                        <FaTrash className="icon delete-icon" onClick={() => handleDelete(category.id)} />
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
+
                 <AddCategoryModal
                     isOpen={isAddModalOpen}
                     onClose={() => setAddModalOpen(false)}
@@ -148,7 +157,8 @@ const AdminUsersDashboard = () => {
                     form={form}
                 />
             </div>
-            <div className="mobile-warning" >
+
+            <div className="mobile-warning">
                 El panel de administración no está disponible en dispositivos móviles. Por favor, accede desde un equipo de escritorio.
             </div>
         </div>
@@ -156,6 +166,3 @@ const AdminUsersDashboard = () => {
 };
 
 export default AdminUsersDashboard;
-
-
-
