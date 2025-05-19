@@ -149,29 +149,40 @@ nomadax-app/
 
 ### 📸 Capturas de Pantalla
 
-1- Página Principal:
+#### 1- Página Principal:
+
 ![image](https://github.com/user-attachments/assets/e63aad5f-49dd-4b30-91cc-612e149aa9c9)
 
-2- Login
+
+#### 2- Login:
+
 ![image](https://github.com/user-attachments/assets/9f53442a-9108-4a8b-b627-e1a70cd9ccbf)
 
-2- Detalle de Producto
+
+#### 2- Detalle de Producto:
+
 ![image](https://github.com/user-attachments/assets/cca3611d-cffb-4bce-a6b6-093783793423)
 ![image](https://github.com/user-attachments/assets/da043aa2-7b47-4665-9c7a-aa5d83d5a5f4)
 
 
-3- Panel de Administración
+#### 3- Panel de Administración:
+
 ![image](https://github.com/user-attachments/assets/61232245-19c3-4a42-8e09-b461b6f6cc4f)
 
-4- Formulario de Creación de Hotel
+
+#### 4- Formulario de Creación de Hotel:
+
 ![image](https://github.com/user-attachments/assets/d627a141-4a04-4992-b9fb-f7d0ebfac81d)
 
-5- Vista Móvil
+
+#### 5- Vista Móvil:
+
 ![image](https://github.com/user-attachments/assets/effa1367-efc6-4502-9791-03f3d6395779)
 ![image](https://github.com/user-attachments/assets/945b3193-59a9-41bb-96bf-ba39db13bb82)
 ![image](https://github.com/user-attachments/assets/288cc48e-0481-45a8-8e7d-d3ac0236b2c9)
 ![image](https://github.com/user-attachments/assets/27197400-1f18-438d-9641-c2a22df15d9c)
 ![image](https://github.com/user-attachments/assets/e37e903a-0761-41bc-acf5-af7ea960c619)
+
 
 ## 🚀 Cómo ejecutar el proyecto con Docker
 
