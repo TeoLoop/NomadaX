@@ -47,4 +47,4 @@ Este es el frontend de la aplicación **NomadaX**, creado con **React** y **Vite
 
 ## 📄 Notas de desarrollo
 
-- Las **peticiones al backend** se realizan mediante funciones en el archivo `services/hotelService.js`.
+- Las **peticiones al backend** se realizan mediante funciones del directorio `services`.
