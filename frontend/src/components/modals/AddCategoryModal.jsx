@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'; 
-import '../../styles/modalStyle.css';
+import '../../styles/ModalStyle.css';
 const AddCategoryModal = ({ isOpen, onClose, onChange, onSubmit, form }) => {
   const [modalVisible, setModalVisible] = useState(false);
 

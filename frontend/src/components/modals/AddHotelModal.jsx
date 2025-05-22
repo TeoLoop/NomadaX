@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/modalStyle.css';
+import '../../styles/ModalStyle.css';
 import { fetchCategories } from '../../services/categoryService';
 import { fetchFeatures } from '../../services/featureService';
 import 'react-phone-input-2/lib/style.css';
